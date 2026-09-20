@@ -57,4 +57,8 @@ namespace sg {
         return m_wallBody.getTail();
     }
 
+    int Wall::fullSize() const noexcept {
+        return m_wallBody.getBody().size();
+    }
+
 }
