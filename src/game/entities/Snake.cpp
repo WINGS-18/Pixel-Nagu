@@ -77,4 +77,8 @@ namespace sg {
         return m_snakeBody.getTail();
     }
 
+    int Snake::fullSize() const noexcept {
+        return m_snakeBody.getBody().size();
+    }
+
 }
