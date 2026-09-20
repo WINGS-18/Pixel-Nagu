@@ -1,9 +1,11 @@
 #include "engine/render/Window.h"
 #include "engine/assets/Utilities.h"
+#include "game/entities/Snake.h"
+#include "game/entities/Wall.h"
 #include <windows.h>
 
 int main() {
-    render::Window gr;
+    Engine::Render::Window gr;
 
     sg::Snake sn(2, 0);
     sg::Wall w(159, 0);
@@ -15,7 +17,7 @@ int main() {
     int count = 0;
     while(true) {
         //sn.printdd();
-        control = Utility::keyGiver();
+        control = Engine::Utility::keyGiver();
         if(count == 20) {
             sn.snakeGrow();
             count = 0;
@@ -26,7 +28,7 @@ int main() {
         gr.draw(sn);
         gr.display();
         Sleep(70);
-        Utility::clearScreen();
+        Engine::Utility::clearScreen();
         gr.frameReset();
         count ++;
     }

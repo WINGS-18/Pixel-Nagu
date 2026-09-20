@@ -1,7 +1,7 @@
 #include "engine/core/Body.h"
 #include <iostream>
 
-namespace sg {
+namespace Engine::Core {
 
     template <typename T, std::size_t size>
     Body<T, size>::Body(int head, int tail)

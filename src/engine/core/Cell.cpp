@@ -1,6 +1,6 @@
 #include "engine/core/Cell.h"
 
-namespace sg {
+namespace Engine::Core {
 
     Cell::Cell(char sym)
         : m_symbol(sym) {}

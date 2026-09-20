@@ -1,6 +1,6 @@
 #include "engine/math/vector2C.h"
 
-namespace Eng {
+namespace Engine::Math {
 
     Vector2C::Vector2C()        //defualt constructor
         : x(0), y(0) {}

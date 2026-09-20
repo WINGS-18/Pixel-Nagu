@@ -8,18 +8,20 @@
 
 #pragma once
 
-namespace Utility {
+namespace Engine {
+    namespace Utility {
 
-    void reset();       //reset the color of the texts to default
-    void green();       //changes the color of texts to green
-    void red();         //changes the color of texts to red
+        void reset();       //reset the color of the texts to default
+        void green();       //changes the color of texts to green
+        void red();         //changes the color of texts to red
 
-    void clearScreen();     //clears the terminal
-    void hideCursor();      //hide the cursor
-    void showCursor();      //unhide the cursor
+        void clearScreen();     //clears the terminal
+        void hideCursor();      //hide the cursor
+        void showCursor();      //unhide the cursor
 
-    char keyGiver();        //returns the key that is pressed
-    char pressKey();
+        char keyGiver();        //returns the key that is pressed
+        char pressKey();
 
-    void displayFinalScore(int score);
+        void displayFinalScore(int score);
+    }
 }

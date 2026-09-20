@@ -2,11 +2,11 @@
 
 #include "engine/math/vector2C.h"
 
-namespace sg {
+namespace Engine::Core {
 
 struct Cell {
     char m_symbol {'O'};
-    Eng::Vector2C m_coord {1, 1};
+    Engine::Math::Vector2C m_coord {1, 1};
 
     Cell() = default;
     Cell(char sym);

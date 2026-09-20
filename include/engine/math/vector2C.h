@@ -38,7 +38,7 @@ $ 50 shades of const:
 */
 
 
-namespace Eng {
+namespace Engine::Math {
 
     struct Vector2C {
         int x;

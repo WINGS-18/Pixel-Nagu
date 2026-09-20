@@ -1,10 +1,8 @@
 #pragma once
 
-#include "game/entities/Snake.h"
-#include "game/entities/Wall.h"
+#include <array>
 
-
-namespace render {
+namespace Engine::Render {
         
     class Window {
     private:

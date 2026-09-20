@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sg {
+namespace Engine {
 
     enum class Direction {
         up, down, right, left

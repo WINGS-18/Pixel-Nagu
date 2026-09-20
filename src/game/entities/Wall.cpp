@@ -2,6 +2,8 @@
 
 namespace sg {
 
+    namespace ec = Engine::Core;
+
     Wall::Wall(int head, int tail)
         : m_wallBody(head, tail) {}
 
@@ -43,7 +45,7 @@ namespace sg {
         }
     }
 
-    const Cell& Wall::getCell(int index) const noexcept {
+    const ec::Cell& Wall::getCell(int index) const noexcept {
         return m_wallBody.getBody()[index];
     }
 

@@ -2,10 +2,13 @@
 
 namespace sg {
 
+    namespace ec = Engine::Core;
+    namespace en = Engine;
+
     Snake::Snake(int head, int tail)
         : m_snakeBody(head, tail) {}
 
-    const Cell& Snake::getCell(int index) const noexcept {
+    const ec::Cell& Snake::getCell(int index) const noexcept {
         return m_snakeBody.getBody()[index];
     }
 
@@ -21,19 +24,19 @@ namespace sg {
         
         switch(m_snakeDirection.m_currDir) {
             
-            case Direction::right :
+            case en::Direction::right :
                 m_snakeBody.moveRight();
             break;
             
-            case Direction::left :
+            case en::Direction::left :
                 m_snakeBody.moveLeft();
                 break;
 
-            case Direction::up :
+            case en::Direction::up :
                 m_snakeBody.moveUp();
                 break;
 
-            case Direction::down :
+            case en::Direction::down :
                 m_snakeBody.moveDown();
                 break;
         }
@@ -44,19 +47,19 @@ namespace sg {
 
         switch(m_snakeDirection.m_currDir) {
 
-            case Direction::right :
+            case en::Direction::right :
                 m_snakeBody.right();
                 break;
 
-            case Direction::left :
+            case en::Direction::left :
                 m_snakeBody.left();
                 break;
 
-            case Direction::up :
+            case en::Direction::up :
                 m_snakeBody.up();
                 break;
 
-            case Direction::down :
+            case en::Direction::down :
                 m_snakeBody.down();
                 break;
         }

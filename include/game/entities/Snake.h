@@ -5,28 +5,30 @@
 
 namespace sg {
 
-class Snake {
-private:
-    Body<Cell, 100> m_snakeBody;
-    Movement m_snakeDirection;
+    namespace ec = Engine::Core;
 
-public:
-    Snake(int head, int tail);
+    class Snake {
+    private:
+        ec::Body<ec::Cell, 100> m_snakeBody;
+        Engine::Movement m_snakeDirection;
 
-    const Cell& getCell(int index) const noexcept;
+    public:
+        Snake(int head, int tail);
 
-    void setup();
+        const ec::Cell& getCell(int index) const noexcept;
 
-    void setDirection(char key);
+        void setup();
 
-    void move();
+        void setDirection(char key);
 
-    void snakeGrow();
+        void move();
 
-    void printdd();
+        void snakeGrow();
 
-    int head() const noexcept;
-    int tail() const noexcept;
-};
+        void printdd();
+
+        int head() const noexcept;
+        int tail() const noexcept;
+    };
 
 }

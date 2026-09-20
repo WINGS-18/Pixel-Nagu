@@ -1,7 +1,7 @@
 #include "engine/render/Window.h"
 #include <iostream>
 
-namespace render {
+namespace Engine::Render {
 
     Window::Window() {
         frameReset();

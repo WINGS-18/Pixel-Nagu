@@ -4,9 +4,11 @@
 
 namespace sg {
 
+    namespace ec = Engine::Core;
+
     class Wall {
     private:
-        Body<Cell, 160> m_wallBody;
+        ec::Body<ec::Cell, 160> m_wallBody;
 
     public:
         Wall(int head, int tail);
@@ -20,7 +22,7 @@ namespace sg {
         void setTop(int& i, int xLimit, int yLimit);
         void setDown(int& i, int xLimit, int yLimit);
 
-        const Cell& getCell(int index) const noexcept;
+        const ec::Cell& getCell(int index) const noexcept;
 
         int head() const noexcept;
         int tail() const noexcept;
