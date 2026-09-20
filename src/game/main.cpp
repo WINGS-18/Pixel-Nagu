@@ -1,9 +1,9 @@
-#include "engine/render-system/GameRender.h"
+#include "engine/render/Window.h"
 #include "engine/assets/Utilities.h"
 #include <windows.h>
 
 int main() {
-    GameRender gr;
+    render::Window gr;
 
     sg::Snake sn(2, 0);
     sg::Wall w(159, 0);
@@ -22,8 +22,8 @@ int main() {
         }
         sn.setDirection(control);
         sn.move();
-        gr.insertEntity(w);
-        gr.insertEntity(sn);
+        gr.draw(w);
+        gr.draw(sn);
         gr.display();
         Sleep(70);
         Utility::clearScreen();
