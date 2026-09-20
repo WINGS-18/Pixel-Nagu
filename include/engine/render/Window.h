@@ -21,9 +21,18 @@ namespace Engine::Render {
 
     template <typename T>
     void Window::draw(const T& cell) {
-        int i;
-        for(i = cell.tail(); i < cell.head(); i++) {
-            m_frame[cell.getCell(i).getY()][cell.getCell(i).getX()] = cell.getCell(i).m_symbol;
+        if(cell.tail() < cell.head()) {
+            for(int i = cell.tail(); i <= cell.head(); i++) {
+                m_frame[cell.getCell(i).getY()][cell.getCell(i).getX()] = cell.getCell(i).m_symbol;
+            }
+        }else {
+            for(int i = 0; i <= cell.head(); i++) {
+                m_frame[cell.getCell(i).getY()][cell.getCell(i).getX()] = cell.getCell(i).m_symbol;
+            }
+            
+            for(int i = cell.tail(); i < cell.fullSize(); i++) {
+                m_frame[cell.getCell(i).getY()][cell.getCell(i).getX()] = cell.getCell(i).m_symbol;
+            }
         }
     }
 
