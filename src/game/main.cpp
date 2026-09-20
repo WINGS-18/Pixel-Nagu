@@ -2,10 +2,12 @@
 #include "engine/assets/Utilities.h"
 #include "game/entities/Snake.h"
 #include "game/entities/Wall.h"
+#include "engine/core/Time.h"
 #include <windows.h>
 
 int main() {
     Engine::Render::Window gr;
+    auto timer = Engine::Time::getTime();
 
     sg::Snake sn(2, 0);
     sg::Wall w(159, 0);
@@ -27,7 +29,7 @@ int main() {
         gr.draw(w);
         gr.draw(sn);
         gr.display();
-        Sleep(70);
+        timer.sleep(70);
         Engine::Utility::clearScreen();
         gr.frameReset();
         count ++;
