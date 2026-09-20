@@ -27,12 +27,6 @@ namespace Engine::Core {
     }
 
     template <typename T, std::size_t size>
-    void Body<T, size>::grow() {
-        int oldHead = m_head++;
-        m_body[m_head].m_coord = m_body[oldHead].m_coord;
-    }
-
-    template <typename T, std::size_t size>
     void Body<T, size>::right() {
         m_body[m_head].m_coord.x++;
     }
@@ -53,36 +47,56 @@ namespace Engine::Core {
     }
 
     template <typename T, std::size_t size>
+    void Body<T, size>::grow() {
+        int oldHead = m_head;
+        m_head = (m_head + 1) % size;
+        m_body[m_head].m_coord = m_body[oldHead].m_coord;
+    }
+
+    template <typename T, std::size_t size>
     void Body<T, size>::moveRight() {
-        int oldHead = m_head++;
+        int oldHead = m_head;
+        m_head = (m_head + 1) % size; 
+        
         m_body[m_head].m_coord = m_body[oldHead].m_coord;
         right();
-        m_tail++;
+        
+        m_tail = (m_tail + 1) % size;
     }
 
     template <typename T, std::size_t size>
     void Body<T, size>::moveLeft() {
-        int oldHead = m_head++;
+        int oldHead = m_head;
+        m_head = (m_head + 1) % size; 
+        
         m_body[m_head].m_coord = m_body[oldHead].m_coord;
         left();
-        m_tail++;
+        
+        m_tail = (m_tail + 1) % size; 
     }
 
     template <typename T, std::size_t size>
     void Body<T, size>::moveUp() {
-        int oldHead = m_head++;
+        int oldHead = m_head;
+        m_head = (m_head + 1) % size; 
+        
         m_body[m_head].m_coord = m_body[oldHead].m_coord;
         up();
-        m_tail++;
+        
+        m_tail = (m_tail + 1) % size; 
     }
 
     template <typename T, std::size_t size>
     void Body<T, size>::moveDown() {
-        int oldHead = m_head++;
+        int oldHead = m_head;
+        m_head = (m_head + 1) % size; 
+        
         m_body[m_head].m_coord = m_body[oldHead].m_coord;
         down();
-        m_tail++;
+        
+        m_tail = (m_tail + 1) % size; 
     }
+
 
     template <typename T, std::size_t size>
     void Body<T, size>::printCoords(){
