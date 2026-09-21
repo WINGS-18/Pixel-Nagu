@@ -3,7 +3,6 @@
 #include "game/entities/Snake.h"
 #include "game/entities/Wall.h"
 #include "engine/core/Time.h"
-#include <windows.h>
 
 int main() {
     Engine::Render::Window gr;
