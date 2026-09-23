@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/Body.h"
+#include "engine/core/bodies/SoftBody.h"
 
 namespace sg {
 
@@ -8,7 +8,7 @@ namespace sg {
 
     class Wall {
     private:
-        ec::Body<ec::Cell, 160> m_wallBody;
+        ec::SoftBody<160> m_wallBody;
 
     public:
         Wall(int head, int tail);
