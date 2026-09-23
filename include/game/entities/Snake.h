@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/Body.h"
+#include "engine/core/bodies/SoftBody.h"
 #include "engine/math/direction-system/Direction.h"
 
 namespace sg {
@@ -9,7 +9,7 @@ namespace sg {
 
     class Snake {
     private:
-        ec::Body<ec::Cell, 100> m_snakeBody;
+        ec::SoftBody<100> m_snakeBody;
         Engine::Movement m_snakeDirection;
 
     public:
