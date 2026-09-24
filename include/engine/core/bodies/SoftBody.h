@@ -1,27 +1,27 @@
 #pragma once
 
-#include "engine/core/Cell.h"
+#include "engine/core/bodies/Cell.h"
 #include <array>
 
 namespace Engine::Core {
 
-    template<typename T, std::size_t size>
-    class Body {
+    template<std::size_t size>
+    class SoftBody {
     private:
-        std::array<T, size> m_body;
+        std::array<Cell, size> m_segments;
         int m_head;
         int m_tail;
 
     public:
-        Body(int head, int tail);
+        SoftBody(int head, int tail);
 
-        void init(char sym);
+        void initAllSprites(char sprite);
 
-        const std::array<T, size>& getBody() const noexcept;
+        const std::array<Cell, size>& getSegments() const noexcept;
 
         void earlySetup();  //temp function
 
-        void grow();
+        void expand();
 
         void right();
         void left();
@@ -33,8 +33,6 @@ namespace Engine::Core {
         void moveUp();
         void moveDown();
 
-        void printCoords();
-
         int getHead() const noexcept;
         int getTail() const noexcept;
 
@@ -44,4 +42,4 @@ namespace Engine::Core {
 
 }
 
-#include "engine/core/Body.tpp"
+#include "engine/core/bodies/SoftBody.tpp"
