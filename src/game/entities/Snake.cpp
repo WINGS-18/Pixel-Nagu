@@ -9,7 +9,7 @@ namespace sg {
         : m_snakeBody(head, tail) {}
 
     const ec::Cell& Snake::getCell(int index) const noexcept {
-        return m_snakeBody.getBody()[index];
+        return m_snakeBody.getSegments()[index];
     }
 
     void Snake::setup() {
@@ -43,7 +43,7 @@ namespace sg {
     }
 
     void Snake::snakeGrow() {
-        m_snakeBody.grow();
+        m_snakeBody.expand();
 
         switch(m_snakeDirection.m_currDir) {
 
@@ -65,10 +65,6 @@ namespace sg {
         }
     }
 
-    void Snake::printdd() {
-        m_snakeBody.printCoords();
-    }
-
     int Snake::head() const noexcept {
         return m_snakeBody.getHead();
     }
@@ -78,7 +74,7 @@ namespace sg {
     }
 
     int Snake::fullSize() const noexcept {
-        return m_snakeBody.getBody().size();
+        return m_snakeBody.getSegments().size();
     }
 
 }
