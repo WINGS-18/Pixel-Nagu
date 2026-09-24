@@ -8,7 +8,7 @@ namespace sg {
         : m_wallBody(head, tail) {}
 
     void Wall::init(char sym) {
-        m_wallBody.init(sym);
+        m_wallBody.initAllSprites(sym);
     }
 
     using uint = std::size_t;
@@ -46,7 +46,7 @@ namespace sg {
     }
 
     const ec::Cell& Wall::getCell(int index) const noexcept {
-        return m_wallBody.getBody()[index];
+        return m_wallBody.getSegments()[index];
     }
 
     int Wall::head() const noexcept {
@@ -58,7 +58,7 @@ namespace sg {
     }
 
     int Wall::fullSize() const noexcept {
-        return m_wallBody.getBody().size();
+        return m_wallBody.getSegments().size();
     }
 
 }
