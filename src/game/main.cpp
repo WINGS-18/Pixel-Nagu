@@ -25,8 +25,8 @@ int main() {
         }
         sn.setDirection(control);
         sn.move();
-        gr.draw(w);
-        gr.draw(sn);
+        gr.draw(w.getBody());
+        gr.draw(sn.getBody());
         gr.display();
         timer.sleep(70);
         Engine::Utility::clearScreen();
