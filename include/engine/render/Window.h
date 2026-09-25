@@ -3,6 +3,16 @@
 #include <array>
 
 namespace Engine::Render {
+
+    template<typename T>
+    concept isSoftBody = requires(T obj) {
+        obj.isSoftBody();
+    };
+
+    template<typename T>
+    concept isRigidBody = requires(T obj) {
+        obj.isRigidBody();
+    };
         
     class Window {
     private:
@@ -13,28 +23,39 @@ namespace Engine::Render {
 
         void frameReset();
 
-        template <typename T>
+        template <isSoftBody T>
+        void draw(const T& cell);
+
+        template <isRigidBody T>
         void draw(const T& cell);
         
         void display() const noexcept;
     };
     
-    template <typename T>
+    template <isSoftBody T>
     void Window::draw(const T& cell) {
-        if(cell.tail() < cell.head()) {
-            for(int i = cell.tail(); i <= cell.head(); i++) {
-                m_frame[cell.getCell(i).m_transform.y][cell.getCell(i).m_transform.x] = cell.getCell(i).m_sprite;
+        if(cell.getTail() < cell.getHead()) {
+            for(int i = cell.getTail(); i <= cell.getHead(); i++) {
+                m_frame[cell.getSegments()[i].m_transform.y][cell.getSegments()[i].m_transform.x] = cell.getSegments()[i].m_sprite;
             }
         } else {
-            for(int i = 0; i <= cell.head(); i++) {
-                m_frame[cell.getCell(i).m_transform.y][cell.getCell(i).m_transform.x] = cell.getCell(i).m_sprite;
+            for(int i = 0; i <= cell.getHead(); i++) {
+                m_frame[cell.getSegments()[i].m_transform.y][cell.getSegments()[i].m_transform.x] = cell.getSegments()[i].m_sprite;
             }
             
-            for(int i = cell.tail(); i < cell.fullSize(); i++) {
-                m_frame[cell.getCell(i).m_transform.y][cell.getCell(i).m_transform.x] = cell.getCell(i).m_sprite;
+            for(int i = cell.getTail(); i < cell.getSegments().size(); i++) {
+                m_frame[cell.getSegments()[i].m_transform.y][cell.getSegments()[i].m_transform.x] = cell.getSegments()[i].m_sprite;
             }
         }
     }
 
+    template <isRigidBody T>
+    void Window::draw(const T& cell) {
+        for(const auto& unit : cell.getSegments()) {
+            if(unit.m_active) {
+                m_frame[unit.m_transform.y][unit.m_transform.x] = unit.m_sprite;
+            }
+        }
+    }
 
 }
