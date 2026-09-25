@@ -17,6 +17,8 @@ namespace sg {
 
         const ec::Cell& getCell(int index) const noexcept;
 
+        const ec::SoftBody<100>& getBody() const noexcept;
+
         void setup();
 
         void setDirection(char key);
