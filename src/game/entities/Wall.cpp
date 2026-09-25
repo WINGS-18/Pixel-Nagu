@@ -11,6 +11,10 @@ namespace sg {
         m_wallBody.initAllSprites(sym);
     }
 
+    const ec::SoftBody<160>& Wall::getBody() const noexcept {
+        return m_wallBody;
+    }
+
     using uint = std::size_t;
 
     void Wall::setTheWall() {
