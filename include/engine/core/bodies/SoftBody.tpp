@@ -108,6 +108,9 @@ namespace Engine::Core {
     }
 
     template<std::size_t size>
+    bool SoftBody<size>::isSoftBody() const noexcept {return true;}
+
+    template<std::size_t size>
     void SoftBody<size>::setCoord(int index, int x, int y) {
         m_segments[index].m_transform.x = x;
         m_segments[index].m_transform.y = y;
