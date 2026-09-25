@@ -23,6 +23,7 @@ namespace sg {
         void setDown(int& i, int xLimit, int yLimit);
 
         const ec::Cell& getCell(int index) const noexcept;
+        const ec::SoftBody<160>& getBody() const noexcept;
 
         int head() const noexcept;
         int tail() const noexcept;
