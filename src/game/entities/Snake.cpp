@@ -12,6 +12,10 @@ namespace sg {
         return m_snakeBody.getSegments()[index];
     }
 
+    const ec::SoftBody<100>& Snake::getBody() const noexcept {
+        return m_snakeBody;
+    }
+
     void Snake::setup() {
         m_snakeBody.earlySetup();
     }
