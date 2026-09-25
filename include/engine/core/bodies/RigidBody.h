@@ -11,14 +11,14 @@ namespace Engine::Core {
     class RigidBody {
     private:
         std::array<Cell, row * col> m_segments;
-        bool m_active = false;
         Math::Vector2C m_origin {-1, -1};
         Math::Rect m_globalBounds;
-
+        
     private:
         void setSprites(const std::vector<char>& sprites);
-
+        
     public:
+        bool m_active = false;
         RigidBody() = default;
         RigidBody(bool isActive);
 
@@ -27,6 +27,8 @@ namespace Engine::Core {
         Engine::Math::Rect getGlobalBounds() const noexcept;
 
         void setPosition(int x, int y) noexcept;
+
+        bool isRigidBody() const noexcept;
 
     };
 
