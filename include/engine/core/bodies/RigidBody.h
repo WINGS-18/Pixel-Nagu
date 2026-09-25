@@ -18,7 +18,7 @@ namespace Engine::Core {
         void setSprites(const std::vector<char>& sprites);
         
     public:
-        bool m_active = false;
+        bool m_active = true;
         RigidBody() = default;
         RigidBody(bool isActive);
 
