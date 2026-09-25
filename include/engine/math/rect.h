@@ -5,11 +5,13 @@
 namespace Engine::Math {
 
     struct Rect {
-        Vector4 m_upper;
-        Vector4 m_lower;
+        Vector2C m_min;
+        Vector2C m_max;
 
         Rect() = default;
-        Rect(Vector4 upper, Vector4 lower);
+        Rect(Vector2C upper, Vector2C lower);
+
+        bool intersects(const Rect& other);
     };
 
 }
