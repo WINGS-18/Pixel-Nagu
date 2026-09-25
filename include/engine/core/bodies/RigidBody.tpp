@@ -17,19 +17,16 @@ namespace Engine::Core {
     
     template<std::size_t row, std::size_t col>
     Math::Rect RigidBody<row, col>::getGlobalBounds() const noexcept {
-        auto b = m_segments.begin();
-        auto e = m_segments.end();
-
-        Math::Vector4 uVec = {Math::Vector2C(m_segments[0].m_transform), Math::Vector2C(m_segments[col - 1].m_transform)};
-        Math::Vector4 lVec = {Math::Vector2C(m_segments[(row - 1) * col].m_transform), Math::Vector2C(m_segments[row * col - 1].m_transform)};
-
-        return Math::Rect {uVec, lVec};
+        return Math::Rect {Math::Vector2C{m_segments[0].m_transform, m_segments[row * col - 1].m_transform}};
     }
 
     template<std::size_t row, std::size_t col>
     const std::array<Cell, row * col>& RigidBody<row, col>::getSegments() const noexcept {
         return m_segments;
     }
+
+    template<std::size_t row, std::size_t col>
+    bool RigidBody<row, col>::isRigidBody() const noexcept {return true;}
 
     template<std::size_t row, std::size_t col>
     void RigidBody<row, col>::setPosition(int x, int y) noexcept {
