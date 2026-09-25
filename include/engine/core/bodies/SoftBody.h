@@ -38,6 +38,8 @@ namespace Engine::Core {
 
         void setCoord(int index, int x, int y);
 
+        bool isSoftBody() const noexcept;
+
     };
 
 }
