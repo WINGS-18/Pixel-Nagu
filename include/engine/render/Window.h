@@ -51,8 +51,8 @@ namespace Engine::Render {
 
     template <isRigidBody T>
     void Window::draw(const T& cell) {
-        for(const auto& unit : cell.getSegments()) {
-            if(unit.m_active) {
+        if(unit.m_active) {
+            for(const auto& unit : cell.getSegments()) {
                 m_frame[unit.m_transform.y][unit.m_transform.x] = unit.m_sprite;
             }
         }
