@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <array>
 
 namespace Engine::Render {
@@ -14,15 +15,16 @@ namespace Engine::Render {
         obj.isRigidBody();
     };
         
+    template<std::size_t height, std::size_t width>
     class Window {
     private:
-        std::array<std::array<char, 50>, 30> m_frame;
+        std::array<std::array<char, width>, height> m_frame;
 
     public:
         Window();
 
         void frameReset();
-
+        
         template <isSoftBody T>
         void draw(const T& cell);
 
@@ -31,31 +33,6 @@ namespace Engine::Render {
         
         void display() const noexcept;
     };
-    
-    template <isSoftBody T>
-    void Window::draw(const T& cell) {
-        if(cell.getTail() < cell.getHead()) {
-            for(int i = cell.getTail(); i <= cell.getHead(); i++) {
-                m_frame[cell.getSegments()[i].m_transform.y][cell.getSegments()[i].m_transform.x] = cell.getSegments()[i].m_sprite;
-            }
-        } else {
-            for(int i = 0; i <= cell.getHead(); i++) {
-                m_frame[cell.getSegments()[i].m_transform.y][cell.getSegments()[i].m_transform.x] = cell.getSegments()[i].m_sprite;
-            }
-            
-            for(int i = cell.getTail(); i < cell.getSegments().size(); i++) {
-                m_frame[cell.getSegments()[i].m_transform.y][cell.getSegments()[i].m_transform.x] = cell.getSegments()[i].m_sprite;
-            }
-        }
-    }
-
-    template <isRigidBody T>
-    void Window::draw(const T& cell) {
-        if(cell.m_active) {
-            for(const auto& unit : cell.getSegments()) {
-                m_frame[unit.m_transform.y][unit.m_transform.x] = unit.m_sprite;
-            }
-        }
-    }
 
 }
+#include "engine/render/Window.tpp"

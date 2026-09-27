@@ -5,7 +5,7 @@
 #include "engine/core/Time.h"
 
 int main() {
-    Engine::Render::Window gr;
+    Engine::Render::Window<30, 50> gr;
     auto timer = Engine::Time::getTime();
 
     sg::Snake sn(2, 0);
