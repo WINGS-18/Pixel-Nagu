@@ -2,15 +2,15 @@
 
 #include "engine/core/bodies/Cell.h"
 #include "engine/math/Rect.h"
-#include <array>
+#include "engine/math/Extents.h"
 #include <vector>
 
 namespace Engine::Core {
 
-    template<std::size_t row, std::size_t col>
     class RigidBody {
     private:
-        std::array<Cell, row * col> m_segments;
+        std::vector<Cell> m_segments;
+        Math::Extents m_rowsncols;
         Math::Vector2C m_origin {-1, -1};
         Math::Rect m_globalBounds;
         
@@ -20,9 +20,9 @@ namespace Engine::Core {
     public:
         bool m_active = true;
         RigidBody() = default;
-        RigidBody(bool isActive);
+        RigidBody(bool isActive, int rows, int cols);
 
-        const std::array<Cell, row * col>& getSegments() const noexcept;
+        const std::vector<Cell>& getSegments() const noexcept;
 
         Engine::Math::Rect getGlobalBounds() const noexcept;
 

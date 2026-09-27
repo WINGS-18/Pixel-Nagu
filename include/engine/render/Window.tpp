@@ -1,10 +1,11 @@
 #include "engine/render/Window.h"
+#include "engine/core/bodies/RigidBody.h"
+#include "engine/core/bodies/SoftBody.h"
 
 namespace Engine::Render {
 
     template<std::size_t height, std::size_t width>
-    template <isSoftBody T>
-    void Window<height, width>::draw(const T& cell) {
+    void Window<height, width>::draw(const Core::SoftBody& cell) {
         if(cell.getTail() < cell.getHead()) {
             for(int i = cell.getTail(); i <= cell.getHead(); i++) {
                 m_frame[cell.getSegments()[i].m_transform.y][cell.getSegments()[i].m_transform.x] = cell.getSegments()[i].m_sprite;
@@ -21,8 +22,7 @@ namespace Engine::Render {
     }
 
     template<std::size_t height, std::size_t width>
-    template <isRigidBody T>
-    void Window<height, width>::draw(const T& cell) {
+    void Window<height, width>::draw(const Core::RigidBody& cell) {
         if(cell.m_active) {
             for(const auto& unit : cell.getSegments()) {
                 m_frame[unit.m_transform.y][unit.m_transform.x] = unit.m_sprite;

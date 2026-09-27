@@ -5,14 +5,14 @@ namespace sg {
     namespace ec = Engine::Core;
     namespace en = Engine;
 
-    Snake::Snake(int head, int tail)
-        : m_snakeBody(head, tail) {}
+    Snake::Snake(int head, int tail, std::size_t size)
+        : m_snakeBody(head, tail, size) {}
 
     const ec::Cell& Snake::getCell(int index) const noexcept {
         return m_snakeBody.getSegments()[index];
     }
 
-    const ec::SoftBody<100>& Snake::getBody() const noexcept {
+    const ec::SoftBody& Snake::getBody() const noexcept {
         return m_snakeBody;
     }
 

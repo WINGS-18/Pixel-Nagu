@@ -3,18 +3,13 @@
 #include <iostream>
 #include <array>
 
+namespace Engine::Core {
+    class RigidBody;
+    class SoftBody;
+}
+
 namespace Engine::Render {
-
-    template<typename T>
-    concept isSoftBody = requires(T obj) {
-        obj.isSoftBody();
-    };
-
-    template<typename T>
-    concept isRigidBody = requires(T obj) {
-        obj.isRigidBody();
-    };
-        
+    
     template<std::size_t height, std::size_t width>
     class Window {
     private:
@@ -25,11 +20,9 @@ namespace Engine::Render {
 
         void frameReset();
         
-        template <isSoftBody T>
-        void draw(const T& cell);
+        void draw(const Core::SoftBody& cell);
 
-        template <isRigidBody T>
-        void draw(const T& cell);
+        void draw(const Core::RigidBody& cell);
         
         void display() const noexcept;
     };

@@ -9,15 +9,15 @@ namespace sg {
 
     class Snake {
     private:
-        ec::SoftBody<100> m_snakeBody;
+        ec::SoftBody m_snakeBody;
         Engine::Movement m_snakeDirection;
 
     public:
-        Snake(int head, int tail);
+        Snake(int head, int tail, std::size_t size);
 
         const ec::Cell& getCell(int index) const noexcept;
 
-        const ec::SoftBody<100>& getBody() const noexcept;
+        const ec::SoftBody& getBody() const noexcept;
 
         void setup();
 

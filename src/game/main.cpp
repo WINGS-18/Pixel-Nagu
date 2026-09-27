@@ -8,8 +8,8 @@ int main() {
     Engine::Render::Window<30, 50> gr;
     auto timer = Engine::Time::getTime();
 
-    sg::Snake sn(2, 0);
-    sg::Wall w(159, 0);
+    sg::Snake sn(2, 0, 100);
+    sg::Wall w(159, 0, 160);
     w.setTheWall();
     w.init('#');
 

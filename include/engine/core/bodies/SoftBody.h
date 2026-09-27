@@ -1,23 +1,23 @@
 #pragma once
 
 #include "engine/core/bodies/Cell.h"
-#include <array>
+#include <vector>
 
 namespace Engine::Core {
 
-    template<std::size_t size>
     class SoftBody {
     private:
-        std::array<Cell, size> m_segments;
+        std::vector<Cell> m_segments;
         int m_head;
         int m_tail;
 
     public:
         SoftBody(int head, int tail);
+        SoftBody(int head, int tail, std::size_t size);
 
         void initAllSprites(char sprite);
 
-        const std::array<Cell, size>& getSegments() const noexcept;
+        const std::vector<Cell>& getSegments() const noexcept;
 
         void earlySetup();  //temp function
 
@@ -43,5 +43,3 @@ namespace Engine::Core {
     };
 
 }
-
-#include "engine/core/bodies/SoftBody.tpp"

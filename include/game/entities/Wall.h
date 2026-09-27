@@ -8,10 +8,11 @@ namespace sg {
 
     class Wall {
     private:
-        ec::SoftBody<160> m_wallBody;
+        ec::SoftBody m_wallBody;
 
     public:
         Wall(int head, int tail);
+        Wall(int head, int tail, std::size_t size);
 
         void init(char sym);
 
@@ -23,7 +24,7 @@ namespace sg {
         void setDown(int& i, int xLimit, int yLimit);
 
         const ec::Cell& getCell(int index) const noexcept;
-        const ec::SoftBody<160>& getBody() const noexcept;
+        const ec::SoftBody& getBody() const noexcept;
 
         int head() const noexcept;
         int tail() const noexcept;

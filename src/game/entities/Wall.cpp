@@ -4,14 +4,14 @@ namespace sg {
 
     namespace ec = Engine::Core;
 
-    Wall::Wall(int head, int tail)
-        : m_wallBody(head, tail) {}
+    Wall::Wall(int head, int tail, std::size_t size)
+        : m_wallBody(head, tail, size) {}
 
     void Wall::init(char sym) {
         m_wallBody.initAllSprites(sym);
     }
 
-    const ec::SoftBody<160>& Wall::getBody() const noexcept {
+    const ec::SoftBody& Wall::getBody() const noexcept {
         return m_wallBody;
     }
 
