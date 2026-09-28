@@ -17,7 +17,7 @@ namespace Engine::Core {
 }
 
 namespace Engine::Render {
-    
+        
     template<std::size_t height, std::size_t width>
     class Window {
     private:
