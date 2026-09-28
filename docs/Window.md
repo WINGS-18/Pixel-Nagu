@@ -27,11 +27,12 @@ a kind of a constructor like work to pass the width and the height of the `Windo
 * **Problem and fix of using a std::array over a std::vector:**
 
 * **Problem:**
-* One of the biggest hurdle is that because `std::array` allocates memory on stack and ie., before runtime we cannot pass the arguments into it during the runtime, neither we get a way to give the `Window` class's `m_frame` size using a constructor of Window class since there must be a placeholder which we cannot keep while declaration of `std::array` inside a class(although we can use some hacks).
+* One of the biggest hurdle is that because `std::array` allocates memory on stack and ie., before runtime. We cannot pass the arguments into it during the runtime, neither we get a way to give the `Window` class's `m_frame` size using a constructor of Window class since there must be a placeholder which we cannot keep while declaration of `std::array` inside a class(although we can use some hacks).
 
 * **Solution:**
 * To overcome this we used templates.
 * We made `Window` a template class in which the template takes two arguments height and width in which both are std::size_t's.
+* Also since the `Window` class would not be composed(mostly), we also avoid Template hell. `Window` itself will be created and used so using template here is very reasonable.
 
 * Implementation:
 ```cpp
@@ -45,5 +46,5 @@ class Window {
 
 * Object creation:
 ```cpp
-Window<100, 200> win();
+Engine::Render::Window<100, 200> win;
 ```
