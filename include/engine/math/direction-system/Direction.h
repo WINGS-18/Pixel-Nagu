@@ -1,3 +1,9 @@
+/**
+ * @file Direction.h
+ * It provides movement direction states.
+ * All these states are wrapped under an enum class.
+ */
+
 #pragma once
 
 namespace Engine {

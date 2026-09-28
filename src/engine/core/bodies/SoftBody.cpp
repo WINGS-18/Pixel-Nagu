@@ -95,9 +95,7 @@ namespace Engine::Core {
         return m_tail;
     }
 
-    bool SoftBody::isSoftBody() const noexcept {return true;}
-
-    void SoftBody::setCoord(int index, int x, int y) {
+    void SoftBody::setCoordinates(int index, int x, int y) {
         m_segments[index].m_transform.x = x;
         m_segments[index].m_transform.y = y;
     }

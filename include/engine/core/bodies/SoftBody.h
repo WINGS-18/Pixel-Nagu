@@ -1,3 +1,10 @@
+/**
+ * @file SoftBody.h
+ * RigidBody class consists of a vector that stores multiple cells together.
+ * The class can be used to replicate bending bodies.
+ * It uses head and tail pointers to effectly move the body.
+ */
+
 #pragma once
 
 #include "engine/core/bodies/Cell.h"
@@ -20,7 +27,6 @@ namespace Engine::Core {
         const std::vector<Cell>& getSegments() const noexcept;
 
         void earlySetup();  //temp function
-
         void expand();
 
         void right();
@@ -36,9 +42,7 @@ namespace Engine::Core {
         int getHead() const noexcept;
         int getTail() const noexcept;
 
-        void setCoord(int index, int x, int y);
-
-        bool isSoftBody() const noexcept;
+        void setCoordinates(int index, int x, int y);
 
     };
 

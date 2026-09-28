@@ -1,6 +1,14 @@
+/**
+ * @file rect.h
+ * Rect stands for Rectangle.
+ * Provides hitbox.
+ * Holds m_min(top left corner) && m_max(bottom right).
+ * This rectangular area is hitbox for an entity.
+ */
+
 #pragma once
 
-#include "engine/math/vector4.h"
+#include "engine/math/vector2C.h"
 
 namespace Engine::Math {
 
@@ -11,7 +19,7 @@ namespace Engine::Math {
         Rect() = default;
         Rect(Vector2C upper, Vector2C lower);
 
-        bool intersects(const Rect& other);
+        bool intersect(const Rect& other);
     };
 
 }

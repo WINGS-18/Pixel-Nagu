@@ -1,3 +1,11 @@
+/**
+ * This class work is to render the graphics or frame on the screen.
+ * The class provides necessary overloaded draw functions to draw both RigidBody and
+ * SoftBody.
+ * Window is a template class, mainly templated to take inputs for height and width
+ * of the game frame array.
+ */
+
 #pragma once
 
 #include <iostream>
@@ -28,4 +36,7 @@ namespace Engine::Render {
     };
 
 }
+
+//template classes or template functions definations can be written
+//in .tpp or .inl files, to avoid definations inside the .h file.
 #include "engine/render/Window.tpp"

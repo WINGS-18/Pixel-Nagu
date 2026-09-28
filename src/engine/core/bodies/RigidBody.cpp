@@ -2,12 +2,14 @@
 
 namespace Engine::Core {
 
+    //the args rows and cols multiply to give the size of the body
     RigidBody::RigidBody(bool isActive, int rows, int cols) 
         : m_segments(rows * cols), m_rowsncols(rows, cols), m_active(isActive) {}
 
-    void RigidBody::setSprites(const std::vector<char>& sprites) {
+    void RigidBody::setSprites(const std::vector<char>& sprites) {  //end your rows using ' ` '
         int i = 0;
         for(const char sprite : sprites) {
+            // ` -> character tells that it is the end of that row
             if(sprite != '`')
                 m_segments[i++].m_sprite = sprite;
         }
@@ -21,9 +23,9 @@ namespace Engine::Core {
         return m_segments;
     }
 
-    bool RigidBody::isRigidBody() const noexcept {return true;}
-
     void RigidBody::setPosition(int x, int y) noexcept {
+
+        //here origin means the top left corner of the entity
         m_origin.x = x;
         m_origin.y = y;
 

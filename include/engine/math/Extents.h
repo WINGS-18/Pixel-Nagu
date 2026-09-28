@@ -1,6 +1,9 @@
-#pragma once
+/**
+ * @file Extents.h
+ * Extents struct provides rows and columns storage, both being packed into a single structure.
+ */
 
-#include <cstddef>
+#pragma once
 
 namespace Engine::Math {
 
