@@ -27,25 +27,25 @@ namespace sg {
 
     void Wall::setRight(int& i, int xLimit, int yLimit) {
         for(uint lim = 0; lim < yLimit; lim++) {
-            m_wallBody.setCoord(i++, xLimit, lim);
+            m_wallBody.setCoordinates(i++, xLimit, lim);
         }
     }
 
     void Wall::setLeft(int& i, int xLimit, int yLimit) {
         for(uint lim = 0; lim < yLimit; lim++) {
-            m_wallBody.setCoord(i++, xLimit - 1, lim);
+            m_wallBody.setCoordinates(i++, xLimit - 1, lim);
         }
     }
 
     void Wall::setTop(int& i, int xLimit, int yLimit) {
         for(uint lim = 0; lim < xLimit; lim++) {
-            m_wallBody.setCoord(i++, lim, yLimit);
+            m_wallBody.setCoordinates(i++, lim, yLimit);
         }
     }
 
     void Wall::setDown(int& i, int xLimit, int yLimit) {
         for(uint lim = 0; lim < xLimit; lim++) {
-            m_wallBody.setCoord(i++, lim, yLimit - 1);
+            m_wallBody.setCoordinates(i++, lim, yLimit - 1);
         }
     }
 

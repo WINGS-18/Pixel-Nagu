@@ -49,7 +49,7 @@ namespace Engine::Core {
 
     void SoftBody::moveRight() {
         int oldHead = m_head;
-        m_head = (m_head + 1) % (m_segments.size()); 
+        m_head = (m_head + 1) % (m_segments.size());
         
         m_segments[m_head].m_transform = m_segments[oldHead].m_transform;
         right();
