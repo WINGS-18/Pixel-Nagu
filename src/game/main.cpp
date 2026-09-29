@@ -7,12 +7,18 @@
 int main() {
     Engine::Render::Window<30, 50> gr;
     auto timer = Engine::Time::getTime();
-
+    
     sg::Snake sn(2, 0, 100);
-    sg::Wall w(159, 0, 160);
-    w.setTheWall();
-    w.init('#');
-
+    std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
+    walls[0].setWallPosition(0, 0);
+    walls[1].setWallPosition(49, 0);
+    walls[2].setWallPosition(0, 0);
+    walls[3].setWallPosition(0, 29);
+    // w.init({'#', '`', '#', '`','#', '`', '#'});
+    for(auto& wall : walls) {
+        wall.initAll('#');
+    }
+    
     sn.setup();
     char control;
     int count = 0;
@@ -25,7 +31,10 @@ int main() {
         }
         sn.setDirection(control);
         sn.move();
-        gr.draw(w.getBody());
+        for(auto& wall : walls) {
+            gr.draw(wall.getBody());
+            //std::cout << "dosn" << std::endl;
+        }
         gr.draw(sn.getBody());
         gr.display();
         timer.sleep(70);

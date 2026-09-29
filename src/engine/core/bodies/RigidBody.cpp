@@ -14,6 +14,12 @@ namespace Engine::Core {
                 m_segments[i++].m_sprite = sprite;
         }
     }
+
+    void RigidBody::initAllSprites(char sym) {
+        for(auto& cell : m_segments) {
+            cell.cellInit(sym);
+        }
+    }
     
     Math::Rect RigidBody::getGlobalBounds() const noexcept {
         return Math::Rect {Math::Vector2C{m_segments[0].m_transform}, Math::Vector2C{m_segments[m_rowsncols.m_rows * m_rowsncols.m_cols - 1].m_transform}};

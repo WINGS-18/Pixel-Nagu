@@ -4,65 +4,23 @@ namespace sg {
 
     namespace ec = Engine::Core;
 
-    Wall::Wall(int head, int tail, std::size_t size)
-        : m_wallBody(head, tail, size) {}
+    Wall::Wall(bool isActive, int rows, int cols)
+        : m_wallBody(isActive, rows, cols) {}
 
-    void Wall::init(char sym) {
+    void Wall::init(const std::vector<char>& sym) {
+        m_wallBody.setSprites(sym);
+    }
+
+    void Wall::initAll(char sym) {
         m_wallBody.initAllSprites(sym);
     }
 
-    const ec::SoftBody& Wall::getBody() const noexcept {
+    const ec::RigidBody& Wall::getBody() const noexcept {
         return m_wallBody;
     }
 
-    using uint = std::size_t;
-
-    void Wall::setTheWall() {
-        int i = 0;
-        setRight(i, 0, 30);
-        setLeft(i, 50, 30);
-        setTop(i, 50, 0);
-        setDown(i, 50, 30);
-    }
-
-    void Wall::setRight(int& i, int xLimit, int yLimit) {
-        for(uint lim = 0; lim < yLimit; lim++) {
-            m_wallBody.setCoordinates(i++, xLimit, lim);
-        }
-    }
-
-    void Wall::setLeft(int& i, int xLimit, int yLimit) {
-        for(uint lim = 0; lim < yLimit; lim++) {
-            m_wallBody.setCoordinates(i++, xLimit - 1, lim);
-        }
-    }
-
-    void Wall::setTop(int& i, int xLimit, int yLimit) {
-        for(uint lim = 0; lim < xLimit; lim++) {
-            m_wallBody.setCoordinates(i++, lim, yLimit);
-        }
-    }
-
-    void Wall::setDown(int& i, int xLimit, int yLimit) {
-        for(uint lim = 0; lim < xLimit; lim++) {
-            m_wallBody.setCoordinates(i++, lim, yLimit - 1);
-        }
-    }
-
-    const ec::Cell& Wall::getCell(int index) const noexcept {
-        return m_wallBody.getSegments()[index];
-    }
-
-    int Wall::head() const noexcept {
-        return m_wallBody.getHead();
-    }
-
-    int Wall::tail() const noexcept {
-        return m_wallBody.getTail();
-    }
-
-    int Wall::fullSize() const noexcept {
-        return m_wallBody.getSegments().size();
+    void Wall::setWallPosition(int x, int y) {
+        m_wallBody.setPosition(x, y);
     }
 
 }

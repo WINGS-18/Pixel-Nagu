@@ -24,18 +24,17 @@ namespace Engine::Core {
     public:
         bool m_active = true;
 
-    private:
-        void setSprites(const std::vector<char>& sprites);
-        
     public:
         RigidBody() = default;
         RigidBody(bool isActive, int rows, int cols);
-
+        void initAllSprites(char sym);
+        
         const std::vector<Cell>& getSegments() const noexcept;
-
+        
         Engine::Math::Rect getGlobalBounds() const noexcept;    //returns a hitbox of the RigidBody
-
+        
         void setPosition(int x, int y) noexcept;
+        void setSprites(const std::vector<char>& sprites);
 
     };
 

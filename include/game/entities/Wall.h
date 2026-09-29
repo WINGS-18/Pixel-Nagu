@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/core/bodies/SoftBody.h"
+#include "engine/core/bodies/RigidBody.h"
 
 namespace sg {
 
@@ -8,27 +8,18 @@ namespace sg {
 
     class Wall {
     private:
-        ec::SoftBody m_wallBody;
+        ec::RigidBody m_wallBody;
 
     public:
-        Wall(int head, int tail);
-        Wall(int head, int tail, std::size_t size);
+        Wall(bool isActive, int rows, int cols);
 
-        void init(char sym);
+        void init(const std::vector<char>& sym);
+        void initAll(char sym);
 
-        void setTheWall();
-
-        void setRight(int& i, int xLimit, int yLimit);
-        void setLeft(int& i, int xLimit, int yLimit);
-        void setTop(int& i, int xLimit, int yLimit);
-        void setDown(int& i, int xLimit, int yLimit);
+        void setWallPosition(int x, int y);
 
         const ec::Cell& getCell(int index) const noexcept;
-        const ec::SoftBody& getBody() const noexcept;
-
-        int head() const noexcept;
-        int tail() const noexcept;
-        int fullSize() const noexcept;
+        const ec::RigidBody& getBody() const noexcept;
     };
 
 }
