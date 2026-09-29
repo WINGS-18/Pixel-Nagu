@@ -25,9 +25,9 @@
 
 * **Cache Locality:**
 * It refers to how close the set of memory locations that are closer to each other.
-* As we know that whenever we access a memory location the data on that location is loaded into the ultra fast cpu registers.
+* As we know that whenever we access a memory location the data on that location is loaded into the ultra fast cpu cache lines L1/L2/L3 cpu caches.
 * Even along the accessed location it's neighbouring chunk of memory is also loaded.
-* So in terms or arrays or vectors the elements are closer to each other which means if we access the 0th element even other locations of 1, 2, 3, 4.... will be inside the registers. 
-* So registers being fast we need not to look into RAM again to and search for 3rd element coz it's already inside the registers.
+* So in terms or arrays or vectors the elements are closer to each other which means if we access the 0th element even other locations of 1, 2, 3, 4.... will be inside the these CPU caches. 
+* So cache lines being fast we need not to look into RAM again to and search for 3rd element coz it's already inside the CPU caches.
 * So in conclusion cache locality gives very fast access with taking 20 times less CPU cycles(According to "The Cherno" as far as I remember).
 * This is the reason why arrays and vectors are widely used and is considered as fast.
