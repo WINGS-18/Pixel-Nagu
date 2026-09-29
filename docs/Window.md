@@ -32,7 +32,7 @@ a kind of a constructor like work to pass the width and the height of the `Windo
 * **Solution:**
 * To overcome this we used templates.
 * We made `Window` a template class in which the template takes two arguments height and width in which both are std::size_t's.
-* Also since the `Window` class would not be composed(mostly), we also avoid Template hell. `Window` itself will be created and used so using template here is very reasonable.
+* Also since the `Window` class would not be composed(mostly), we also avoid Templat+e hell. `Window` itself will be created and used so using template here is very reasonable.
 
 * Implementation:
 ```cpp
