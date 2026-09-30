@@ -41,6 +41,11 @@ int main() {
         Engine::Utility::clearScreen();
         gr.frameReset();
         count ++;
+        //only for testing....
+        for(const auto& wall : walls) {
+            if(wall.getBody().getGlobalBounds().intersect(Engine::Math::Rect{sn.getCell(sn.head()).m_transform, sn.getCell(sn.head()).m_transform}))
+                return 0;
+        }
     }
 
     return 0;
