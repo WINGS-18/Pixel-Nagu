@@ -37,7 +37,7 @@ int main() {
         }
         gr.draw(sn.getBody());
         gr.display();
-        timer.sleep(70);
+        timer.sleep(200);
         Engine::Utility::clearScreen();
         gr.frameReset();
         count ++;
