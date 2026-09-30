@@ -4,12 +4,16 @@
  * SoftBody.
  * Window is a template class, mainly templated to take inputs for height and width
  * of the game frame array.
+ * This game frame array is a 1d array which is flattened to store 2d data.
+ * Once drawing everything onto a grid we make a string buffer and push all characters into it or overwrite it.
+ * At the end m_buffer is displayed. It boosts the performance and also avoids flickering.
  */
 
 #pragma once
 
 #include <iostream>
 #include <array>
+#include <string>
 
 namespace Engine::Core {
     class RigidBody;
@@ -21,7 +25,8 @@ namespace Engine::Render {
     template<std::size_t height, std::size_t width>
     class Window {
     private:
-        std::array<std::array<char, width>, height> m_frame;
+        std::array<char, height * width> m_frame;
+        std::string m_buffer;
 
     public:
         Window();
@@ -31,8 +36,10 @@ namespace Engine::Render {
         void draw(const Core::SoftBody& cell);
 
         void draw(const Core::RigidBody& cell);
+
+        void makeBuffer();
         
-        void display() const noexcept;
+        void display() noexcept;
     };
 
 }
