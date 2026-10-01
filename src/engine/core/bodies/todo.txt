@@ -1,0 +1,6 @@
+1. For collision detection between rigid bodies and between rigid body and soft body can be detected using our global bounds.
+2. But in the case of softbody we can'tdo like that coz it's made up of multiple cells that can be bent anyway.
+3. Hence i've decided to make a collision map which will be a 2d array flattened to 1d array.
+4. Have a unique id field for the bodies, and then whenever collision map is accessed we create it only that time and provide a flattened array.
+5. User can should pass the id's  of 2 colliding bodies and it checks weather those 2 id's overlapped or not.
+6. Also this flattened array seems very helpfull so deciding to make a seperate class of flattened array using templates and then this flattened array can be used anywhere and reusable even for the devs who'll use the enfgine
