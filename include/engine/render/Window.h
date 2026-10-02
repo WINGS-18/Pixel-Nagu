@@ -12,8 +12,9 @@
 #pragma once
 
 #include <iostream>
-#include <array>
 #include <string>
+#include "engine/structures/Flatarray.h"
+#include "engine/structures/Flatstring.h"
 
 namespace Engine::Core {
     class RigidBody;
@@ -25,8 +26,8 @@ namespace Engine::Render {
     template<std::size_t height, std::size_t width>
     class Window {
     private:
-        std::array<char, height * width> m_frame;
-        std::string m_buffer;
+        Flat::FlattArray<char, height, width> m_frame;
+        Flat::FlattString m_buffer;
 
     public:
         Window();
