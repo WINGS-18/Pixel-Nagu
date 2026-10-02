@@ -20,6 +20,10 @@ namespace Engine::Core {
             cell.cellInit(sym);
         }
     }
+
+    Math::Vector2C RigidBody::origin() noexcept {
+        return m_origin;
+    }
     
     Math::Rect RigidBody::getGlobalBounds() const noexcept {
         return Math::Rect {Math::Vector2C{m_segments[0].m_transform}, Math::Vector2C{m_segments[m_rowsncols.m_rows * m_rowsncols.m_cols - 1].m_transform}};
