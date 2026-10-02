@@ -34,6 +34,7 @@ namespace Engine::Core {
         Engine::Math::Rect getGlobalBounds() const noexcept;    //returns a hitbox of the RigidBody
         
         void setPosition(int x, int y) noexcept;
+        Math::Vector2C origin() noexcept;
         void setSprites(const std::vector<char>& sprites);
 
     };
