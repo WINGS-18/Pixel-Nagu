@@ -14,7 +14,7 @@ int main() {
     walls[1].setWallPosition(49, 0);
     walls[2].setWallPosition(0, 0);
     walls[3].setWallPosition(0, 29);
-    // w.init({'#', '`', '#', '`','#', '`', '#'});
+
     for(auto& wall : walls) {
         wall.initAll('#');
     }
@@ -23,7 +23,6 @@ int main() {
     char control;
     int count = 0;
     while(true) {
-        //sn.printdd();
         control = Engine::Utility::keyGiver();
         if(count == 20) {
             sn.snakeGrow();
@@ -33,7 +32,6 @@ int main() {
         sn.move();
         for(auto& wall : walls) {
             gr.draw(wall.getBody());
-            //std::cout << "dosn" << std::endl;
         }
         gr.draw(sn.getBody());
         gr.display();
