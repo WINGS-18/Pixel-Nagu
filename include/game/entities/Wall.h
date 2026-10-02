@@ -20,6 +20,11 @@ namespace sg {
 
         const ec::Cell& getCell(int index) const noexcept;
         const ec::RigidBody& getBody() const noexcept;
+
+        Engine::Math::Vector2C origin() noexcept {
+            return m_wallBody.origin();
+        }
+
     };
 
 }
