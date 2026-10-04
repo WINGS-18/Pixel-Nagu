@@ -29,25 +29,31 @@ namespace sg {
         switch(m_snakeDirection.m_currDir) {
             
             case en::Direction::right :
-                m_snakeBody.moveRight();
+                m_snakeBody.moveRight(1);
             break;
             
             case en::Direction::left :
-                m_snakeBody.moveLeft();
+                m_snakeBody.moveLeft(1);
                 break;
 
             case en::Direction::up :
-                m_snakeBody.moveUp();
+                m_snakeBody.moveUp(1);
                 break;
 
             case en::Direction::down :
-                m_snakeBody.moveDown();
+                m_snakeBody.moveDown(1);
                 break;
         }
     }
 
+    void Snake::expand() {
+        int oldHead = head();
+        m_snakeBody.getSegments().reserveFront(1);
+        m_snakeBody.getSegments()[head()].m_transform = m_snakeBody.getSegments()[oldHead].m_transform;
+    }
+
     void Snake::snakeGrow() {
-        m_snakeBody.expand();
+        expand();
 
         switch(m_snakeDirection.m_currDir) {
 
@@ -70,15 +76,15 @@ namespace sg {
     }
 
     int Snake::head() const noexcept {
-        return m_snakeBody.getHead();
+        return m_snakeBody.head();
     }
 
     int Snake::tail() const noexcept {
-        return m_snakeBody.getTail();
+        return m_snakeBody.head();
     }
 
     int Snake::fullSize() const noexcept {
-        return m_snakeBody.getSegments().size();
+        return m_snakeBody.getSegments().getData().size();
     }
 
 }
