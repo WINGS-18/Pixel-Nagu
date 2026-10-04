@@ -22,6 +22,7 @@ int main() {
     sn.setup();
     char control;
     int count = 0;
+
     while(true) {
         control = Engine::Utility::keyGiver();
         if(count == 20) {
