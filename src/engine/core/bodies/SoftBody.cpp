@@ -2,20 +2,21 @@
 
 namespace Engine::Core {
 
-    SoftBody::SoftBody(int head, int tail)
-        : m_head(head), m_tail(tail) {}
-
     SoftBody::SoftBody(int head, int tail, std::size_t size)
-        : m_segments(size), m_head(head), m_tail(tail) {}
+        : m_segments(head, tail, size) {}
 
 
     void SoftBody::initAllSprites(char sprite) {
-        for(auto& objs : m_segments) {
+        for(auto& objs : m_segments.getData()) {
             objs.cellInit(sprite);
         }
     }
 
-    const std::vector<Cell>& SoftBody::getSegments() const noexcept {
+    Flat::RingBuffer<Cell>& SoftBody::getSegments() noexcept {
+        return m_segments;
+    }
+
+    const Flat::RingBuffer<Cell>& SoftBody::getSegments() const noexcept {
         return m_segments;
     }
 
@@ -26,73 +27,67 @@ namespace Engine::Core {
     }
 
     void SoftBody::right() {
-        m_segments[m_head].m_transform.x++;
+        m_segments[head()].m_transform.x++;
     }
 
     void SoftBody::left() {
-        m_segments[m_head].m_transform.x--;
+        m_segments[head()].m_transform.x--;
     }
 
     void SoftBody::up() {
-        m_segments[m_head].m_transform.y--;
+        m_segments[head()].m_transform.y--;
     }
 
     void SoftBody::down() {
-        m_segments[m_head].m_transform.y++;
+        m_segments[head()].m_transform.y++;
     }
 
-    void SoftBody::expand() {
-        int oldHead = m_head;
-        m_head = (m_head + 1) % (m_segments.size());
-        m_segments[m_head].m_transform = m_segments[oldHead].m_transform;
-    }
+    void SoftBody::moveRight(std::size_t steps) {
+        int oldHead = head();
+        m_segments.reserveFront(steps);
 
-    void SoftBody::moveRight() {
-        int oldHead = m_head;
-        m_head = (m_head + 1) % (m_segments.size());
-        
-        m_segments[m_head].m_transform = m_segments[oldHead].m_transform;
+        m_segments[head()].m_transform = m_segments[oldHead].m_transform;
         right();
         
-        m_tail = (m_tail + 1) % (m_segments.size());
+        m_segments.releaseBack(steps);
     }
 
-    void SoftBody::moveLeft() {
-        int oldHead = m_head;
-        m_head = (m_head + 1) % (m_segments.size()); 
+    void SoftBody::moveLeft(std::size_t steps) {
+        int oldHead = head();
+        m_segments.reserveFront(steps);
         
-        m_segments[m_head].m_transform = m_segments[oldHead].m_transform;
+        m_segments[head()].m_transform = m_segments[oldHead].m_transform;
         left();
         
-        m_tail = (m_tail + 1) % (m_segments.size()); 
+        m_segments.releaseBack(steps);
     }
 
-    void SoftBody::moveUp() {
-        int oldHead = m_head;
-        m_head = (m_head + 1) % (m_segments.size()); 
+    void SoftBody::moveUp(std::size_t steps) {
+        int oldHead = head();
+        m_segments.reserveFront(steps);
         
-        m_segments[m_head].m_transform = m_segments[oldHead].m_transform;
+        m_segments[head()].m_transform = m_segments[oldHead].m_transform;
         up();
         
-        m_tail = (m_tail + 1) % (m_segments.size()); 
+        m_segments.releaseBack(steps);
     }
 
-    void SoftBody::moveDown() {
-        int oldHead = m_head;
-        m_head = (m_head + 1) % (m_segments.size()); 
+    void SoftBody::moveDown(std::size_t steps) {
+        int oldHead = head();
+        m_segments.reserveFront(steps);
         
-        m_segments[m_head].m_transform = m_segments[oldHead].m_transform;
+        m_segments[head()].m_transform = m_segments[oldHead].m_transform;
         down();
         
-        m_tail = (m_tail + 1) % (m_segments.size()); 
+        m_segments.releaseBack(steps);
     }
 
-    int SoftBody::getHead() const noexcept{
-        return m_head;
+    int SoftBody::head() const noexcept{
+        return m_segments.head();
     }
 
-    int SoftBody::getTail() const noexcept{
-        return m_tail;
+    int SoftBody::tail() const noexcept{
+        return m_segments.tail();
     }
 
     void SoftBody::setCoordinates(int index, int x, int y) {

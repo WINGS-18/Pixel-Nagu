@@ -8,39 +8,36 @@
 #pragma once
 
 #include "engine/core/bodies/Cell.h"
-#include <vector>
+#include "engine/structures/RingBuffer.h"
 
 namespace Engine::Core {
 
     class SoftBody {
     private:
-        std::vector<Cell> m_segments;
-        int m_head;
-        int m_tail;
+        Flat::RingBuffer<Cell> m_segments;
 
     public:
-        SoftBody(int head, int tail);
         SoftBody(int head, int tail, std::size_t size);
 
         void initAllSprites(char sprite);
 
-        const std::vector<Cell>& getSegments() const noexcept;
+        Flat::RingBuffer<Cell>& getSegments() noexcept;
+        const Flat::RingBuffer<Cell>& getSegments() const noexcept;
 
         void earlySetup();  //temp function
-        void expand();
 
         void right();
         void left();
         void up();
         void down();
 
-        void moveRight();
-        void moveLeft();
-        void moveUp();
-        void moveDown();
+        void moveRight(std::size_t steps);
+        void moveLeft(std::size_t steps);
+        void moveUp(std::size_t steps);
+        void moveDown(std::size_t steps);
 
-        int getHead() const noexcept;
-        int getTail() const noexcept;
+        int head() const noexcept;
+        int tail() const noexcept;
 
         void setCoordinates(int index, int x, int y);
 
