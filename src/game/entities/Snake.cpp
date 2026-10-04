@@ -80,7 +80,7 @@ namespace sg {
     }
 
     int Snake::tail() const noexcept {
-        return m_snakeBody.head();
+        return m_snakeBody.tail();
     }
 
     int Snake::fullSize() const noexcept {
