@@ -25,6 +25,7 @@ namespace sg {
 
         void move();
 
+        void expand();
         void snakeGrow();
 
         void printdd();
