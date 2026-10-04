@@ -1,23 +1,24 @@
 #include "engine/render/Window.h"
 #include "engine/core/bodies/RigidBody.h"
 #include "engine/core/bodies/SoftBody.h"
+#include <iostream>
 
 namespace Engine::Render {
 
     template<std::size_t height, std::size_t width>
     void Window<height, width>::draw(const Core::SoftBody& body) {
-        if(body.getTail() < body.getHead()) {
-            for(int i = body.getTail(); i <= body.getHead(); i++) {
+        if(body.tail() < body.head()) {
+            for(int i = body.tail(); i <= body.head(); i++) {
                 const auto& cell = body.getSegments()[i];
                 m_frame(cell.m_transform.x, cell.m_transform.y)= cell.m_sprite;
             }
         } else {
-            for(int i = 0; i <= body.getHead(); i++) {
+            for(int i = 0; i <= body.head(); i++) {
                 const auto& cell = body.getSegments()[i];
                 m_frame(cell.m_transform.x, cell.m_transform.y) = cell.m_sprite;
             }
             
-            for(int i = body.getTail(); i < body.getSegments().size(); i++) {
+            for(int i = body.tail(); i < body.getSegments().getData().size(); i++) {
                 const auto& cell = body.getSegments()[i];
                 m_frame(cell.m_transform.x, cell.m_transform.y) = cell.m_sprite;
             }
