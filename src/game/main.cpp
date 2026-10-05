@@ -6,7 +6,7 @@
 
 int main() {
     Engine::Render::Window<30, 50> window;
-    auto timer = Engine::Time::getTime();
+    auto& timer = Engine::Time::getTime();
     
     sg::Snake sn(1, 0, 100);
     std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
@@ -24,6 +24,7 @@ int main() {
     int count = 0;
 
     while(window.isOpen()) {
+        timer.startFrame();
         control = Engine::Utility::keyGiver();
         if(count == 20) {
             sn.snakeGrow();
@@ -36,7 +37,7 @@ int main() {
         }
         window.draw(sn.getBody());
         window.display();
-        timer.sleep(200);
+        timer.sleepUntil(200);
         Engine::Utility::clearScreen();
         window.frameReset();
         count ++;
