@@ -9,12 +9,15 @@
 
 #include "engine/core/bodies/Cell.h"
 #include "engine/structures/RingBuffer.h"
+#include "engine/math/direction-system/Direction.h"
 
 namespace Engine::Core {
 
     class SoftBody {
     private:
         Flat::RingBuffer<Cell> m_segments;
+        Flat::RingBuffer<Math::Vector2C> m_vertices;
+        Engine::Movement m_direction;
 
     public:
         SoftBody(int head, int tail, std::size_t size);

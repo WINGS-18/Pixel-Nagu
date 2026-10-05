@@ -5,10 +5,10 @@
 #include "engine/core/Time.h"
 
 int main() {
-    Engine::Render::Window<30, 50> gr;
+    Engine::Render::Window<30, 50> window;
     auto timer = Engine::Time::getTime();
     
-    sg::Snake sn(2, 0, 100);
+    sg::Snake sn(1, 0, 100);
     std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
     walls[0].setWallPosition(0, 0);
     walls[1].setWallPosition(49, 0);
@@ -23,7 +23,7 @@ int main() {
     char control;
     int count = 0;
 
-    while(true) {
+    while(window.isOpen()) {
         control = Engine::Utility::keyGiver();
         if(count == 20) {
             sn.snakeGrow();
@@ -32,18 +32,18 @@ int main() {
         sn.setDirection(control);
         sn.move();
         for(auto& wall : walls) {
-            gr.draw(wall.getBody());
+            window.draw(wall.getBody());
         }
-        gr.draw(sn.getBody());
-        gr.display();
+        window.draw(sn.getBody());
+        window.display();
         timer.sleep(200);
         Engine::Utility::clearScreen();
-        gr.frameReset();
+        window.frameReset();
         count ++;
         //only for testing....
         for(const auto& wall : walls) {
             if(wall.getBody().getGlobalBounds().intersect(Engine::Math::Rect{sn.getCell(sn.head()).m_transform, sn.getCell(sn.head()).m_transform}))
-                return 0;
+                window.close();
         }
     }
 

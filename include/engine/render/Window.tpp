@@ -6,6 +6,12 @@
 namespace Engine::Render {
 
     template<std::size_t height, std::size_t width>
+    Window<height, width>::Window()
+        : m_buffer(height, width, ' '), m_open(true) {
+        frameReset();
+    }
+
+    template<std::size_t height, std::size_t width>
     void Window<height, width>::draw(const Core::SoftBody& body) {
         if(body.tail() < body.head()) {
             for(int i = body.tail(); i <= body.head(); i++) {
@@ -34,10 +40,6 @@ namespace Engine::Render {
         }
     }
 
-    template<std::size_t height, std::size_t width>
-    Window<height, width>::Window() : m_buffer(height, width, ' ') {
-        frameReset();
-    }
 
     template<std::size_t height, std::size_t width>
     void Window<height, width>::frameReset() {
@@ -59,6 +61,15 @@ namespace Engine::Render {
         makeBuffer();
         std::cout << m_buffer.getData();
     }
+    
+    template<std::size_t height, std::size_t width>
+    inline bool Window<height, width>::isOpen() const noexcept {
+        return m_open;
+    }
 
+    template<std::size_t height, std::size_t width>
+    inline void Window<height, width>::close() const noexcept {
+        m_open = false;
+    }
 
 }

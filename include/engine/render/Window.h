@@ -39,6 +39,13 @@ namespace Engine::Render {
         void makeBuffer();
         
         void display() noexcept;
+
+    private:
+        mutable bool m_open = false;
+    
+    public:
+        bool isOpen() const noexcept;
+        void close() const noexcept;
     };
 
 }

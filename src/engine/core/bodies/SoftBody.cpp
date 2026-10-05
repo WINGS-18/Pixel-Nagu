@@ -3,8 +3,7 @@
 namespace Engine::Core {
 
     SoftBody::SoftBody(int head, int tail, std::size_t size)
-        : m_segments(head, tail, size) {}
-
+        : m_segments(head, tail, size), m_vertices(0, 0, size) {}
 
     void SoftBody::initAllSprites(char sprite) {
         for(auto& objs : m_segments.getData()) {
@@ -22,8 +21,6 @@ namespace Engine::Core {
 
     void SoftBody::earlySetup() {
         m_segments[0].m_transform.x = 3;
-        m_segments[1].m_transform.x = 2;
-        m_segments[2].m_transform.x = 1;
     }
 
     void SoftBody::right() {
