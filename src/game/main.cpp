@@ -21,14 +21,13 @@ int main() {
     
     sn.setup();
     char control;
-    int count = 0;
 
     while(window.isOpen()) {
         timer.startFrame();
         control = Engine::Utility::keyGiver();
-        if(count == 20) {
+        if(timer.getLocalFrameCounter() == 20) {
             sn.snakeGrow();
-            count = 0;
+            timer.resetLocalFrameCounter();
         }
         sn.setDirection(control);
         sn.move();
@@ -40,7 +39,6 @@ int main() {
         timer.sleepUntil(200);
         Engine::Utility::clearScreen();
         window.frameReset();
-        count ++;
         //only for testing....
         for(const auto& wall : walls) {
             if(wall.getBody().getGlobalBounds().intersect(Engine::Math::Rect{sn.getCell(sn.head()).m_transform, sn.getCell(sn.head()).m_transform}))

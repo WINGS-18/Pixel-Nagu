@@ -18,6 +18,8 @@ namespace Engine {
     }
 
     void Time::startFrame() {
+        ++m_globalFrameCounter;
+        ++m_localFrameCounter;
         m_frameStart = std::chrono::steady_clock::now();
     }
 
@@ -35,6 +37,18 @@ namespace Engine {
 
         if(remainingTime > 0.0)
             sleep(remainingTime);
+    }
+
+    void Time::resetLocalFrameCounter() noexcept {
+        m_localFrameCounter = 0;
+    }
+
+    std::uint64_t Time::getGlobalFrameCounter() const noexcept {
+        return m_globalFrameCounter;
+    }
+
+    std::uint64_t Time::getLocalFrameCounter() const noexcept {
+        return m_localFrameCounter;
     }
 
 }

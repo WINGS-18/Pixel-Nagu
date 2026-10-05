@@ -15,12 +15,21 @@ namespace Engine {
     private:
         std::chrono::time_point<std::chrono::steady_clock> m_engineStart;
         std::chrono::time_point<std::chrono::steady_clock> m_frameStart;
+
+    private:
+        std::uint64_t m_globalFrameCounter {0};
+        std::uint64_t m_localFrameCounter {0};
         
     public:
         void sleep(double millisec);
         void startFrame();      //Resets m_frame to current time.
         double getUpTime();     //rturns elapsed time from the moment the engine started to the called time.
         void sleepUntil(double millisec);
+
+        void resetLocalFrameCounter() noexcept;
+
+        std::uint64_t getGlobalFrameCounter() const noexcept;
+        std::uint64_t getLocalFrameCounter() const noexcept;
         
     private:
         Time();
