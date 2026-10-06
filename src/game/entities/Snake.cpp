@@ -5,8 +5,8 @@ namespace sg {
     namespace ec = Engine::Core;
     namespace en = Engine;
 
-    Snake::Snake(int head, int tail, std::size_t size)
-        : m_snakeBody(head, tail, size) {}
+    Snake::Snake(std::size_t initSize, std::size_t reserveSize)
+        : m_snakeBody(initSize, reserveSize) {}
 
     const ec::Cell& Snake::getCell(int index) const noexcept {
         return m_snakeBody.getSegments()[index];
@@ -48,7 +48,7 @@ namespace sg {
 
     void Snake::expand() {
         int oldHead = head();
-        m_snakeBody.getSegments().reserveFront(1);
+        m_snakeBody.getSegments().reserveBack(1);
         m_snakeBody.getSegments()[head()].m_transform = m_snakeBody.getSegments()[oldHead].m_transform;
     }
 
@@ -76,11 +76,11 @@ namespace sg {
     }
 
     int Snake::head() const noexcept {
-        return m_snakeBody.head();
+        return m_snakeBody.tail();
     }
 
     int Snake::tail() const noexcept {
-        return m_snakeBody.tail();
+        return m_snakeBody.head();
     }
 
     int Snake::fullSize() const noexcept {

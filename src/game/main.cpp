@@ -8,7 +8,7 @@ int main() {
     Engine::Render::Window<30, 50> window;
     auto& timer = Engine::Time::getTime();
     
-    sg::Snake sn(1, 0, 100);
+    sg::Snake sn(2, 100);
     std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
     walls[0].setWallPosition(0, 0);
     walls[1].setWallPosition(49, 0);
@@ -23,8 +23,9 @@ int main() {
     char control;
 
     while(window.isOpen()) {
+        std::cout << sn.head() << ", " << sn.tail() << std::endl;
         timer.startFrame();
-        control = Engine::Utility::keyGiver();
+        control = Engine::Utility::pollKey();
         if(timer.getLocalFrameCounter() == 20) {
             sn.snakeGrow();
             timer.resetLocalFrameCounter();

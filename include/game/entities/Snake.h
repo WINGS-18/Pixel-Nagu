@@ -13,7 +13,7 @@ namespace sg {
         Engine::Movement m_snakeDirection;
 
     public:
-        Snake(int head, int tail, std::size_t size);
+        Snake(std::size_t initSize, std::size_t reserveSize);
 
         const ec::Cell& getCell(int index) const noexcept;
 

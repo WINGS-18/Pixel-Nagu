@@ -13,18 +13,18 @@ namespace Engine::Render {
 
     template<std::size_t height, std::size_t width>
     void Window<height, width>::draw(const Core::SoftBody& body) {
-        if(body.tail() < body.head()) {
-            for(int i = body.tail(); i <= body.head(); i++) {
+        if(body.head() < body.tail()) {
+            for(int i = body.head(); i <= body.tail(); i++) {
                 const auto& cell = body.getSegments()[i];
                 m_frame(cell.m_transform.x, cell.m_transform.y)= cell.m_sprite;
             }
         } else {
-            for(int i = 0; i <= body.head(); i++) {
+            for(int i = 0; i <= body.tail(); i++) {
                 const auto& cell = body.getSegments()[i];
                 m_frame(cell.m_transform.x, cell.m_transform.y) = cell.m_sprite;
             }
             
-            for(int i = body.tail(); i < body.getSegments().getData().size(); i++) {
+            for(int i = body.head(); i < body.getSegments().getData().size(); i++) {
                 const auto& cell = body.getSegments()[i];
                 m_frame(cell.m_transform.x, cell.m_transform.y) = cell.m_sprite;
             }

@@ -2,8 +2,8 @@
 
 namespace Engine::Core {
 
-    SoftBody::SoftBody(int head, int tail, std::size_t size)
-        : m_segments(head, tail, size), m_vertices(0, 0, size) {}
+    SoftBody::SoftBody(std::size_t initSize, std::size_t reserveSize)
+        : m_segments(initSize, reserveSize), m_vertices(initSize, reserveSize) {}
 
     void SoftBody::initAllSprites(char sprite) {
         for(auto& objs : m_segments.getData()) {
@@ -24,59 +24,59 @@ namespace Engine::Core {
     }
 
     void SoftBody::right() {
-        m_segments[head()].m_transform.x++;
+        m_segments[tail()].m_transform.x++;
     }
 
     void SoftBody::left() {
-        m_segments[head()].m_transform.x--;
+        m_segments[tail()].m_transform.x--;
     }
 
     void SoftBody::up() {
-        m_segments[head()].m_transform.y--;
+        m_segments[tail()].m_transform.y--;
     }
 
     void SoftBody::down() {
-        m_segments[head()].m_transform.y++;
+        m_segments[tail()].m_transform.y++;
     }
 
     void SoftBody::moveRight(std::size_t steps) {
-        int oldHead = head();
-        m_segments.reserveFront(steps);
+        int oldHead = tail();
+        m_segments.reserveBack(steps);
 
-        m_segments[head()].m_transform = m_segments[oldHead].m_transform;
+        m_segments[tail()].m_transform = m_segments[oldHead].m_transform;
         right();
         
-        m_segments.releaseBack(steps);
+        m_segments.releaseFront(steps);
     }
 
     void SoftBody::moveLeft(std::size_t steps) {
-        int oldHead = head();
-        m_segments.reserveFront(steps);
+        int oldHead = tail();
+        m_segments.reserveBack(steps);
         
-        m_segments[head()].m_transform = m_segments[oldHead].m_transform;
+        m_segments[tail()].m_transform = m_segments[oldHead].m_transform;
         left();
         
-        m_segments.releaseBack(steps);
+        m_segments.releaseFront(steps);
     }
 
     void SoftBody::moveUp(std::size_t steps) {
-        int oldHead = head();
-        m_segments.reserveFront(steps);
+        int oldHead = tail();
+        m_segments.reserveBack(steps);
         
-        m_segments[head()].m_transform = m_segments[oldHead].m_transform;
+        m_segments[tail()].m_transform = m_segments[oldHead].m_transform;
         up();
         
-        m_segments.releaseBack(steps);
+        m_segments.releaseFront(steps);
     }
 
     void SoftBody::moveDown(std::size_t steps) {
-        int oldHead = head();
-        m_segments.reserveFront(steps);
+        int oldHead = tail();
+        m_segments.reserveBack(steps);
         
-        m_segments[head()].m_transform = m_segments[oldHead].m_transform;
+        m_segments[tail()].m_transform = m_segments[oldHead].m_transform;
         down();
         
-        m_segments.releaseBack(steps);
+        m_segments.releaseFront(steps);
     }
 
     int SoftBody::head() const noexcept{

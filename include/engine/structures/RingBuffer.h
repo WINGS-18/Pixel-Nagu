@@ -14,13 +14,22 @@ namespace Engine::Flat {
     private:
         std::vector<T> m_data;
         int m_head, m_tail;
+        std::size_t m_size = 0;
 
     public:
-        RingBuffer(int head, int tail, std::size_t size);
+        RingBuffer(std::size_t initSize, std::size_t reserveSize);
+
+        std::size_t size() const noexcept;
 
         int movePointers(int pointer, std::size_t size) noexcept;
-        void reserveFront(std::size_t size) noexcept;
+        void reserveBack(std::size_t size) noexcept;
+        void releaseFront(std::size_t size) noexcept;
         void releaseBack(std::size_t size) noexcept;
+
+        void push(const T& data) noexcept;
+        void push(T&& data) noexcept;
+        void pop() noexcept;
+        void clear() noexcept;
 
         int head() const noexcept;
         int tail() const noexcept;

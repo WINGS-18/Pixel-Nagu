@@ -20,7 +20,7 @@ namespace Engine::Core {
         Engine::Movement m_direction;
 
     public:
-        SoftBody(int head, int tail, std::size_t size);
+        SoftBody(std::size_t initSize, std::size_t reserveSize);
 
         void initAllSprites(char sprite);
 
