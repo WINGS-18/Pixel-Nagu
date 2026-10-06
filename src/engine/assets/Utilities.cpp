@@ -26,14 +26,14 @@ void Engine::Utility::showCursor() {
     std::cout << "\033[?25h";
 }
 
-char Engine::Utility::keyGiver() {
+char Engine::Utility::pollKey() {
     if(_kbhit())
         return _getch();
     else
         return '\0';
 }
 
-char Engine::Utility::pressKey() {
+char Engine::Utility::waitKey() {
     return _getch();
 }
 

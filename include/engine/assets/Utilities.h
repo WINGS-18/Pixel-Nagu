@@ -19,8 +19,8 @@ namespace Engine {
         void hideCursor();
         void showCursor();  
 
-        char keyGiver();    //non-blockingS
-        char pressKey();    //blocks the program untill key is pressed.
+        char pollKey();    //non-blockingS
+        char waitKey();    //blocks the program untill key is pressed.
 
         void displayFinalScore(int score);
     }
