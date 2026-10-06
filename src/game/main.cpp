@@ -3,10 +3,12 @@
 #include "game/entities/Snake.h"
 #include "game/entities/Wall.h"
 #include "engine/core/Time.h"
+#include "engine/systems/input/inputQueue.h"
 
 int main() {
     Engine::Render::Window<30, 50> window;
     auto& timer = Engine::Time::getTime();
+    Engine::io::io_Queue events(3);
     
     sg::Snake sn(2, 100);
     std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
@@ -25,7 +27,8 @@ int main() {
     while(window.isOpen()) {
         std::cout << sn.head() << ", " << sn.tail() << std::endl;
         timer.startFrame();
-        control = Engine::Utility::pollKey();
+        events.registerPress();
+        control = events.getPressedKey();
         if(timer.getLocalFrameCounter() == 20) {
             sn.snakeGrow();
             timer.resetLocalFrameCounter();
@@ -37,6 +40,7 @@ int main() {
         }
         window.draw(sn.getBody());
         window.display();
+        events.clearInputBuffers();
         timer.sleepUntil(200);
         Engine::Utility::clearScreen();
         window.frameReset();

@@ -3,6 +3,10 @@
 namespace Engine::Flat {
 
     template<typename T>
+    RingBuffer<T>::RingBuffer(std::size_t reserveSize)
+        : m_data(reserveSize), m_head(0), m_tail(0), m_size(0) {}
+
+    template<typename T>
     RingBuffer<T>::RingBuffer(std::size_t initSize, std::size_t reserveSize)
         : m_data(reserveSize), m_head(0), m_tail(static_cast<int> (initSize)), m_size(initSize) {}
 
@@ -17,7 +21,7 @@ namespace Engine::Flat {
     }
 
     template<typename T>
-    std::size_t RingBuffer<T>::size() const noexcept {
+    std::size_t RingBuffer<T>::size() noexcept {
         return m_size;
     }
 
@@ -34,7 +38,8 @@ namespace Engine::Flat {
 
     template<typename T>
     void RingBuffer<T>::releaseBack(std::size_t size) noexcept {
-        m_tail--;
+        if(m_tail != 0)
+            m_tail--;
     }
 
     template<typename T>
@@ -43,26 +48,43 @@ namespace Engine::Flat {
     }
 
     template<typename T>
+    void RingBuffer<T>::pushPrimitive(T data) noexcept {
+        m_data[m_tail] = data;
+        reserveBack(1);
+        m_size++;
+    }
+
+    template<typename T>
     void RingBuffer<T>::push(const T& data) noexcept {
         m_data[m_tail] = data;
         reserveBack(1);
+        m_size++;
+
     }
 
     template<typename T>
     void RingBuffer<T>::push(T&& data) noexcept {
         m_data[m_tail] = std::move(data);
         reserveBack(1);
+        m_size++;
     }
 
     template<typename T>
     void RingBuffer<T>::pop() noexcept {
-        
+        releaseFront(1);
+        m_size--;
     }
 
     template<typename T>
     void RingBuffer<T>::clear() noexcept {
         m_head = 0;
         m_tail = 0;
+        m_size = 0;
+    }
+
+    template<typename T>
+    bool RingBuffer<T>::empty() const noexcept {
+        return m_size == 0;
     }
 
     template<typename T>

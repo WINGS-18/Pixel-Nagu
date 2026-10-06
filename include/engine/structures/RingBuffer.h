@@ -17,19 +17,22 @@ namespace Engine::Flat {
         std::size_t m_size = 0;
 
     public:
+        RingBuffer(std::size_t reserveSize);
         RingBuffer(std::size_t initSize, std::size_t reserveSize);
 
-        std::size_t size() const noexcept;
+        std::size_t size() noexcept;
 
         int movePointers(int pointer, std::size_t size) noexcept;
         void reserveBack(std::size_t size) noexcept;
         void releaseFront(std::size_t size) noexcept;
         void releaseBack(std::size_t size) noexcept;
 
+        void pushPrimitive(T data) noexcept;
         void push(const T& data) noexcept;
         void push(T&& data) noexcept;
         void pop() noexcept;
         void clear() noexcept;
+        bool empty() const noexcept;
 
         int head() const noexcept;
         int tail() const noexcept;

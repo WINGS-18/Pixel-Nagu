@@ -11,6 +11,15 @@ namespace Engine::io {
     public:
         io_Queue(std::size_t size);
         
+        void registerPress() noexcept;
+        bool noise(char currKey, char prevKey) noexcept;
+
+        char getPressedKey() noexcept;
+
+        void clean_os_buffer() const noexcept;
+        void cleanKeyboardBuffer() noexcept;
+
+        void clearInputBuffers() noexcept;
     };
 
 }
