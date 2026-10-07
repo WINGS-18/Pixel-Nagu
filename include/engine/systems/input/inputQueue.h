@@ -1,20 +1,25 @@
 #pragma once
 
 #include "engine/structures/RingBuffer.h"
+#include "engine/systems/input/inputTypes.h"
+#include <array>
 
-namespace Engine::io {
+namespace Engine::Input {
 
-    class io_Queue {
+    class i_Queue {
     private:
-        Flat::RingBuffer<char> m_keyboardBuffer;
+        Flat::RingBuffer<Action> m_keyboardBuffer;
+        std::array<Action, 256> m_actionHash;
 
     public:
-        io_Queue(std::size_t size);
+        i_Queue(std::size_t size);
+
+        Action translateKey(char key) noexcept;
         
         void registerPress() noexcept;
-        bool noise(char currKey, char prevKey) noexcept;
+        bool noise(Action currAction, Action prevAction) noexcept;
 
-        char getPressedKey() noexcept;
+        Action getPressedKey() noexcept;
 
         void clean_os_buffer() const noexcept;
         void cleanKeyboardBuffer() noexcept;

@@ -8,7 +8,7 @@
 int main() {
     Engine::Render::Window<30, 50> window;
     auto& timer = Engine::Time::getTime();
-    Engine::io::io_Queue events(3);
+    Engine::Input::i_Queue events(3);
     
     sg::Snake sn(2, 100);
     std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
@@ -22,7 +22,7 @@ int main() {
     }
     
     sn.setup();
-    char control;
+    Engine::Input::Action control;
 
     while(window.isOpen()) {
         std::cout << sn.head() << ", " << sn.tail() << std::endl;

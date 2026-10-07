@@ -1,12 +1,26 @@
 #include "engine/systems/input/inputQueue.h"
 #include "engine/assets/Utilities.h"
 
-namespace Engine::io {
+namespace Engine::Input {
 
-    io_Queue::io_Queue(std::size_t size)
-        : m_keyboardBuffer(size) {}
+    i_Queue::i_Queue(std::size_t size)
+        : m_keyboardBuffer(size) {
 
-    void io_Queue::registerPress() noexcept {
+        m_actionHash.fill(Action::NONE);
+
+        m_actionHash['w'] = Action::UP;
+        m_actionHash['a'] = Action::LEFT;
+        m_actionHash['s'] = Action::DOWN;
+        m_actionHash['d'] = Action::RIGHT;
+        m_actionHash['q'] = Action::EXIT;
+    }
+
+    Action i_Queue::translateKey(char key) noexcept {
+        auto unsignedKey = static_cast<unsigned char> (key);
+        return m_actionHash[unsignedKey];
+    }
+
+    void i_Queue::registerPress() noexcept {
 
         char key = Utility::pollKey();
 
@@ -14,41 +28,44 @@ namespace Engine::io {
             return;
         }
 
+        auto translatedKey = translateKey(key);
 
         if(m_keyboardBuffer.empty()) {
-            m_keyboardBuffer.pushPrimitive(key);
+            m_keyboardBuffer.pushPrimitive(translatedKey);
             return;
         }
 
-        if(!noise(key, m_keyboardBuffer[m_keyboardBuffer.tail()])) {
-            m_keyboardBuffer.pushPrimitive(key);
+        if(!noise(translatedKey, m_keyboardBuffer[m_keyboardBuffer.tail()])) {
+            m_keyboardBuffer.pushPrimitive(translateKey(key));
         }
     
     }
 
-    bool io_Queue::noise(char currKey, char prevKey) noexcept {
-        return currKey == prevKey;
+    bool i_Queue::noise(Action currAction, Action prevAction) noexcept {
+        return currAction == prevAction;
     }
 
-    char io_Queue::getPressedKey() noexcept {
-        if(m_keyboardBuffer.empty())    return '\0';
+    Action i_Queue::getPressedKey() noexcept {
+        if(m_keyboardBuffer.empty()) {
+            return Action::NONE;
+        }
 
         auto ch = m_keyboardBuffer[m_keyboardBuffer.head()];
         m_keyboardBuffer.pop();
         return ch;
     }
 
-    void io_Queue::clean_os_buffer() const noexcept {
+    void i_Queue::clean_os_buffer() const noexcept {
         while(Utility::pollKey() != '\0') {
             
         }
     }
 
-    void io_Queue::cleanKeyboardBuffer() noexcept {
+    void i_Queue::cleanKeyboardBuffer() noexcept {
         m_keyboardBuffer.clear();
     }
 
-    void io_Queue::clearInputBuffers() noexcept {
+    void i_Queue::clearInputBuffers() noexcept {
         clean_os_buffer();
         cleanKeyboardBuffer();
     }
