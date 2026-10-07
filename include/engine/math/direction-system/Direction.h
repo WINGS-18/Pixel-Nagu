@@ -6,6 +6,12 @@
 
 #pragma once
 
+#include <cstdint>
+
+namespace Engine::Input {
+    enum class Action : std::uint8_t;
+}
+
 namespace Engine {
 
     enum class Direction {
@@ -17,7 +23,7 @@ namespace Engine {
         Direction m_currDir = Direction::right;
         Movement() = default;
 
-        void setTheDirection(char key);
+        void setTheDirection(Engine::Input::Action action);
 
         bool opposite(const Direction& dir);
     };
