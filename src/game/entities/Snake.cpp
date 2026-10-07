@@ -4,6 +4,7 @@ namespace sg {
 
     namespace ec = Engine::Core;
     namespace en = Engine;
+    namespace ei = en::Input;
 
     Snake::Snake(std::size_t initSize, std::size_t reserveSize)
         : m_snakeBody(initSize, reserveSize) {}
@@ -20,8 +21,8 @@ namespace sg {
         m_snakeBody.earlySetup();
     }
 
-    void Snake::setDirection(char key) {
-        m_snakeDirection.setTheDirection(key);
+    void Snake::setDirection(ei::Action action) {
+        m_snakeDirection.setTheDirection(action);
     }
 
     void Snake::move() {

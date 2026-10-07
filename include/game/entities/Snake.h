@@ -21,7 +21,7 @@ namespace sg {
 
         void setup();
 
-        void setDirection(char key);
+        void setDirection(Engine::Input::Action action);
 
         void move();
 
