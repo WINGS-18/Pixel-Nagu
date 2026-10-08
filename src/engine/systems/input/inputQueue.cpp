@@ -22,6 +22,7 @@ namespace Engine::Input {
 
     void i_Queue::registerPress() noexcept {
 
+        while(m_keyboardBuffer.size() != m_keyboardBuffer.getData().capacity()) {
         char key = Utility::pollKey();
 
         if(key == '\0') {
@@ -35,9 +36,12 @@ namespace Engine::Input {
             return;
         }
 
-        if(!noise(translatedKey, m_keyboardBuffer[m_keyboardBuffer.tail()])) {
-            m_keyboardBuffer.pushPrimitive(translateKey(key));
+        auto noise = [&] () {return translatedKey == m_keyboardBuffer[m_keyboardBuffer.tail()];};
+
+        if(!noise()) {
+            m_keyboardBuffer.pushPrimitive(translatedKey);
         }
+    }
     
     }
 

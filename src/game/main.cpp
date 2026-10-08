@@ -8,7 +8,7 @@
 int main() {
     Engine::Render::Window<30, 50> window;
     auto& timer = Engine::Time::getTime();
-    Engine::Input::i_Queue events(3);
+    Engine::Input::i_Queue events(2);
     
     sg::Snake sn(2, 100);
     std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
@@ -25,7 +25,6 @@ int main() {
     Engine::Input::Action control;
 
     while(window.isOpen()) {
-        std::cout << sn.head() << ", " << sn.tail() << std::endl;
         timer.startFrame();
         events.registerPress();
         control = events.getPressedKey();
@@ -40,6 +39,9 @@ int main() {
         }
         window.draw(sn.getBody());
         window.display();
+        if(control == Engine::Input::Action::EXIT) {
+            window.close();
+        }
         events.clearInputBuffers();
         timer.sleepUntil(200);
         Engine::Utility::clearScreen();
@@ -49,6 +51,7 @@ int main() {
             if(wall.getBody().getGlobalBounds().intersect(Engine::Math::Rect{sn.getCell(sn.head()).m_transform, sn.getCell(sn.head()).m_transform}))
                 window.close();
         }
+
     }
 
     return 0;
