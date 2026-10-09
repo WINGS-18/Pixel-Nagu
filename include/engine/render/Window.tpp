@@ -2,6 +2,7 @@
 #include "engine/core/bodies/RigidBody.h"
 #include "engine/core/bodies/SoftBody.h"
 #include <iostream>
+#include <utility>
 
 namespace Engine::Render {
 
@@ -13,22 +14,13 @@ namespace Engine::Render {
 
     template<std::size_t height, std::size_t width>
     void Window<height, width>::draw(const Core::SoftBody& body) {
-        if(body.head() < body.tail()) {
-            for(int i = body.head(); i <= body.tail(); i++) {
-                const auto& cell = body.getSegments()[i];
-                m_frame(cell.m_transform.x, cell.m_transform.y)= cell.m_sprite;
-            }
-        } else {
-            for(int i = 0; i <= body.tail(); i++) {
-                const auto& cell = body.getSegments()[i];
-                m_frame(cell.m_transform.x, cell.m_transform.y) = cell.m_sprite;
-            }
-            
-            for(int i = body.head(); i < body.getSegments().getData().size(); i++) {
-                const auto& cell = body.getSegments()[i];
-                m_frame(cell.m_transform.x, cell.m_transform.y) = cell.m_sprite;
-            }
+        const auto& renderable = body.getSegments();
+        const auto size = renderable.size();
+
+        for(auto i = 0; i < size; i++) {
+            m_frame(renderable[i].m_transform.x, renderable[i].m_transform.y) = renderable[i].m_sprite;
         }
+ 
     }
 
     template<std::size_t height, std::size_t width>
