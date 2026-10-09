@@ -23,5 +23,7 @@ namespace Engine {
         char waitKey();    //blocks the program untill key is pressed.
 
         void displayFinalScore(int score);
+
+        int randomInt(int min, int max);
     }
 }

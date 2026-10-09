@@ -14,6 +14,18 @@ namespace sg {
         return m_snakeBody.getSegments()[index];
     }
 
+    ec::Cell& Snake::getCell(int index) noexcept {
+        return m_snakeBody.getSegments()[index];
+    }
+
+    void Snake::incrementScore() noexcept {
+        m_score++;
+    }
+
+    int Snake::getScore() const noexcept {
+        return m_score;
+    }
+
     const ec::SoftBody& Snake::getBody() const noexcept {
         return m_snakeBody;
     }
@@ -102,6 +114,40 @@ namespace sg {
 
     int Snake::fullSize() const noexcept {
         return m_snakeBody.getSegments().getData().size();
+    }
+
+    /////////////////////////////////////////////////////////////////
+    ////////////// FOOD IMPLEMENTATION /////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    Food::Food(char sprite)
+        : m_food(false, 1, 1, sprite) {}
+
+    ec::RigidBody& Food::getBody() noexcept {
+        return m_food;
+    }
+
+    const ec::RigidBody& Food::getBody() const noexcept {
+        return m_food;
+    }
+
+    bool Food::wasEaten(Engine::Math::Rect transform) noexcept {
+        if(getGlobalBounds().intersect(transform)) {
+            m_food.m_active = false;
+            return true;
+        }
+        return false;
+    }
+
+    en::Math::Rect Food::getGlobalBounds() const noexcept{
+        return m_food.getGlobalBounds();
+    }
+
+    void Food::setPosition(int x, int y) {
+        if(!m_food.m_active) {
+            m_food.setPosition(x, y);
+            m_food.m_active = true;
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 #include "engine/assets/Utilities.h"
 #include <iostream>
 #include <conio.h>
+#include <random>
 
 void Engine::Utility::reset() {
     std::cout << "\033[0m";
@@ -50,4 +51,13 @@ void Engine::Utility::displayFinalScore(int score) {
     std::cout << "||   Press 'e' to return to menu...   ||\n";
     std::cout << "========================================\n";
 
+}
+
+int Engine::Utility::randomInt(int min, int max) {    
+    static std::random_device rd;  
+    static std::mt19937 gen(rd()); 
+    
+    std::uniform_int_distribution<> distrib(min, max);
+        
+    return distrib(gen);
 }

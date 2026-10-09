@@ -10,6 +10,8 @@ int main() {
     auto& timer = Engine::Time::getTime();
     Engine::Input::i_Queue events(2);
     
+    sg::Food apple('a');
+    apple.setPosition(37, 17);
     sg::Snake sn(2, 100);
     std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
     walls[0].setWallPosition(0, 0);
@@ -24,35 +26,43 @@ int main() {
     sn.setup();
     Engine::Input::Action control;
 
+    Engine::Math::Rect snakeHead;
     while(window.isOpen()) {
         timer.startFrame();
         events.registerPress();
         control = events.getPressedKey();
-        if(timer.getLocalFrameCounter() == 20) {
-            sn.snakeGrow();
-            timer.resetLocalFrameCounter();
-        }
         sn.setDirection(control);
         sn.move();
-        for(auto& wall : walls) {
-            window.draw(wall.getBody());
+        snakeHead.m_min = sn.getCell(sn.head()).m_transform;
+        snakeHead.m_max = sn.getCell(sn.head()).m_transform;
+        if(apple.wasEaten(snakeHead)) {
+            sn.snakeGrow();
+            sn.incrementScore();
         }
-        window.draw(sn.getBody());
-        window.display();
         if(control == Engine::Input::Action::EXIT || sn.didSelfCollide()) {
             window.close();
         }
+        for(const auto& wall : walls) {
+            if(wall.getBody().getGlobalBounds().intersect(snakeHead))
+            window.close();
+        }
+        for(auto& wall : walls) {
+            window.draw(wall.getBody());
+        }
+        
+        window.draw(apple.getBody());
+        window.draw(sn.getBody());
+        window.display();
         events.clearInputBuffers();
         timer.sleepUntil(200);
         Engine::Utility::clearScreen();
         window.frameReset();
+        apple.setPosition(Engine::Utility::randomInt(10, 48), Engine::Utility::randomInt(5, 29));
         //only for testing....
-        for(const auto& wall : walls) {
-            if(wall.getBody().getGlobalBounds().intersect(Engine::Math::Rect{sn.getCell(sn.head()).m_transform, sn.getCell(sn.head()).m_transform}))
-                window.close();
-        }
 
     }
+
+    Engine::Utility::displayFinalScore(sn.getScore());
 
     return 0;
 

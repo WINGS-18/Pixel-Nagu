@@ -6,6 +6,11 @@ namespace Engine::Core {
     RigidBody::RigidBody(bool isActive, int rows, int cols) 
         : m_segments(rows * cols), m_rowsncols(rows, cols), m_active(isActive) {}
 
+    RigidBody::RigidBody(bool isActive, int rows, int cols, char sprite) 
+        : m_segments(rows * cols), m_rowsncols(rows, cols), m_active(isActive) {
+            initAllSprites(sprite);
+    }
+
     void RigidBody::setSprites(const std::vector<char>& sprites) {  //end your rows using ' ` '
         int i = 0;
         for(const char sprite : sprites) {

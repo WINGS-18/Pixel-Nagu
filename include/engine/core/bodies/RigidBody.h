@@ -27,6 +27,7 @@ namespace Engine::Core {
     public:
         RigidBody() = default;
         RigidBody(bool isActive, int rows, int cols);
+        RigidBody(bool isActive, int rows, int cols, char sprite);
         void initAllSprites(char sym);
         
         const std::vector<Cell>& getSegments() const noexcept;
