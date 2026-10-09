@@ -25,6 +25,8 @@ namespace sg {
 
         void move();
 
+        bool didSelfCollide();
+
         void expand();
         void snakeGrow();
 

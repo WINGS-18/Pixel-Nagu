@@ -1,4 +1,5 @@
 #include "game/entities/Snake.h"
+#include <iostream>
 
 namespace sg {
 
@@ -23,6 +24,21 @@ namespace sg {
 
     void Snake::setDirection(ei::Action action) {
         m_snakeDirection.setTheDirection(action);
+    }
+
+    bool Snake::didSelfCollide() {
+        auto& body = m_snakeBody.getSegments();
+        if(body.size() <= 4) {
+            return false;
+        }
+
+        for(auto i = 0; i < body.size() - 1; i++) {
+            if(body[i].m_transform == body[head()].m_transform) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void Snake::move() {
