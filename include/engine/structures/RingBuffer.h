@@ -21,6 +21,7 @@ namespace Engine::Flat {
         RingBuffer(std::size_t initSize, std::size_t reserveSize);
 
         std::size_t size() noexcept;
+        const std::size_t size() const noexcept;
 
         int movePointers(int pointer, std::size_t size) noexcept;
         void reserveBack(std::size_t size) noexcept;

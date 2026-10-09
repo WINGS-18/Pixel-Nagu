@@ -26,6 +26,11 @@ namespace Engine::Flat {
     }
 
     template<typename T>
+    const std::size_t RingBuffer<T>::size() const noexcept {
+        return m_size;
+    }
+
+    template<typename T>
     int RingBuffer<T>::movePointers(int pointer, std::size_t size) noexcept {
         pointer = (pointer + size) % (m_data.size());   //increases the volume of the valid range (tail -> head).
         return pointer;
@@ -34,39 +39,39 @@ namespace Engine::Flat {
     template<typename T>
     void RingBuffer<T>::releaseFront(std::size_t size) noexcept {
         m_head = movePointers(m_head, size);
+        m_size--;
     }
 
     template<typename T>
     void RingBuffer<T>::releaseBack(std::size_t size) noexcept {
-        if(m_tail != 0)
+        if(m_tail != 0) {
             m_tail--;
+            m_data--;
+        }
     }
 
     template<typename T>
     void RingBuffer<T>::reserveBack(std::size_t size) noexcept {
         m_tail = movePointers(m_tail, size);
+        m_size++;
     }
 
     template<typename T>
     void RingBuffer<T>::pushPrimitive(T data) noexcept {
         m_data[m_tail] = data;
         reserveBack(1);
-        m_size++;
     }
 
     template<typename T>
     void RingBuffer<T>::push(const T& data) noexcept {
         m_data[m_tail] = data;
         reserveBack(1);
-        m_size++;
-
     }
 
     template<typename T>
     void RingBuffer<T>::push(T&& data) noexcept {
         m_data[m_tail] = std::move(data);
         reserveBack(1);
-        m_size++;
     }
 
     template<typename T>
@@ -94,27 +99,27 @@ namespace Engine::Flat {
 
     template<typename T>
     inline int RingBuffer<T>::tail() const noexcept {
-        return m_tail - 1;
+        return m_tail - m_head - 1;
     }
 
     template<typename T>
     auto RingBuffer<T>::headIt() noexcept {
-        return m_data.begin() + m_head % m_data.size();
+        return (m_data.begin() + m_head) % m_data.size();
     }
 
     template<typename T>
     auto RingBuffer<T>::tailIt() noexcept {
-        return m_data.begin() + m_tail % m_data.size();
+        return (headIt() + m_tail) % m_data.size();
     }
 
     template<typename T>
     T& RingBuffer<T>::operator[] (std::size_t index) {
-        return m_data[index % m_data.size()];
+        return m_data[(m_head + index) % m_data.size()];
     }
 
     template<typename T>
     const T& RingBuffer<T>::operator[] (std::size_t index) const {
-        return m_data[index % m_data.size()];
+        return m_data[(m_head + index) % m_data.size()];
     }
 
 }
