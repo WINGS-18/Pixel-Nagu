@@ -39,7 +39,7 @@ int main() {
         }
         window.draw(sn.getBody());
         window.display();
-        if(control == Engine::Input::Action::EXIT) {
+        if(control == Engine::Input::Action::EXIT || sn.didSelfCollide()) {
             window.close();
         }
         events.clearInputBuffers();
