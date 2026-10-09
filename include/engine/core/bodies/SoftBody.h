@@ -41,6 +41,7 @@ namespace Engine::Core {
 
         int head() const noexcept;
         int tail() const noexcept;
+        std::size_t size() const noexcept;
 
         void setCoordinates(int index, int x, int y);
 

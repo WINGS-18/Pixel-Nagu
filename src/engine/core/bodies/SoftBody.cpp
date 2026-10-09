@@ -87,6 +87,10 @@ namespace Engine::Core {
         return m_segments.tail();
     }
 
+    std::size_t SoftBody::size() const noexcept{
+        return m_segments.size();
+    }
+
     void SoftBody::setCoordinates(int index, int x, int y) {
         m_segments[index].m_transform.x = x;
         m_segments[index].m_transform.y = y;
