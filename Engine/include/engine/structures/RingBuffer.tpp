@@ -51,6 +51,21 @@ namespace Engine::Flat {
     }
 
     template<typename T>
+    void RingBuffer<T>::shrink(std::size_t size) noexcept {
+        if(size >= m_tail) {
+            return;
+        }
+
+        if(size <= 0) {
+            m_tail = 0;
+            m_size = 0;
+        }
+
+        m_tail = size;
+        m_size = size;
+    }
+
+    template<typename T>
     void RingBuffer<T>::reserveBack(std::size_t size) noexcept {
         m_tail = movePointers(m_tail, size);
         m_size++;

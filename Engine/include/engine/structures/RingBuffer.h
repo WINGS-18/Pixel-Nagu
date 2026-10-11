@@ -27,6 +27,7 @@ namespace Engine::Flat {
         void reserveBack(std::size_t size) noexcept;
         void releaseFront(std::size_t size) noexcept;
         void releaseBack(std::size_t size) noexcept;
+        void shrink(std::size_t size) noexcept;
 
         void pushPrimitive(T data) noexcept;
         void push(const T& data) noexcept;
