@@ -81,6 +81,10 @@ namespace sg {
         m_snakeBody.getSegments()[head()].m_transform = m_snakeBody.getSegments()[oldHead].m_transform;
     }
 
+    void Snake::shrink(std::size_t size) noexcept {
+        m_snakeBody.shrink(size);
+    }
+
     void Snake::snakeGrow() {
         expand();
 

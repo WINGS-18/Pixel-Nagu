@@ -22,6 +22,7 @@ namespace sg {
 
         void incrementScore() noexcept;
         int getScore() const noexcept;
+        void resetScore() noexcept {m_score = 0;}
 
         const ec::SoftBody& getBody() const noexcept;
 
@@ -34,6 +35,7 @@ namespace sg {
         bool didSelfCollide();
 
         void expand();
+        void shrink(std::size_t size) noexcept;
         void snakeGrow();
 
         void printdd();
