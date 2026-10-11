@@ -16,7 +16,6 @@ namespace Engine::Math {
         Vector2C();
         Vector2C(int x, int y);
 
-        void operator = (Vector2C& other);
         bool operator ==(const Vector2C& other) const;
         bool operator <(const Vector2C& other) const;
         bool operator >(const Vector2C& other) const;

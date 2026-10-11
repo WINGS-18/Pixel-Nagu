@@ -23,6 +23,10 @@ namespace Engine::Core {
         m_segments[0].m_transform.x = 3;
     }
 
+    void SoftBody::shrink(std::size_t size) {
+        m_segments.shrink(size);
+    }
+
     void SoftBody::right() {
         m_segments[tail()].m_transform.x++;
     }

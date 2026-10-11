@@ -1,68 +1,24 @@
-#include "engine/render/Window.h"
-#include "engine/assets/Utilities.h"
-#include "game/entities/Snake.h"
-#include "game/entities/Wall.h"
-#include "engine/core/Time.h"
-#include "engine/systems/input/inputQueue.h"
+#include "engine/core/SceneManager.h"
+#include "game/Scenes/Menu.h"
+#include "game/Scenes/Gameplay.h"
+#include "game/Scenes/GameOver.h"
 
 int main() {
-    Engine::Render::Window<30, 50> window;
-    auto& timer = Engine::Time::getTime();
-    Engine::Input::i_Queue events(2);
-    
-    sg::Food apple('a');
-    apple.setPosition(37, 17);
-    sg::Snake sn(2, 100);
-    std::vector<sg::Wall> walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
-    walls[0].setWallPosition(0, 0);
-    walls[1].setWallPosition(49, 0);
-    walls[2].setWallPosition(0, 0);
-    walls[3].setWallPosition(0, 29);
+    auto menu = std::make_unique<sg::MenuScene> ("menu");
+    auto gameplay = std::make_unique<sg::GameplayScene> ("gameplay");
+    auto gameover = std::make_unique<sg::GameOver> ("gameover");
 
-    for(auto& wall : walls) {
-        wall.initAll('#');
-    }
-    
-    sn.setup();
-    Engine::Input::Action control;
+    Engine::Core::SceneManager sm;
 
-    Engine::Math::Rect snakeHead;
-    while(window.isOpen()) {
-        timer.startFrame();
-        events.registerPress();
-        control = events.getPressedKey();
-        sn.setDirection(control);
-        sn.move();
-        snakeHead.m_min = sn.getCell(sn.head()).m_transform;
-        snakeHead.m_max = sn.getCell(sn.head()).m_transform;
-        if(apple.wasEaten(snakeHead)) {
-            sn.snakeGrow();
-            sn.incrementScore();
-        }
-        if(control == Engine::Input::Action::EXIT || sn.didSelfCollide()) {
-            window.close();
-        }
-        for(const auto& wall : walls) {
-            if(wall.getBody().getGlobalBounds().intersect(snakeHead))
-            window.close();
-        }
-        for(auto& wall : walls) {
-            window.draw(wall.getBody());
-        }
-        
-        window.draw(apple.getBody());
-        window.draw(sn.getBody());
-        window.display();
-        events.clearInputBuffers();
-        timer.sleepUntil(200);
-        Engine::Utility::clearScreen();
-        window.frameReset();
-        apple.setPosition(Engine::Utility::randomInt(10, 48), Engine::Utility::randomInt(5, 29));
-        //only for testing....
+    sm.registerScene(sg::SceneEnum::MenuScene, std::move(menu));
+    sm.registerScene(sg::SceneEnum::GameplayScene, std::move(gameplay));
+    sm.registerScene(sg::SceneEnum::GameOver, std::move(gameover));
 
+    for(auto i = 0; i < static_cast<std::size_t>(sg::SceneEnum::None); i++) {
+        sm.pushScene(i);
     }
 
-    Engine::Utility::displayFinalScore(sn.getScore());
+    sm.startGame();
 
     return 0;
 

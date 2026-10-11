@@ -28,6 +28,7 @@ namespace Engine::Core {
         const Flat::RingBuffer<Cell>& getSegments() const noexcept;
 
         void earlySetup();  //temp function
+        void shrink(std::size_t size);
 
         void right();
         void left();

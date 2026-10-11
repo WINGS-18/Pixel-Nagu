@@ -4,6 +4,10 @@ CXXFLAGS = -std=c++20 -IEngine/include -ISnakeGame/include -Wall -O3
 SOURCES = SnakeGame/main.cpp \
           SnakeGame/src/game/entities/Snake.cpp \
           SnakeGame/src/game/entities/Wall.cpp \
+          SnakeGame/src/game/Scenes/Menu.cpp \
+          SnakeGame/src/game/Scenes/Gameplay.cpp \
+          SnakeGame/src/game/Scenes/GameOver.cpp \
+          Engine/src/engine/core/SceneManger.cpp \
           Engine/src/engine/assets/Utilities.cpp \
           Engine/src/engine/math/rect.cpp \
           Engine/src/engine/math/vector2C.cpp \
