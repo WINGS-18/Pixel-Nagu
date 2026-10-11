@@ -24,6 +24,10 @@ namespace sg {
         int getScore() const noexcept;
         void resetScore() noexcept {m_score = 0;}
 
+        void resetDirection() noexcept {
+            m_snakeDirection.m_currDir = Engine::Direction::right;
+        }
+
         const ec::SoftBody& getBody() const noexcept;
 
         void setup();

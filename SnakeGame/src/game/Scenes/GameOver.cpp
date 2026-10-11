@@ -30,9 +30,7 @@ namespace sg {
         
         auto currIdx = static_cast<std::size_t> (sg::SceneEnum::GameOver);
 
-        for(int i = currIdx; i > 0; i--) {
-            sceneManager.popScene();
-        }
+        sceneManager.popScene();
     }
 
     void GameOver::onRender(Engine::Render::Window<30, 50>& window) {

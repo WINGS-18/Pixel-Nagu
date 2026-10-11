@@ -29,8 +29,8 @@ namespace sg {
     }
 
     void GameplayScene::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events) {
+        Engine::Math::Rect snakeHead;
         m_food.setPosition(Engine::Utility::randomInt(10, 48), Engine::Utility::randomInt(5, 29));
-        static Engine::Math::Rect snakeHead;
         events.registerPress();
         Engine::Input::Action control = events.getPressedKey();
         m_snake.setDirection(control);
@@ -67,6 +67,7 @@ namespace sg {
 
     void GameplayScene::onExit() {
         m_snake.resetScore();
+        m_snake.resetDirection();
         m_food.setPosition(37, 17);
         m_snake.shrink(1);
         m_snake.setup();

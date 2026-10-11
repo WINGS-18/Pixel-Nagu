@@ -14,10 +14,6 @@ int main() {
     sm.registerScene(sg::SceneEnum::GameplayScene, std::move(gameplay));
     sm.registerScene(sg::SceneEnum::GameOver, std::move(gameover));
 
-    for(auto i = 0; i < static_cast<std::size_t>(sg::SceneEnum::None); i++) {
-        sm.pushScene(i);
-    }
-
     sm.startGame();
 
     return 0;

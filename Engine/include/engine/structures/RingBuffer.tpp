@@ -57,10 +57,11 @@ namespace Engine::Flat {
         }
 
         if(size <= 0) {
+            m_head = 0;
             m_tail = 0;
             m_size = 0;
         }
-
+        m_head = 0;
         m_tail = size;
         m_size = size;
     }
