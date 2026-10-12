@@ -19,7 +19,8 @@ namespace Engine::Input {
         void registerPress() noexcept;
         bool noise(Action currAction, Action prevAction) noexcept;
 
-        Action getPressedKey() noexcept;
+        Action getPressedKeyForPollKey() noexcept;
+        Action getPressedKeyForWaitKey() noexcept;
 
         void clean_os_buffer() const noexcept;
         void cleanKeyboardBuffer() noexcept;

@@ -49,7 +49,7 @@ namespace Engine::Input {
         return currAction == prevAction;
     }
 
-    Action i_Queue::getPressedKey() noexcept {
+    Action i_Queue::getPressedKeyForPollKey() noexcept {
         if(m_keyboardBuffer.empty()) {
             return Action::NONE;
         }
@@ -57,6 +57,10 @@ namespace Engine::Input {
         auto ch = m_keyboardBuffer[m_keyboardBuffer.head()];
         m_keyboardBuffer.pop();
         return ch;
+    }
+
+    Action i_Queue::getPressedKeyForWaitKey() noexcept {
+        return translateKey(Utility::waitKey());
     }
 
     void i_Queue::clean_os_buffer() const noexcept {
