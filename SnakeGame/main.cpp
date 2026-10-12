@@ -2,6 +2,7 @@
 #include "game/Scenes/Menu.h"
 #include "game/Scenes/Gameplay.h"
 #include "game/Scenes/GameOver.h"
+#include "game/Scenes/SceneTypes.h"
 
 int main() {
     auto menu = std::make_unique<sg::MenuScene> ("menu");
