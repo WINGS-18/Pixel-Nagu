@@ -1,7 +1,7 @@
 #include "engine/core/SceneManager.h"
 #include "game/Scenes/GameOver.h"
 #include "engine/assets/Utilities.h"
-#include "game/Scenes/Menu.h"
+#include "game/Scenes/SceneTypes.h"
 #include "engine/systems/input/inputTypes.h"
 #include "engine/systems/input/inputQueue.h"
 #include <iostream>

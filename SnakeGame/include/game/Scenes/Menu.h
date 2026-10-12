@@ -5,8 +5,6 @@
 
 namespace sg {
 
-    enum class SceneEnum {MenuScene = 0, GameplayScene, GameOver, None};
-
     class MenuScene : public Engine::Core::IScene {
     public:
         using IScene::IScene;

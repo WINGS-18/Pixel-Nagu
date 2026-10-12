@@ -2,7 +2,7 @@
 #include "engine/systems/input/inputQueue.h"
 #include "engine/assets/Utilities.h"
 #include "engine/core/SceneManager.h"
-#include "game/Scenes/Menu.h"
+#include "game/Scenes/SceneTypes.h"
 
 namespace sg {
 
@@ -30,9 +30,8 @@ namespace sg {
 
     void GameplayScene::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events) {
         Engine::Math::Rect snakeHead;
-        m_food.setPosition(Engine::Utility::randomInt(10, 48), Engine::Utility::randomInt(5, 29));
         events.registerPress();
-        Engine::Input::Action control = events.getPressedKey();
+        Engine::Input::Action control = events.getPressedKeyForPollKey();
         m_snake.setDirection(control);
         m_snake.move();
         snakeHead.m_min = m_snake.getCell(m_snake.head()).m_transform;
@@ -40,19 +39,13 @@ namespace sg {
         if(m_food.wasEaten(snakeHead)) {
             m_snake.snakeGrow();
             m_snake.incrementScore();
+            m_food.setPosition(Engine::Utility::randomInt(10, 48), Engine::Utility::randomInt(5, 29));
         }
-        if(control == Engine::Input::Action::EXIT || m_snake.didSelfCollide()) {
-            sceneManager.popScene();
-            sceneManager.pushScene(static_cast<std::size_t> (sg::SceneEnum::GameOver));
+
+        if(checkCollisionToSlef(sceneManager, control) == checkCollisionToWall(sceneManager, snakeHead)) {
             return;
         }
-        for(const auto& wall : m_walls) {
-            if(wall.getBody().getGlobalBounds().intersect(snakeHead)) {
-                sceneManager.popScene();
-                sceneManager.pushScene(static_cast<std::size_t> (sg::SceneEnum::GameOver));
-                return;
-            }
-        }
+        
     }
 
     void GameplayScene::onRender(Engine::Render::Window<30, 50>& window) {
@@ -71,6 +64,26 @@ namespace sg {
         m_food.setPosition(37, 17);
         m_snake.shrink(1);
         m_snake.setup();
+    }
+
+    bool GameplayScene::checkCollisionToSlef(Engine::Core::SceneManager& sceneManager, Engine::Input::Action control) {
+        if(control == Engine::Input::Action::EXIT || m_snake.didSelfCollide()) {
+            sceneManager.popScene();
+            sceneManager.pushScene(static_cast<std::size_t> (sg::SceneEnum::GameOver));
+            return true;
+        }
+        return false;
+    }
+
+    bool GameplayScene::checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect snakeHead) {
+        for(const auto& wall : m_walls) {
+            if(wall.getBody().getGlobalBounds().intersect(snakeHead)) {
+                sceneManager.popScene();
+                sceneManager.pushScene(static_cast<std::size_t> (sg::SceneEnum::GameOver));
+                return true;
+            }
+        }
+        return false;
     }
 
 }
