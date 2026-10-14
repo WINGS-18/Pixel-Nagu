@@ -47,6 +47,7 @@ namespace sg {
         int head() const noexcept;
         int tail() const noexcept;
         int fullSize() const noexcept;
+        
     };
 
 
