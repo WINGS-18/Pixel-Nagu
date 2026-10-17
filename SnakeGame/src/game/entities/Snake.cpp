@@ -8,7 +8,8 @@ namespace sg {
     namespace ei = en::Input;
 
     Snake::Snake(std::size_t initSize, std::size_t reserveSize)
-        : m_snakeBody(initSize, reserveSize) {}
+        : m_snakeBody(initSize, reserveSize),
+          m_snakeEvents(2, {'W', 'A', 'S', 'D'}, {ei::Action::UP, ei::Action::LEFT, ei::Action::DOWN, ei::Action::RIGHT}) {}
 
     const ec::Cell& Snake::getCell(int index) const noexcept {
         return m_snakeBody.getSegments()[index];
@@ -34,8 +35,8 @@ namespace sg {
         m_snakeBody.earlySetup();
     }
 
-    void Snake::setDirection(ei::Action action) {
-        m_snakeDirection.setTheDirection(action);
+    void Snake::setDirection(ei::KeyAction action, std::uint64_t tick) {
+        m_snakeDirection.setTheDirection(action, tick);
     }
 
     bool Snake::didSelfCollide() {

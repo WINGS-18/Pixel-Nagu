@@ -3,6 +3,7 @@
 #include "engine/core/bodies/SoftBody.h"
 #include "engine/core/bodies/RigidBody.h"
 #include "engine/math/direction-system/Direction.h"
+#include "engine/systems/input/inputQueue.h"
 
 namespace sg {
 
@@ -12,6 +13,11 @@ namespace sg {
     private:
         ec::SoftBody m_snakeBody;
         Engine::Movement m_snakeDirection;
+
+    public:
+        Engine::Input::i_Queue m_snakeEvents;
+
+    private:
         int m_score = 0;
 
     public:
@@ -32,7 +38,7 @@ namespace sg {
 
         void setup();
 
-        void setDirection(Engine::Input::Action action);
+        void setDirection(Engine::Input::KeyAction action, std::uint64_t tick);
 
         void move();
 

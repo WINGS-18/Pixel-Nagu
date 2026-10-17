@@ -16,7 +16,7 @@ namespace sg {
         
     }
 
-    void GameOver::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events) {
+    void GameOver::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick) {
 
         std::cout << "press any key to return to menu....\n";
         auto key = Engine::Utility::waitKey();

@@ -1,13 +1,17 @@
 #include "engine/math/direction-system/Direction.h"
 #include "engine/systems/input/inputTypes.h"
+#include "engine/systems/input/inputQueue.h"
 
 namespace Engine {
 
     namespace ip = Input;
 
-    void Movement::setTheDirection(Input::Action action) {
+    void Movement::setTheDirection(ip::KeyAction action, std::uint64_t tick) {
 
-        switch(action) {
+        auto tickDifference = tick - action.m_tick;
+        if(tickDifference >= 3 && tickDifference < 0) return;
+
+        switch(action.m_action) {
 
             case ip::Action::LEFT :
                 if(!opposite(Direction::left))

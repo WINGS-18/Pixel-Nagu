@@ -9,7 +9,7 @@
 #include <cstdint>
 
 namespace Engine::Input {
-    enum class Action : std::uint8_t;
+    struct KeyAction;
 }
 
 namespace Engine {
@@ -23,7 +23,7 @@ namespace Engine {
         Direction m_currDir = Direction::right;
         Movement() = default;
 
-        void setTheDirection(Engine::Input::Action action);
+        void setTheDirection(Engine::Input::KeyAction action, std::uint64_t tick);
 
         bool opposite(const Direction& dir);
     };

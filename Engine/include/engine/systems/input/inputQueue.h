@@ -15,7 +15,7 @@ namespace Engine::Input {
     private:
         Flat::RingBuffer<KeyAction> m_keyboardBuffer;
         std::vector<int> m_monitoredKeys;
-        inline static std::array<Action, 256> m_actionHash {};
+        std::array<Action, 256> m_actionHash {};
 
     public:
         i_Queue(std::size_t size, const std::vector<int>& monitoredKeys, const std::vector<Action>& inorderToMonitoredKeys);
@@ -28,7 +28,7 @@ namespace Engine::Input {
         KeyAction getPressedKeyForPollKey() noexcept;
         Action getPressedKeyForWaitKey() noexcept;
 
-        // void clean_os_buffer() const noexcept;
+        static void clean_os_buffer() noexcept;
         void cleanKeyboardBuffer() noexcept;
 
         // void clearInputBuffers() noexcept;

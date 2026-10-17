@@ -47,11 +47,11 @@ namespace Engine::Input {
         return translateKey(Utility::waitKey());
     }
 
-    // void i_Queue::clean_os_buffer() const noexcept {
-    //     while(Utility::pollKey() != '\0') {
+    void i_Queue::clean_os_buffer() noexcept {
+        while(Utility::pollKey() != '\0') {
             
-    //     }
-    // }
+        }
+    }
 
     void i_Queue::cleanKeyboardBuffer() noexcept {
         m_keyboardBuffer.clear();

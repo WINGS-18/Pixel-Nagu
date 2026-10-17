@@ -46,7 +46,7 @@ namespace Engine::Flat {
     void RingBuffer<T>::releaseBack(std::size_t size) noexcept {
         if(m_tail != 0) {
             m_tail--;
-            m_data--;
+            m_size--;
         }
     }
 
