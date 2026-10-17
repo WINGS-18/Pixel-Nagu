@@ -20,7 +20,7 @@ namespace Engine::Core {
 
         virtual ~IScene() = default;
         virtual void onInit() = 0;
-        virtual void onUpdate(SceneManager& sceneManager, Engine::Input::i_Queue& events) = 0;
+        virtual void onUpdate(SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick) = 0;
         virtual void onRender(Render::Window<30, 50>& window) = 0;
         virtual void onExit() = 0;
     };

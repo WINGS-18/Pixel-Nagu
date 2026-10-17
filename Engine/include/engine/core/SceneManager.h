@@ -25,7 +25,7 @@ namespace Engine::Core {
         void pushScene(std::size_t id);
         void popScene();
 
-        void update(Engine::Input::i_Queue& events);
+        void update(Engine::Input::i_Queue& events, std::uint64_t tick);
         void draw(Render::Window<30, 50>& window);
 
         void startGame();
