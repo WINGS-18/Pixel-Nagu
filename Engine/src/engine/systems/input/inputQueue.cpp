@@ -38,7 +38,7 @@ namespace Engine::Input {
             return KeyAction{0, Action::NONE};
         }
 
-        auto action = m_keyboardBuffer[m_keyboardBuffer.head()];
+        auto action = m_keyboardBuffer[0];  //fix : passing head meant head + head index which caused bugs.
         m_keyboardBuffer.pop();
         return action;
     }
@@ -64,6 +64,10 @@ namespace Engine::Input {
 
     bool i_Queue::isKeyDown(int key) noexcept {
         return (GetAsyncKeyState(key) & 0x8000) != 0;
+    }
+
+    bool i_Queue::empty() const noexcept {
+        return m_keyboardBuffer.empty();
     }
 
 }

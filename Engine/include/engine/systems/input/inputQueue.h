@@ -35,7 +35,7 @@ namespace Engine::Input {
 
         bool isKeyDown(int key) noexcept;
 
-
+        bool empty() const noexcept;
     };
 
 }
