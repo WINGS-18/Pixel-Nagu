@@ -1,15 +1,18 @@
 #pragma once
 
-#include <array>
+#include <vector>
+#include "engine/math/Extents.h"
 
 namespace Engine::Flat {
 
-    template<typename T, std::size_t rows, std::size_t cols>
+    template<typename T>
     class FlattArray {
     private:
-        std::array<T, rows * cols> m_data;
+        std::vector<T> m_data;
+        Math::Extents m_rowsncols;
 
     public:
+        FlattArray(std::size_t rows, std::size_t cols);
         T& operator() (std::size_t x, std::size_t y);
         const T& operator() (std::size_t x, std::size_t y) const;
 
@@ -17,5 +20,3 @@ namespace Engine::Flat {
     };
 
 }
-
-#include "engine/structures/Flatarray.tpp"
