@@ -31,8 +31,9 @@ namespace sg {
     void GameplayScene::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick) {
         Engine::Math::Rect snakeHead;
         Engine::Input::KeyAction control;
-        for(std::size_t i = 0; i < 2; i++) {
-            m_snake.m_snakeEvents.registerPress(tick);
+        m_snake.m_snakeEvents.registerPress(tick);
+        events.registerPress(tick);
+        while(!m_snake.m_snakeEvents.empty()) {
             control = m_snake.m_snakeEvents.getPressedKeyForPollKey();
             m_snake.setDirection(control, tick);
         }
@@ -45,10 +46,12 @@ namespace sg {
             m_food.setPosition(Engine::Utility::randomInt(10, 48), Engine::Utility::randomInt(5, 29));
         }
 
-        if(checkCollisionToSlef(sceneManager, control.m_action) == checkCollisionToWall(sceneManager, snakeHead)) {
+        auto systemControl = events.getPressedKeyForPollKey().m_action;
+
+        if(checkCollisionToSlef(sceneManager, systemControl) || checkCollisionToWall(sceneManager, snakeHead)) {
             return;
         }
-        
+
     }
 
     void GameplayScene::onRender(Engine::Render::Window<30, 50>& window) {

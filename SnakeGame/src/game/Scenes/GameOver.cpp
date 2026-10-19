@@ -21,7 +21,7 @@ namespace sg {
         std::cout << "press any key to return to menu....\n";
         auto key = Engine::Utility::waitKey();
 
-        auto translatedKey = events.translateKey(key);
+        auto translatedKey = events.translateKey(key - 32);
 
         if(translatedKey == Engine::Input::Action::EXIT) {
             sceneManager.isRunning = false;

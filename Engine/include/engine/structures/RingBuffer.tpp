@@ -93,7 +93,6 @@ namespace Engine::Flat {
     template<typename T>
     void RingBuffer<T>::pop() noexcept {
         releaseFront(1);
-        m_size--;
     }
 
     template<typename T>

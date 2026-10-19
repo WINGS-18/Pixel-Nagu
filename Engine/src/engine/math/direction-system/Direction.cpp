@@ -9,7 +9,7 @@ namespace Engine {
     void Movement::setTheDirection(ip::KeyAction action, std::uint64_t tick) {
 
         auto tickDifference = tick - action.m_tick;
-        if(tickDifference >= 3 && tickDifference < 0) return;
+        if(tickDifference >= 3) return;
 
         switch(action.m_action) {
 

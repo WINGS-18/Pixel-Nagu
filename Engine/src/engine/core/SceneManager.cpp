@@ -36,7 +36,7 @@ namespace Engine::Core {
 
     void SceneManager::startGame() {
         auto& timer = Time::getTime();
-        Input::i_Queue events(1, {}, {});
+        Input::i_Queue events(1, {'Q'}, {Input::Action::EXIT});
         Render::Window<30, 50> window;
 
         pushScene(0);
@@ -45,7 +45,7 @@ namespace Engine::Core {
             timer.startFrame();
             update(events, timer.getGlobalFrameCounter());
             draw(window);
-            //events.cleanKeyboardBuffer();
+            events.cleanKeyboardBuffer();
             timer.sleepUntil(200);
             Utility::clearScreen();
             window.frameReset();
