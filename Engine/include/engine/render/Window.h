@@ -21,19 +21,17 @@ namespace Engine::Core {
 
 namespace Engine::Render {
         
-    template<std::size_t height, std::size_t width>
     class Window {
     private:
-        Flat::FlattArray<char, height, width> m_frame;
+        Flat::FlattArray<char> m_frame;
         Flat::FlattString m_buffer;
 
     public:
-        Window();
+        Window(std::size_t height, std::size_t width);
 
         void frameReset();
         
         void draw(const Core::SoftBody& cell);
-
         void draw(const Core::RigidBody& cell);
 
         void makeBuffer();
@@ -49,7 +47,3 @@ namespace Engine::Render {
     };
 
 }
-
-//template classes or template functions definations can be written
-//in .tpp or .inl files, to avoid definations inside the .h file.
-#include "engine/render/Window.tpp"

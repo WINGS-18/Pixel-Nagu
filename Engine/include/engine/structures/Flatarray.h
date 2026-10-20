@@ -9,6 +9,8 @@ namespace Engine::Flat {
     class FlattArray {
     private:
         std::vector<T> m_data;
+    
+    public:
         Math::Extents m_rowsncols;
 
     public:
@@ -21,3 +23,6 @@ namespace Engine::Flat {
     };
 
 }
+
+
+#include "engine/structures/Flatarray.tpp"

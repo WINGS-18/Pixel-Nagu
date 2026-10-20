@@ -19,7 +19,7 @@ namespace Engine::Flat {
 
     template<typename T>
     void FlattArray<T>::fullInit(const T& data) {
-        m_data.fill(data);
+        std::fill(m_data.begin(), m_data.end(), data);
     }
 
 }

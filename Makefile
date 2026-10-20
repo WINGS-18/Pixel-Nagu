@@ -18,7 +18,8 @@ SOURCES = SnakeGame/main.cpp \
           Engine/src/engine/core/bodies/Cell.cpp \
           Engine/src/engine/core/bodies/RigidBody.cpp \
           Engine/src/engine/core/bodies/SoftBody.cpp \
-          Engine/src/engine/systems/input/inputQueue.cpp
+          Engine/src/engine/systems/input/inputQueue.cpp\
+          Engine/src/engine/render/Window.cpp
 
 TARGET = snake_game.exe
 
