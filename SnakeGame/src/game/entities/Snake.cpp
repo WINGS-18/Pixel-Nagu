@@ -45,7 +45,9 @@ namespace sg {
             return false;
         }
 
-        for(auto i = 0; i < body.size() - 1; i++) {
+        // i < body.size() - 1 can give critical bug if body.size reaches unit64 limit.
+        // i + 1 < body.size() works same.
+        for(std::size_t i = 0; i + 1 < body.size(); i++) {
             if(body[i].m_transform == body[head()].m_transform) {
                 return true;
             }

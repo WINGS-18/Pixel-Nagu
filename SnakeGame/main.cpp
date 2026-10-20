@@ -15,7 +15,9 @@ int main() {
     sm.registerScene(sg::SceneEnum::GameplayScene, std::move(gameplay));
     sm.registerScene(sg::SceneEnum::GameOver, std::move(gameover));
 
-    sm.startGame();
+    Engine::Render::Window window(30, 50);
+
+    sm.startGame(window);
 
     return 0;
 

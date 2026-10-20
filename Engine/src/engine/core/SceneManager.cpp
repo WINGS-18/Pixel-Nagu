@@ -28,16 +28,15 @@ namespace Engine::Core {
         }
     }
 
-    void SceneManager::draw(Render::Window<30, 50>& window) {
+    void SceneManager::draw(Render::Window& window) {
         if(!m_stack.empty()) {
             m_stack.back()->onRender(window);
         }
     }
 
-    void SceneManager::startGame() {
+    void SceneManager::startGame(Render::Window& window) {
         auto& timer = Time::getTime();
         Input::i_Queue events(1, {'Q'}, {Input::Action::EXIT});
-        Render::Window<30, 50> window;
 
         pushScene(0);
 

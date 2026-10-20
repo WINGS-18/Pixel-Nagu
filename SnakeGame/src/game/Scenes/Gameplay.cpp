@@ -54,7 +54,7 @@ namespace sg {
 
     }
 
-    void GameplayScene::onRender(Engine::Render::Window<30, 50>& window) {
+    void GameplayScene::onRender(Engine::Render::Window& window) {
         for(auto& wall : m_walls) {
             window.draw(wall.getBody());
         }
@@ -74,7 +74,7 @@ namespace sg {
         m_snake.setup();
     }
 
-    bool GameplayScene::checkCollisionToSlef(Engine::Core::SceneManager& sceneManager, Engine::Input::Action control) {
+    bool GameplayScene::checkCollisionToSlef(Engine::Core::SceneManager& sceneManager, Engine::Input::Action control) noexcept {
         if(control == Engine::Input::Action::EXIT || m_snake.didSelfCollide()) {
             sceneManager.popScene();
             sceneManager.pushScene(static_cast<std::size_t> (sg::SceneEnum::GameOver));
@@ -83,7 +83,7 @@ namespace sg {
         return false;
     }
 
-    bool GameplayScene::checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect snakeHead) {
+    bool GameplayScene::checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect snakeHead) noexcept {
         for(const auto& wall : m_walls) {
             if(wall.getBody().getGlobalBounds().intersect(snakeHead)) {
                 sceneManager.popScene();

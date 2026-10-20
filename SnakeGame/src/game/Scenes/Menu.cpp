@@ -27,7 +27,7 @@ namespace sg {
         sceneManager.pushScene(static_cast<std::size_t> (sg::SceneEnum::GameplayScene));
     }
 
-    void MenuScene::onRender(Engine::Render::Window<30, 50>& window) {
+    void MenuScene::onRender(Engine::Render::Window& window) {
 
     }
 

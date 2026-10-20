@@ -26,9 +26,9 @@ namespace Engine::Core {
         void popScene();
 
         void update(Engine::Input::i_Queue& events, std::uint64_t tick);
-        void draw(Render::Window<30, 50>& window);
+        void draw(Render::Window& window);
 
-        void startGame();
+        void startGame(Render::Window& window);
 
     };
 

@@ -12,7 +12,7 @@ namespace sg {
         virtual void onInit() override;
         virtual void onExit() override;
         virtual void onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick) override;
-        virtual void onRender(Engine::Render::Window<30, 50>& window) override;
+        virtual void onRender(Engine::Render::Window& window) override;
     };
 
 }
