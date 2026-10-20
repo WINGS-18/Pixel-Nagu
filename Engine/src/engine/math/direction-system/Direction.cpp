@@ -32,6 +32,14 @@ namespace Engine {
                 if(!opposite(Direction::down))
                     m_currDir = Direction::down;
                 break;
+
+            case ip::Action::NONE :
+
+            case ip::Action::EXIT :
+                break;
+                
+            default :
+                break;
         }
     }
 

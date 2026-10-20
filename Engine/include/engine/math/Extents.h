@@ -5,14 +5,17 @@
 
 #pragma once
 
+#include <cstdint>
+
 namespace Engine::Math {
 
     struct Extents {
-        int m_rows;
-        int m_cols;
+        std::size_t m_rows;
+        std::size_t m_cols;
 
-        Extents(int rows, int cols)
+        Extents(std::size_t rows, std::size_t cols)
             : m_rows(rows), m_cols(cols) {}
+            
     };
     
 

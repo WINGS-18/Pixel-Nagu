@@ -13,7 +13,7 @@ namespace Engine::Flat {
     class RingBuffer {
     private:
         std::vector<T> m_data;
-        int m_head, m_tail;
+        std::size_t m_head, m_tail;
         std::size_t m_size = 0;
 
     public:
