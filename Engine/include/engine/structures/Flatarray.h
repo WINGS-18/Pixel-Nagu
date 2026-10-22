@@ -19,7 +19,25 @@ namespace Engine::Flat {
         T& operator() (std::size_t x, std::size_t y);
         const T& operator() (std::size_t x, std::size_t y) const;
 
-        void fullInit(const T& data);
+        std::size_t rows() const noexcept;
+        std::size_t columns() const noexcept;
+
+        auto begin() noexcept;
+        auto end() noexcept;
+        
+        auto begin() const noexcept;
+        auto end() const noexcept;
+
+        void fill(const T& data);
+
+    public:
+        FlattArray(const FlattArray&) = default;
+        FlattArray& operator= (const FlattArray&) = default;
+    
+        FlattArray(FlattArray&&) = default;
+        FlattArray& operator= (FlattArray&&) = default;
+    
+        ~FlattArray() = default;
     };
 
 }

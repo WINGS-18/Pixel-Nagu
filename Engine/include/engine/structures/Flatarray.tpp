@@ -1,5 +1,4 @@
 #include "engine/structures/Flatarray.h"
-#include <iostream>
 
 namespace Engine::Flat {
 
@@ -18,8 +17,38 @@ namespace Engine::Flat {
     }
 
     template<typename T>
-    void FlattArray<T>::fullInit(const T& data) {
-        std::fill(m_data.begin(), m_data.end(), data);
+    inline std::size_t FlattArray<T>::rows() const noexcept {
+        return m_rowsncols.m_rows;
+    }
+
+    template<typename T>
+    inline auto FlattArray<T>::begin() noexcept {
+        return m_data.begin();
+    }
+
+    template<typename T>
+    inline auto FlattArray<T>::end() noexcept {
+        return m_data.end();
+    }
+
+    template<typename T>
+    inline auto FlattArray<T>::begin() const noexcept {
+        return m_data.cbegin();
+    }
+
+    template<typename T>
+    inline auto FlattArray<T>::end() const noexcept {
+        return m_data.cend();
+    }
+
+    template<typename T>
+    inline std::size_t FlattArray<T>::columns() const noexcept {
+        return m_rowsncols.m_cols;
+    }
+
+    template<typename T>
+    void FlattArray<T>::fill(const T& data) {
+        std::fill(begin(), end(), data);
     }
 
 }
