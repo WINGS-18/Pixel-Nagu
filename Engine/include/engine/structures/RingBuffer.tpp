@@ -21,32 +21,28 @@ namespace Engine::Flat {
     }
 
     template<typename T>
-    std::size_t RingBuffer<T>::size() noexcept {
+    std::size_t RingBuffer<T>::size() const noexcept {
         return m_size;
     }
 
     template<typename T>
-    const std::size_t RingBuffer<T>::size() const noexcept {
-        return m_size;
-    }
-
-    template<typename T>
-    int RingBuffer<T>::movePointers(int pointer, std::size_t size) noexcept {
+    std::size_t RingBuffer<T>::movePointers(std::size_t pointer, std::size_t size) noexcept {
         pointer = (pointer + size) % (m_data.size());   //increases the volume of the valid range (tail -> head).
+
         return pointer;
     }
     
     template<typename T>
     void RingBuffer<T>::releaseFront(std::size_t size) noexcept {
         m_head = movePointers(m_head, size);
-        m_size--;
+        m_size -= size;
     }
 
     template<typename T>
     void RingBuffer<T>::releaseBack(std::size_t size) noexcept {
         if(m_tail != 0) {
-            m_tail--;
-            m_size--;
+            m_tail -= size;
+            m_size -= size;
         }
     }
 
@@ -69,7 +65,7 @@ namespace Engine::Flat {
     template<typename T>
     void RingBuffer<T>::reserveBack(std::size_t size) noexcept {
         m_tail = movePointers(m_tail, size);
-        m_size++;
+        m_size += size;
     }
 
     template<typename T>
@@ -129,12 +125,24 @@ namespace Engine::Flat {
 
     template<typename T>
     T& RingBuffer<T>::operator[] (std::size_t index) {
-        return m_data[(m_head + index) % m_data.size()];
+        auto index = (m_head + index) % m_data.size();
+        
+        if(index < 0 || index >= size()) {
+            return m_data[0];   //returns head data(temporary fix, untill I learn error handling)
+        }
+
+        return m_data[index];
     }
 
     template<typename T>
     const T& RingBuffer<T>::operator[] (std::size_t index) const {
-        return m_data[(m_head + index) % m_data.size()];
+        auto index = (m_head + index) % m_data.size();
+        
+        if(index < 0 || index >= size()) {
+            return m_data[0];   //returns head data(temporary fix, untill I learn error handling)
+        }
+
+        return m_data[index];
     }
 
 }

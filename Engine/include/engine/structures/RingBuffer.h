@@ -20,25 +20,25 @@ namespace Engine::Flat {
         RingBuffer(std::size_t reserveSize);
         RingBuffer(std::size_t initSize, std::size_t reserveSize);
 
-        std::size_t size() noexcept;
-        const std::size_t size() const noexcept;
-
-        int movePointers(int pointer, std::size_t size) noexcept;
+        
+        std::size_t size() const noexcept;
+        
+        std::size_t movePointers(std::size_t pointer, std::size_t size) noexcept;
         void reserveBack(std::size_t size) noexcept;
         void releaseFront(std::size_t size) noexcept;
         void releaseBack(std::size_t size) noexcept;
         void shrink(std::size_t size) noexcept;
-
+        
         void pushPrimitive(T data) noexcept;
         void push(const T& data) noexcept;
         void push(T&& data) noexcept;
         void pop() noexcept;
         void clear() noexcept;
         bool empty() const noexcept;
-
+        
         int head() const noexcept;
         int tail() const noexcept;
-
+        
         //returns iterators at head and tail.
         auto headIt() noexcept;
         auto tailIt() noexcept;
@@ -48,6 +48,15 @@ namespace Engine::Flat {
 
         T& operator[] (std::size_t index);
         const T& operator[] (std::size_t index) const;
+
+    public:
+        RingBuffer(const RingBuffer&) = default;
+        RingBuffer& operator= (const RingBuffer&) = default;
+    
+        RingBuffer(RingBuffer&&) = default;
+        RingBuffer& operator= (RingBuffer&&) = default;
+    
+        ~RingBuffer() = default;
     };
 
 }
