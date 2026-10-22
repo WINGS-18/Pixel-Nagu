@@ -30,7 +30,7 @@ namespace Engine::Render {
     }
 
     void Window::frameReset() {
-        m_frame.fullInit(' ');
+        m_frame.fill(' ');
     }
 
     void Window::makeBuffer() {
