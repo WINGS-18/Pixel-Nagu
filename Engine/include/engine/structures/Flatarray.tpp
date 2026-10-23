@@ -7,6 +7,10 @@ namespace Engine::Flat {
         : m_data(rows * cols), m_rowsncols(rows, cols) {}
 
     template<typename T>
+    FlattArray<T>::FlattArray(std::size_t rows, std::size_t cols, const T& completeInitialize)
+        : m_data(rows * cols, completeInitialize), m_rowsncols(rows, cols) {}
+
+    template<typename T>
     inline T& FlattArray<T>::operator() (std::size_t x, std::size_t y) {
         return m_data[(y * m_rowsncols.m_cols) + x];
     }

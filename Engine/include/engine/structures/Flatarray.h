@@ -15,6 +15,7 @@ namespace Engine::Flat {
 
     public:
         FlattArray(std::size_t rows, std::size_t cols);
+        FlattArray(std::size_t rows, std::size_t cols, const T& completeInitialize);
         
         T& operator() (std::size_t x, std::size_t y);
         const T& operator() (std::size_t x, std::size_t y) const;
