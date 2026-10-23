@@ -125,24 +125,24 @@ namespace Engine::Flat {
 
     template<typename T>
     T& RingBuffer<T>::operator[] (std::size_t index) {
-        auto index = (m_head + index) % m_data.size();
+        auto usableIndex = (m_head + index) % m_data.size();
         
-        if(index < 0 || index >= size()) {
+        if(usableIndex < 0 || usableIndex >= m_data.capacity()) {
             return m_data[0];   //returns head data(temporary fix, untill I learn error handling)
         }
 
-        return m_data[index];
+        return m_data[usableIndex];
     }
 
     template<typename T>
     const T& RingBuffer<T>::operator[] (std::size_t index) const {
-        auto index = (m_head + index) % m_data.size();
+        auto usableIndex = (m_head + index) % m_data.size();
         
-        if(index < 0 || index >= size()) {
+        if(usableIndex < 0 || usableIndex >= m_data.capacity()) {
             return m_data[0];   //returns head data(temporary fix, untill I learn error handling)
         }
 
-        return m_data[index];
+        return m_data[usableIndex];
     }
 
 }
