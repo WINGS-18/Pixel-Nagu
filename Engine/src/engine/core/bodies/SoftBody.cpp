@@ -11,11 +11,11 @@ namespace Engine::Core {
         }
     }
 
-    Flat::RingBuffer<Cell>& SoftBody::getSegments() noexcept {
+    ctl::ring_buffer<Cell>& SoftBody::getSegments() noexcept {
         return m_segments;
     }
 
-    const Flat::RingBuffer<Cell>& SoftBody::getSegments() const noexcept {
+    const ctl::ring_buffer<Cell>& SoftBody::getSegments() const noexcept {
         return m_segments;
     }
 

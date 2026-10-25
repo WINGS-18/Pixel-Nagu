@@ -11,8 +11,8 @@
 
 #pragma once
 
-#include "engine/structures/Flatarray.h"
-#include "engine/structures/Flatstring.h"
+#include "ctl/flat_array.hpp"
+#include "ctl/flat_string.hpp"
 
 namespace Engine::Core {
     class RigidBody;
@@ -23,8 +23,8 @@ namespace Engine::Render {
         
     class Window {
     private:
-        Flat::FlattArray<char> m_frame;
-        Flat::FlattString m_buffer;
+        ctl::flat_array<char> m_frame;
+        ctl::flat_string m_buffer;
 
     public:
         Window(std::size_t height, std::size_t width);

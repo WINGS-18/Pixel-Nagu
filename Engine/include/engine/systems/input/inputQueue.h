@@ -1,6 +1,6 @@
 #pragma once
 
-#include "engine/structures/RingBuffer.h"
+#include "ctl/ring_buffer.hpp"
 #include "engine/systems/input/inputTypes.h"
 #include <array>
 
@@ -13,7 +13,7 @@ namespace Engine::Input {
 
     class i_Queue {
     private:
-        Flat::RingBuffer<KeyAction> m_keyboardBuffer;
+        ctl::ring_buffer<KeyAction> m_keyboardBuffer;
         std::vector<int> m_monitoredKeys;
         std::array<Action, 256> m_actionHash {};
 

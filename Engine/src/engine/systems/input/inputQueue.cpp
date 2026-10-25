@@ -57,11 +57,6 @@ namespace Engine::Input {
         m_keyboardBuffer.clear();
     }
 
-    // void i_Queue::clearInputBuffers() noexcept {
-    //     clean_os_buffer();
-    //     cleanKeyboardBuffer();
-    // }
-
     bool i_Queue::isKeyDown(int key) noexcept {
         return (GetAsyncKeyState(key) & 0x8000) != 0;
     }

@@ -34,8 +34,8 @@ namespace Engine::Render {
     }
 
     void Window::makeBuffer() {
-        for(std::size_t i = 0; i < m_frame.m_rowsncols.m_rows; i++) {
-            for(std::size_t j = 0; j < m_frame.m_rowsncols.m_cols; j++) {
+        for(std::size_t i = 0; i < m_frame.rows(); i++) {
+            for(std::size_t j = 0; j < m_frame.columns(); j++) {
                 //placing every sprite onto the buffer by skipping the "\n" slots.
                 m_buffer(j, i) = m_frame(j, i);
             }

@@ -8,15 +8,15 @@
 #pragma once
 
 #include "engine/core/bodies/Cell.h"
-#include "engine/structures/RingBuffer.h"
 #include "engine/math/direction-system/Direction.h"
+#include "ctl/ring_buffer.hpp"
 
 namespace Engine::Core {
 
     class SoftBody {
     private:
-        Flat::RingBuffer<Cell> m_segments;
-        Flat::RingBuffer<Math::Vector2C> m_vertices;
+        ctl::ring_buffer<Cell> m_segments;
+        ctl::ring_buffer<Math::Vector2C> m_vertices;
         Engine::Movement m_direction;
 
     public:
@@ -24,8 +24,8 @@ namespace Engine::Core {
 
         void initAllSprites(char sprite);
 
-        Flat::RingBuffer<Cell>& getSegments() noexcept;
-        const Flat::RingBuffer<Cell>& getSegments() const noexcept;
+        ctl::ring_buffer<Cell>& getSegments() noexcept;
+        const ctl::ring_buffer<Cell>& getSegments() const noexcept;
 
         void earlySetup();  //temp function
         void shrink(std::size_t size);

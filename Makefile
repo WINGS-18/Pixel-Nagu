@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++20 -IEngine/include -ISnakeGame/include -Wall -O3
+CXXFLAGS = -std=c++20 -IEngine/include -ISnakeGame/include -IEngine/external/CTL/include -Wall -O3
 
 SOURCES = SnakeGame/main.cpp \
           SnakeGame/src/game/entities/Snake.cpp \
@@ -13,12 +13,11 @@ SOURCES = SnakeGame/main.cpp \
           Engine/src/engine/math/vector2C.cpp \
           Engine/src/engine/math/vector4.cpp \
           Engine/src/engine/math/direction-system/Direction.cpp \
-          Engine/src/engine/structures/Flatstring.cpp \
           Engine/src/engine/core/Time.cpp \
           Engine/src/engine/core/bodies/Cell.cpp \
           Engine/src/engine/core/bodies/RigidBody.cpp \
           Engine/src/engine/core/bodies/SoftBody.cpp \
-          Engine/src/engine/systems/input/inputQueue.cpp\
+          Engine/src/engine/systems/input/inputQueue.cpp \
           Engine/src/engine/render/Window.cpp
 
 TARGET = snake_game.exe
