@@ -29,6 +29,12 @@ namespace Engine::Render {
         }
     }
 
+    void Window::writeLine(std::size_t horizontalPoint, std::size_t verticalPoint, const std::string& message) {
+        for(const char& letter : message) {
+            m_frame(horizontalPoint++, verticalPoint) = letter;
+        }
+    }
+
     void Window::frameReset() {
         m_frame.fill(' ');
     }

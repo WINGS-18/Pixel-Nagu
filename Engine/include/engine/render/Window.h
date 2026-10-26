@@ -34,6 +34,8 @@ namespace Engine::Render {
         void draw(const Core::SoftBody& cell);
         void draw(const Core::RigidBody& cell);
 
+        void writeLine(std::size_t horizontalPoint, std::size_t verticalPoint, const std::string& message);
+
         void makeBuffer();
         
         void display() noexcept;
