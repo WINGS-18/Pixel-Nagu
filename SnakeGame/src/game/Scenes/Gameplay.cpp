@@ -3,6 +3,7 @@
 #include "engine/assets/Utilities.h"
 #include "engine/core/SceneManager.h"
 #include "game/Scenes/SceneTypes.h"
+#include <format>
 
 namespace sg {
 
@@ -61,6 +62,7 @@ namespace sg {
             
         window.draw(m_food.getBody());
         window.draw(m_snake.getBody());
+        window.writeLine(40, 1, std::format("score: {}", m_snake.getScore()));
         window.display();
     }
 
