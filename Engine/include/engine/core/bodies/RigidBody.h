@@ -18,8 +18,8 @@ namespace Engine::Core {
     private:
         std::vector<Cell> m_segments;
         Math::Extents m_rowsncols;
-        Math::Vector2C m_origin {-1, -1};
-        Math::Rect m_globalBounds;
+        Math::vector2f m_origin {0.0f, 0.0f};
+        Math::Rect<float> m_globalBounds;
         
     public:
         bool m_active = true;
@@ -32,10 +32,10 @@ namespace Engine::Core {
         
         const std::vector<Cell>& getSegments() const noexcept;
         
-        Engine::Math::Rect getGlobalBounds() const noexcept;    //returns a hitbox of the RigidBody
+        Engine::Math::Rect<float> getGlobalBounds() const noexcept;    //returns a hitbox of the RigidBody
         
-        void setPosition(int x, int y) noexcept;
-        Math::Vector2C origin() noexcept;
+        void setPosition(float x, float y) noexcept;
+        Math::vector2f origin() noexcept;
         void setSprites(const std::vector<char>& sprites);
 
     };

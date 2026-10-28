@@ -12,7 +12,7 @@
 namespace Engine::Core {
 
     struct Cell {
-        Engine::Math::Vector2C m_transform {1, 1};
+        Engine::Math::vector2f m_transform {1.0f, 1.0f};
         char m_sprite {'O'};
 
         Cell() = default;

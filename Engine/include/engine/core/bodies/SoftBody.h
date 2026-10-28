@@ -16,8 +16,6 @@ namespace Engine::Core {
     class SoftBody {
     private:
         ctl::ring_buffer<Cell> m_segments;
-        ctl::ring_buffer<Math::Vector2C> m_vertices;
-        Engine::Movement m_direction;
 
     public:
         SoftBody(std::size_t initSize, std::size_t reserveSize);
@@ -44,7 +42,7 @@ namespace Engine::Core {
         int tail() const noexcept;
         std::size_t size() const noexcept;
 
-        void setCoordinates(int index, int x, int y);
+        void setCoordinates(int index, float x, float y);
 
     };
 
