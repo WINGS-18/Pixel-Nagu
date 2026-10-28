@@ -30,7 +30,7 @@ namespace sg {
     }
 
     void GameplayScene::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick) {
-        Engine::Math::Rect snakeHead;
+        Engine::Math::Rect<float> snakeHead;
         Engine::Input::KeyAction control;
         m_snake.m_snakeEvents.registerPress(tick);
         events.registerPress(tick);
@@ -85,7 +85,7 @@ namespace sg {
         return false;
     }
 
-    bool GameplayScene::checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect snakeHead) noexcept {
+    bool GameplayScene::checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect<float> snakeHead) noexcept {
         for(const auto& wall : m_walls) {
             if(wall.getBody().getGlobalBounds().intersect(snakeHead)) {
                 sceneManager.popScene();

@@ -138,7 +138,7 @@ namespace sg {
         return m_food;
     }
 
-    bool Food::wasEaten(Engine::Math::Rect transform) noexcept {
+    bool Food::wasEaten(Engine::Math::Rect<float> transform) noexcept {
         if(getGlobalBounds().intersect(transform)) {
             m_food.m_active = false;
             return true;
@@ -146,11 +146,11 @@ namespace sg {
         return false;
     }
 
-    en::Math::Rect Food::getGlobalBounds() const noexcept{
+    en::Math::Rect<float> Food::getGlobalBounds() const noexcept{
         return m_food.getGlobalBounds();
     }
 
-    void Food::setPosition(int x, int y) {
+    void Food::setPosition(float x, float y) {
         if(!m_food.m_active) {
             m_food.setPosition(x, y);
             m_food.m_active = true;

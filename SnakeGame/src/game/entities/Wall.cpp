@@ -19,7 +19,7 @@ namespace sg {
         return m_wallBody;
     }
 
-    void Wall::setWallPosition(int x, int y) {
+    void Wall::setWallPosition(float x, float y) {
         m_wallBody.setPosition(x, y);
     }
 
