@@ -9,9 +9,6 @@ SOURCES = SnakeGame/main.cpp \
           SnakeGame/src/game/Scenes/GameOver.cpp \
           Engine/src/engine/core/SceneManager.cpp \
           Engine/src/engine/assets/Utilities.cpp \
-          Engine/src/engine/math/rect.cpp \
-          Engine/src/engine/math/vector2C.cpp \
-          Engine/src/engine/math/vector4.cpp \
           Engine/src/engine/math/direction-system/Direction.cpp \
           Engine/src/engine/core/Time.cpp \
           Engine/src/engine/core/bodies/Cell.cpp \
