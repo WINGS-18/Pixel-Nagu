@@ -12,14 +12,17 @@
 
 namespace Engine::Math {
 
+    template<IsAllowed T>
     struct Rect {
-        Vector2C m_min;
-        Vector2C m_max;
+        Vector2C<T> m_min;
+        Vector2C<T> m_max;
 
         Rect() = default;
-        Rect(Vector2C upper, Vector2C lower);
+        Rect(Vector2C<T> upper, Vector2C<T> lower);
 
-        bool intersect(const Rect& other);
+        bool intersect(const Rect<T>& other);
     };
 
 }
+
+#include "engine/math/rect.tpp"

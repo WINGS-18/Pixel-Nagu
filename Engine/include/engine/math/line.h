@@ -9,14 +9,19 @@
 
 namespace Engine::Math {
 
+    template<IsAllowed T>
     struct Line {
-        Vector2C m_vecLeft {0, 0};
-        Vector2C m_vecRight {0, 0};
+        Vector2C<T> m_vecLeft {0, 0};
+        Vector2C<T> m_vecRight {0, 0};
 
         Line() = default;
 
-        Line(Vector2C vec1, Vector2C vec2);
+        Line(Vector2C<T> vecl, Vector2C<T> vecr)
+            : m_vecLeft(vecl), m_vecRight(vecr) {}
 
     };
+
+    using Line2f = Line<float>;
+    using Line2i = Line<int>;
     
 }
