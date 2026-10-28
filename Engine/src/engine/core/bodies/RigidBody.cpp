@@ -26,11 +26,11 @@ namespace Engine::Core {
         }
     }
 
-    Math::Vector2C RigidBody::origin() noexcept {
+    Math::vector2f RigidBody::origin() noexcept {
         return m_origin;
     }
     
-    Math::Rect RigidBody::getGlobalBounds() const noexcept {
+    Math::Rect<float> RigidBody::getGlobalBounds() const noexcept {
         return Math::Rect {Math::Vector2C{m_segments[0].m_transform}, Math::Vector2C{m_segments[m_rowsncols.m_rows * m_rowsncols.m_cols - 1].m_transform}};
     }
 
@@ -38,15 +38,15 @@ namespace Engine::Core {
         return m_segments;
     }
 
-    void RigidBody::setPosition(int x, int y) noexcept {
+    void RigidBody::setPosition(float x, float y) noexcept {
 
         //here origin means the top left corner of the entity
         m_origin.x = x;
         m_origin.y = y;
 
-        int currentX = x;
-        int currentY = y;
-        int i = 0;
+        float currentX = x;
+        float currentY = y;
+        float i = 0;
 
         for(auto& cell : m_segments) {
             if(i == m_rowsncols.m_cols) {
