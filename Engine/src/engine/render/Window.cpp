@@ -16,7 +16,7 @@ namespace Engine::Render {
         const auto size = renderable.size();
 
         for(std::size_t i = 0; i < size; i++) {
-            m_frame(renderable[i].m_transform.x, renderable[i].m_transform.y) = renderable[i].m_sprite;
+            m_frame(static_cast<int> (renderable[i].m_transform.x), static_cast<int> (renderable[i].m_transform.y)) = renderable[i].m_sprite;
         }
 
     }
@@ -24,7 +24,7 @@ namespace Engine::Render {
     void Window::draw(const Core::RigidBody& body) {
         if(body.m_active) {
             for(const auto& cell : body.getSegments()) {
-                m_frame(cell.m_transform.x, cell.m_transform.y) = cell.m_sprite;
+                m_frame(static_cast<int> (cell.m_transform.x), static_cast<int> (cell.m_transform.y)) = cell.m_sprite;
             }
         }
     }
