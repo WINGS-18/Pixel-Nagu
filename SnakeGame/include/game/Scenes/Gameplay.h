@@ -21,7 +21,7 @@ namespace sg {
         virtual void onExit() override;
 
         bool checkCollisionToSlef(Engine::Core::SceneManager& sceneManager, Engine::Input::Action control) noexcept;
-        bool checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect snakeHead) noexcept;
+        bool checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect<float> snakeHead) noexcept;
 
     };
 

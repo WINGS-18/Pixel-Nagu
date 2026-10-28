@@ -16,12 +16,12 @@ namespace sg {
         void init(const std::vector<char>& sym);
         void initAll(char sym);
 
-        void setWallPosition(int x, int y);
+        void setWallPosition(float x, float y);
 
         const ec::Cell& getCell(int index) const noexcept;
         const ec::RigidBody& getBody() const noexcept;
 
-        Engine::Math::Vector2C origin() noexcept {
+        Engine::Math::vector2f origin() noexcept {
             return m_wallBody.origin();
         }
 

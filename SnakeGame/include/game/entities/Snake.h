@@ -68,9 +68,9 @@ namespace sg {
         ec::RigidBody& getBody() noexcept;
         const ec::RigidBody& getBody() const noexcept;
 
-        bool wasEaten(Engine::Math::Rect transform) noexcept;
-        Engine::Math::Rect getGlobalBounds() const noexcept;
-        void setPosition(int x, int ys);
+        bool wasEaten(Engine::Math::Rect<float> transform) noexcept;
+        Engine::Math::Rect<float> getGlobalBounds() const noexcept;
+        void setPosition(float x, float ys);
     };
 
 }
