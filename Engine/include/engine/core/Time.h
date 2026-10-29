@@ -14,7 +14,9 @@ namespace Engine {
     class Time {
     private:
         std::chrono::time_point<std::chrono::steady_clock> m_engineStart;
-        std::chrono::time_point<std::chrono::steady_clock> m_frameStart;
+        std::chrono::time_point<std::chrono::steady_clock> m_currentFrame;
+        std::chrono::time_point<std::chrono::steady_clock> m_lastFrame;
+        float m_delta;
 
     private:
         std::uint64_t m_globalFrameCounter {0};
@@ -23,8 +25,9 @@ namespace Engine {
     public:
         void sleep(double millisec);
         void startFrame();      //Resets m_frame to current time.
-        double getUpTime();     //rturns elapsed time from the moment the engine started to the called time.
+        double getUpTime();     //returns elapsed time from the moment the engine started to the called time.
         void sleepUntil(double millisec);
+        float delta() const;
 
         void resetLocalFrameCounter() noexcept;
 

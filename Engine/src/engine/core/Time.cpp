@@ -5,6 +5,7 @@ namespace Engine {
 
     Time::Time() {
         m_engineStart = std::chrono::steady_clock::now();
+        m_currentFrame = std::chrono::steady_clock::now();
     }
 
     Time& Time::getTime() {
@@ -20,7 +21,10 @@ namespace Engine {
     void Time::startFrame() {
         ++m_globalFrameCounter;
         ++m_localFrameCounter;
-        m_frameStart = std::chrono::steady_clock::now();
+        m_lastFrame = m_currentFrame;
+        m_currentFrame = std::chrono::steady_clock::now();
+        std::chrono::duration<float, std::milli> delta = m_currentFrame - m_lastFrame;
+        m_delta = delta.count() * 0.001f;
     }
 
     double Time::getUpTime() {
@@ -31,12 +35,16 @@ namespace Engine {
 
     void Time::sleepUntil(double millisec) {
         auto curr = std::chrono::steady_clock::now();
-        std::chrono::duration<double, std::milli> elapsed = curr - m_frameStart;
+        std::chrono::duration<double, std::milli> elapsed = curr - m_currentFrame;
 
         double remainingTime = millisec - elapsed.count();
 
         if(remainingTime > 0.0)
             sleep(remainingTime);
+    }
+
+    float Time::delta() const {
+        return m_delta;
     }
 
     void Time::resetLocalFrameCounter() noexcept {
