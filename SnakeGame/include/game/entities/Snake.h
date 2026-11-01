@@ -23,8 +23,7 @@ namespace sg {
     public:
         Snake(std::size_t initSize, std::size_t reserveSize);
 
-        const ec::Cell& getCell(int index) const noexcept;
-        ec::Cell& getCell(int index) noexcept;
+        const ec::T_Cell& getCell(int index) const noexcept;
 
         void incrementScore() noexcept;
         int getScore() const noexcept;
