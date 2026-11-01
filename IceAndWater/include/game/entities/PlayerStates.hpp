@@ -8,7 +8,7 @@ namespace icewater {
     };
 
     enum class Roles {
-        ICEBOI,
+        ICYBOI,
         WATTAGURL
     };
 

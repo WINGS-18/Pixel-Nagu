@@ -16,9 +16,9 @@ namespace icewater {
         States m_state;
 
     public:
-        Player(Roles role, States state);
+        Player() = default;
+        Player(int rows, int cols, char sprite, Roles role, States state);
         
-        void updateVelocity(float dt);
-        void updatePosition(float dt);
+        void move(float dt);
     };
 }
