@@ -11,6 +11,11 @@ namespace sg {
         : m_snakeBody(initSize, reserveSize),
           m_snakeEvents(2, {'W', 'A', 'S', 'D'}, {ei::Action::UP, ei::Action::LEFT, ei::Action::DOWN, ei::Action::RIGHT}) {}
 
+    const ec::T_Cell& Snake::getCell(int index) const noexcept {
+        return m_snakeBody.getSegments()[index];
+    }
+
+
     void Snake::incrementScore() noexcept {
         m_score++;
     }
