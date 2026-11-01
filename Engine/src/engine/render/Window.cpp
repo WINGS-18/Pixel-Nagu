@@ -23,8 +23,16 @@ namespace Engine::Render {
 
     void Window::draw(const Core::RigidBody& body) {
         if(body.m_active) {
-            for(const auto& cell : body.getSegments()) {
-                m_frame(static_cast<int> (cell.m_transform.x), static_cast<int> (cell.m_transform.y)) = cell.m_sprite;
+            auto& entity = body.getSegments();
+            
+            std::size_t i = 0;
+            for(const auto cell : entity) {
+                std::size_t x_offset = i % body.getRowsnCols().m_cols;
+                std::size_t y_offset = i % body.getRowsnCols().m_rows;
+
+                m_frame(static_cast<int> (body.origin().x + x_offset), static_cast<int> (body.origin().y + y_offset)) = cell.m_sprite;
+
+                i++;
             }
         }
     }
