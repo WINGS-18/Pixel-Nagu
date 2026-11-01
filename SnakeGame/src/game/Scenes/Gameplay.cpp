@@ -9,9 +9,9 @@ namespace sg {
 
     GameplayScene::GameplayScene(std::string&& sceneName) :
         IScene(std::move(sceneName)),
-        m_snake(2, 100), m_food('a') {
+        m_snake(1, 100), m_food('a') {
 
-        m_walls = {sg::Wall{true, 29, 1}, sg::Wall{true, 29, 1}, sg::Wall{true, 1, 49}, sg::Wall{true, 1, 49}};
+        m_walls = {sg::Wall{true, 30, 1}, sg::Wall{true, 1, 50}, sg::Wall{true, 30, 1}, sg::Wall{true, 1, 50}};
     }
 
     void GameplayScene::onInit() {
@@ -19,8 +19,8 @@ namespace sg {
         m_food.setPosition(37, 17);
 
         m_walls[0].setWallPosition(0, 0);
-        m_walls[1].setWallPosition(49, 0);
-        m_walls[2].setWallPosition(0, 0);
+        m_walls[1].setWallPosition(0, 0);
+        m_walls[2].setWallPosition(49, 0);
         m_walls[3].setWallPosition(0, 29);
         for(auto& wall : m_walls) {
             wall.initAll('#');
