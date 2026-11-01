@@ -12,10 +12,15 @@
 namespace Engine::Core {
 
     struct Cell {
-        Engine::Math::vector2f m_transform {1.0f, 1.0f};
         char m_sprite {'O'};
 
-        Cell() = default;
+        void cellInit(char sprite);     //initialises the Cell's sprite
+    };
+
+
+    struct T_Cell {
+        Math::vector2f m_transform = {0.0f, 0.0f};
+        char m_sprite {'O'};
 
         void cellInit(char sprite);     //initialises the Cell's sprite
     };

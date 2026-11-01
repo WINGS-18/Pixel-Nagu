@@ -26,12 +26,16 @@ namespace Engine::Core {
         }
     }
 
-    Math::vector2f RigidBody::origin() noexcept {
+    Math::vector2f RigidBody::origin() const noexcept {
         return m_origin;
+    }
+
+    Math::Extents RigidBody::getRowsnCols() const noexcept {
+        return m_rowsncols;
     }
     
     Math::Rect<float> RigidBody::getGlobalBounds() const noexcept {
-        return Math::Rect {Math::Vector2C{m_segments[0].m_transform}, Math::Vector2C{m_segments[m_rowsncols.m_rows * m_rowsncols.m_cols - 1].m_transform}};
+        return Math::Rect<float> {Math::vector2f{m_origin}, Math::vector2f{m_origin.x + (m_rowsncols.m_cols - 1), m_origin.y + (m_rowsncols.m_rows - 1)}};
     }
 
     const std::vector<Cell>& RigidBody::getSegments() const noexcept {
@@ -39,27 +43,11 @@ namespace Engine::Core {
     }
 
     void RigidBody::setPosition(float x, float y) noexcept {
-
-        //here origin means the top left corner of the entity
         m_origin.x = x;
         m_origin.y = y;
-
-        float currentX = x;
-        float currentY = y;
-        float i = 0;
-
-        for(auto& cell : m_segments) {
-            if(i == m_rowsncols.m_cols) {
-                i = 0;                 
-                currentX = m_origin.x; 
-                currentY++;            
-            }
-            
-            cell.m_transform.x = currentX++;
-            cell.m_transform.y = currentY;
-
-            i++; 
-        }
     }
 
+    void RigidBody::move(Math::vector2f displacement) noexcept {
+        m_origin = displacement;
+    }
 }

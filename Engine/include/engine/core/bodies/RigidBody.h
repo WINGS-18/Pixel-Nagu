@@ -35,7 +35,11 @@ namespace Engine::Core {
         Engine::Math::Rect<float> getGlobalBounds() const noexcept;    //returns a hitbox of the RigidBody
         
         void setPosition(float x, float y) noexcept;
-        Math::vector2f origin() noexcept;
+
+        void move(Math::vector2f displacement) noexcept;
+
+        Math::vector2f origin() const noexcept;
+        Math::Extents getRowsnCols() const noexcept;
         void setSprites(const std::vector<char>& sprites);
 
     };

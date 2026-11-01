@@ -6,4 +6,8 @@ namespace Engine::Core {
         m_sprite = sprite;
     }
 
+    void T_Cell::cellInit(char sprite) {
+        m_sprite = sprite;
+    }
+
 }

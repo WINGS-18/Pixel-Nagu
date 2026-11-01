@@ -15,15 +15,15 @@ namespace Engine::Core {
 
     class SoftBody {
     private:
-        ctl::ring_buffer<Cell> m_segments;
+        ctl::ring_buffer<T_Cell> m_segments;
 
     public:
         SoftBody(std::size_t initSize, std::size_t reserveSize);
 
         void initAllSprites(char sprite);
 
-        ctl::ring_buffer<Cell>& getSegments() noexcept;
-        const ctl::ring_buffer<Cell>& getSegments() const noexcept;
+        ctl::ring_buffer<T_Cell>& getSegments() noexcept;
+        const ctl::ring_buffer<T_Cell>& getSegments() const noexcept;
 
         void earlySetup();  //temp function
         void shrink(std::size_t size);

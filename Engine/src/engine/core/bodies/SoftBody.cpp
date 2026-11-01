@@ -11,16 +11,17 @@ namespace Engine::Core {
         }
     }
 
-    ctl::ring_buffer<Cell>& SoftBody::getSegments() noexcept {
+    ctl::ring_buffer<T_Cell>& SoftBody::getSegments() noexcept {
         return m_segments;
     }
 
-    const ctl::ring_buffer<Cell>& SoftBody::getSegments() const noexcept {
+    const ctl::ring_buffer<T_Cell>& SoftBody::getSegments() const noexcept {
         return m_segments;
     }
 
     void SoftBody::earlySetup() {
         m_segments[0].m_transform.x = 3;
+        m_segments[0].m_transform.y = 1;
     }
 
     void SoftBody::shrink(std::size_t size) {
