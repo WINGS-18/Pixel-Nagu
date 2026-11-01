@@ -22,9 +22,9 @@ namespace Engine::Core {
         }
     }
 
-    void SceneManager::update(Engine::Input::i_Queue& events, std::uint64_t tick) {
+    void SceneManager::update(Engine::Input::i_Queue& events, std::uint64_t tick, float dt) {
         if(!m_stack.empty()) {
-            m_stack.back()->onUpdate(*this, events, tick);
+            m_stack.back()->onUpdate(*this, events, tick, dt);
         }
     }
 
@@ -42,7 +42,7 @@ namespace Engine::Core {
 
         while(isRunning) {
             timer.startFrame();
-            update(events, timer.getGlobalFrameCounter());
+            update(events, timer.getGlobalFrameCounter(), timer.delta());
             draw(window);
             events.cleanKeyboardBuffer();
             timer.sleepUntil(200);
