@@ -48,6 +48,6 @@ namespace Engine::Core {
     }
 
     void RigidBody::move(Math::vector2f displacement) noexcept {
-        m_origin = displacement;
+        m_origin += displacement;
     }
 }
