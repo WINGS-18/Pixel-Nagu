@@ -34,7 +34,8 @@ namespace Engine::Core {
         }
     }
 
-    void SceneManager::startGame(Render::Window& window) {
+    void SceneManager::startGame(Render::Window& window, float fps) {
+        float sleep = 100 / fps;
         auto& timer = Time::getTime();
         Input::i_Queue events(1, {'Q'}, {Input::Action::EXIT});
 
@@ -45,7 +46,7 @@ namespace Engine::Core {
             update(events, timer.getGlobalFrameCounter(), timer.delta());
             draw(window);
             events.cleanKeyboardBuffer();
-            timer.sleepUntil(200);
+            timer.sleepUntil(sleep);
             Utility::clearScreen();
             window.frameReset();
         }
