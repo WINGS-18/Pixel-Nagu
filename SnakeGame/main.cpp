@@ -17,7 +17,7 @@ int main() {
 
     Engine::Render::Window window(30, 50);
 
-    sm.startGame(window);
+    sm.startGame(window, 1);
 
     return 0;
 
