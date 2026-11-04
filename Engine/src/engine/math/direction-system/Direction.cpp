@@ -14,23 +14,23 @@ namespace Engine {
         switch(action.m_action) {
 
             case ip::Action::LEFT :
-                if(!opposite(Direction::left))
-                    m_currDir = Direction::left;
+                if(!opposite(Direction::Left))
+                    m_currDir = Direction::Left;
                 break;
 
             case ip::Action::RIGHT :
-                if(!opposite(Direction::right))
-                    m_currDir = Direction::right;
+                if(!opposite(Direction::Right))
+                    m_currDir = Direction::Right;
                 break;
 
             case ip::Action::UP :
-                if(!opposite(Direction::up))
-                    m_currDir = Direction::up;
+                if(!opposite(Direction::Up))
+                    m_currDir = Direction::Up;
                 break;
 
             case ip::Action::DOWN :
-                if(!opposite(Direction::down))
-                    m_currDir = Direction::down;
+                if(!opposite(Direction::Down))
+                    m_currDir = Direction::Down;
                 break;
 
             case ip::Action::NONE :
@@ -44,10 +44,10 @@ namespace Engine {
     }
 
     bool Movement::opposite(const Direction& dir) {
-        if(dir == Direction::right && m_currDir == Direction::left) return true;
-        if(dir == Direction::left && m_currDir == Direction::right) return true;
-        if(dir == Direction::up && m_currDir == Direction::down) return true;
-        if(dir == Direction::down && m_currDir == Direction::up) return true;
+        if(dir == Direction::Right && m_currDir == Direction::Left) return true;
+        if(dir == Direction::Left && m_currDir == Direction::Right) return true;
+        if(dir == Direction::Up && m_currDir == Direction::Down) return true;
+        if(dir == Direction::Down && m_currDir == Direction::Up) return true;
         return false;
     }
 
