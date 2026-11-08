@@ -57,20 +57,23 @@ namespace sg {
         
         switch(m_snakeDirection.m_currDir) {
             
-            case en::Direction::right :
+            case en::Direction::Right :
                 m_snakeBody.moveRight(1);
             break;
             
-            case en::Direction::left :
+            case en::Direction::Left :
                 m_snakeBody.moveLeft(1);
                 break;
 
-            case en::Direction::up :
+            case en::Direction::Up :
                 m_snakeBody.moveUp(1);
                 break;
 
-            case en::Direction::down :
+            case en::Direction::Down :
                 m_snakeBody.moveDown(1);
+                break;
+
+            default :
                 break;
         }
     }
@@ -90,20 +93,23 @@ namespace sg {
 
         switch(m_snakeDirection.m_currDir) {
 
-            case en::Direction::right :
+            case en::Direction::Right :
                 m_snakeBody.right();
                 break;
 
-            case en::Direction::left :
+            case en::Direction::Left :
                 m_snakeBody.left();
                 break;
 
-            case en::Direction::up :
+            case en::Direction::Up :
                 m_snakeBody.up();
                 break;
 
-            case en::Direction::down :
+            case en::Direction::Down :
                 m_snakeBody.down();
+                break;
+
+            default :
                 break;
         }
     }

@@ -25,10 +25,10 @@ namespace Engine::Core {
         void pushScene(std::size_t id);
         void popScene();
 
-        void update(Engine::Input::i_Queue& events, std::uint64_t tick);
+        void update(Engine::Input::i_Queue& events, std::uint64_t tick, float dt);
         void draw(Render::Window& window);
 
-        void startGame(Render::Window& window);
+        void startGame(Render::Window& window, float fps);
 
     };
 

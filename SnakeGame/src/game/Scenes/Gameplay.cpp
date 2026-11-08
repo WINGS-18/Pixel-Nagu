@@ -29,7 +29,7 @@ namespace sg {
         m_snake.setup();
     }
 
-    void GameplayScene::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick) {
+    void GameplayScene::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick, float dt) {
         Engine::Math::Rect<float> snakeHead;
         Engine::Input::KeyAction control;
         m_snake.m_snakeEvents.registerPress(tick);

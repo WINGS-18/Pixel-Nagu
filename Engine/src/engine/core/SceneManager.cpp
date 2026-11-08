@@ -22,9 +22,9 @@ namespace Engine::Core {
         }
     }
 
-    void SceneManager::update(Engine::Input::i_Queue& events, std::uint64_t tick) {
+    void SceneManager::update(Engine::Input::i_Queue& events, std::uint64_t tick, float dt) {
         if(!m_stack.empty()) {
-            m_stack.back()->onUpdate(*this, events, tick);
+            m_stack.back()->onUpdate(*this, events, tick, dt);
         }
     }
 
@@ -34,7 +34,8 @@ namespace Engine::Core {
         }
     }
 
-    void SceneManager::startGame(Render::Window& window) {
+    void SceneManager::startGame(Render::Window& window, float fps) {
+        float sleep = 100 / fps;
         auto& timer = Time::getTime();
         Input::i_Queue events(1, {'Q'}, {Input::Action::EXIT});
 
@@ -42,10 +43,10 @@ namespace Engine::Core {
 
         while(isRunning) {
             timer.startFrame();
-            update(events, timer.getGlobalFrameCounter());
+            update(events, timer.getGlobalFrameCounter(), timer.delta());
             draw(window);
             events.cleanKeyboardBuffer();
-            timer.sleepUntil(200);
+            timer.sleepUntil(sleep);
             Utility::clearScreen();
             window.frameReset();
         }

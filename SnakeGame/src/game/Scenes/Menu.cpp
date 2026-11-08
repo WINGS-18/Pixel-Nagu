@@ -15,7 +15,7 @@ namespace sg {
         
     }
 
-    void MenuScene::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick) {
+    void MenuScene::onUpdate(Engine::Core::SceneManager& sceneManager, Engine::Input::i_Queue& events, std::uint64_t tick, float dt) {
         std::cout << "press any key to play.........\n";
         auto key = events.getPressedKeyForWaitKey();
 
