@@ -16,7 +16,7 @@ namespace Engine::Render {
         const auto size = renderable.size();
 
         for(std::size_t i = 0; i < size; i++) {
-            m_frame(static_cast<int> (renderable[i].m_transform.x), static_cast<int> (renderable[i].m_transform.y)) = renderable[i].m_sprite;
+            m_frame(static_cast<int> (renderable[i].m_transform.y), static_cast<int> (renderable[i].m_transform.x)) = renderable[i].m_sprite;
         }
 
     }
@@ -30,7 +30,7 @@ namespace Engine::Render {
                 std::size_t x_offset = i % body.getRowsnCols().m_cols;
                 std::size_t y_offset = i % body.getRowsnCols().m_rows;
 
-                m_frame(static_cast<int> (body.origin().x + x_offset), static_cast<int> (body.origin().y + y_offset)) = cell.m_sprite;
+                m_frame(static_cast<int> (body.origin().y + y_offset), static_cast<int> (body.origin().x + x_offset)) = cell.m_sprite;
 
                 i++;
             }
@@ -39,7 +39,7 @@ namespace Engine::Render {
 
     void Window::writeLine(std::size_t horizontalPoint, std::size_t verticalPoint, const std::string& message) {
         for(const char& letter : message) {
-            m_frame(horizontalPoint++, verticalPoint) = letter;
+            m_frame(verticalPoint, horizontalPoint++) = letter;
         }
     }
 
@@ -51,7 +51,7 @@ namespace Engine::Render {
         for(std::size_t i = 0; i < m_frame.rows(); i++) {
             for(std::size_t j = 0; j < m_frame.columns(); j++) {
                 //placing every sprite onto the buffer by skipping the "\n" slots.
-                m_buffer(j, i) = m_frame(j, i);
+                m_buffer(i, j) = m_frame(i, j);
             }
         }
     }
