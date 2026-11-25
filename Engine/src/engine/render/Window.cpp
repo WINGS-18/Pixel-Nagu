@@ -1,8 +1,6 @@
 #include "engine/render/Window.h"
-#include "engine/core/bodies/RigidBody.h"
-#include "engine/core/bodies/SoftBody.h"
+#include "engine/core/bodies/SpriteGrid.h"
 #include <iostream>
-#include <utility>
 
 namespace Engine::Render {
 
@@ -11,26 +9,16 @@ namespace Engine::Render {
         frameReset();
     }
 
-    void Window::draw(const Core::SoftBody& body) {
-        const auto& renderable = body.getSegments();
-        const auto size = renderable.size();
-
-        for(std::size_t i = 0; i < size; i++) {
-            m_frame(static_cast<int> (renderable[i].m_transform.y), static_cast<int> (renderable[i].m_transform.x)) = renderable[i].m_sprite;
-        }
-
-    }
-
-    void Window::draw(const Core::RigidBody& body) {
+    void Window::draw(const Core::SpriteGrid& body) {
         if(body.m_active) {
             auto& entity = body.getSegments();
             
             std::size_t i = 0;
             for(const auto cell : entity) {
-                std::size_t x_offset = i % body.getRowsnCols().m_cols;
-                std::size_t y_offset = i % body.getRowsnCols().m_rows;
+                std::size_t x_offset = i % body.getSegments().columns();
+                std::size_t y_offset = i / body.getSegments().columns();
 
-                m_frame(static_cast<int> (body.origin().y + y_offset), static_cast<int> (body.origin().x + x_offset)) = cell.m_sprite;
+                m_frame(static_cast<int> (body.origin().y + y_offset), static_cast<int> (body.origin().x + x_offset)) = cell;
 
                 i++;
             }

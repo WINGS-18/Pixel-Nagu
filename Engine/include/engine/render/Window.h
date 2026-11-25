@@ -15,8 +15,7 @@
 #include "ctl/flat_string.hpp"
 
 namespace Engine::Core {
-    class RigidBody;
-    class SoftBody;
+    class SpriteGrid;
 }
 
 namespace Engine::Render {
@@ -31,8 +30,7 @@ namespace Engine::Render {
 
         void frameReset();
         
-        void draw(const Core::SoftBody& cell);
-        void draw(const Core::RigidBody& cell);
+        void draw(const Core::SpriteGrid& cell);
 
         void writeLine(std::size_t horizontalPoint, std::size_t verticalPoint, const std::string& message);
 
