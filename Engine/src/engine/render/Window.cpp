@@ -1,5 +1,6 @@
 #include "engine/render/Window.h"
-#include "engine/core/bodies/SpriteGrid.h"
+#include "engine/math/vector2C.h"
+#include "engine/render/SpriteGrid.h"
 #include <iostream>
 
 namespace Engine::Render {
@@ -9,20 +10,28 @@ namespace Engine::Render {
         frameReset();
     }
 
-    void Window::draw(const Core::SpriteGrid& body) {
-        if(body.m_active) {
-            auto& entity = body.getSegments();
+    void Window::draw(const Render::SpriteGrid& sprite) noexcept {
+        if(sprite.m_active) {
+            auto& entity = sprite.getSegments();
             
             std::size_t i = 0;
             for(const auto cell : entity) {
-                std::size_t x_offset = i % body.getSegments().columns();
-                std::size_t y_offset = i / body.getSegments().columns();
+                std::size_t x_offset = i % sprite.getSegments().columns();
+                std::size_t y_offset = i / sprite.getSegments().columns();
 
-                m_frame(static_cast<int> (body.origin().y + y_offset), static_cast<int> (body.origin().x + x_offset)) = cell;
+                m_frame(static_cast<int> (sprite.origin().y + y_offset), static_cast<int> (sprite.origin().x + x_offset)) = cell;
 
                 i++;
             }
         }
+    }
+
+    void Window::drawPoint(int x, int y, char cell) noexcept {
+        m_frame(y, x) = cell;
+    }
+
+    void Window::drawPoint(Math::vector2f transform, char cell) noexcept {
+        m_frame(static_cast<int> (transform.y), static_cast<int> (transform.x)) = cell;
     }
 
     void Window::writeLine(std::size_t horizontalPoint, std::size_t verticalPoint, const std::string& message) {

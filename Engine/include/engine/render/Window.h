@@ -11,15 +11,16 @@
 
 #pragma once
 
+#include "SpriteGrid.h"
 #include "ctl/flat_array.hpp"
 #include "ctl/flat_string.hpp"
+#include "engine/math/vector2C.h"
 
-namespace Engine::Core {
-    class SpriteGrid;
-}
 
 namespace Engine::Render {
-        
+    
+    class SpriteGrid;
+    
     class Window {
     private:
         ctl::flat_array<char> m_frame;
@@ -30,8 +31,9 @@ namespace Engine::Render {
 
         void frameReset();
         
-        void draw(const Core::SpriteGrid& cell);
-
+        void draw(const Render::SpriteGrid& sprite) noexcept;
+        void drawPoint(int x, int y, char cell) noexcept;
+        void drawPoint(Math::vector2f transform, char cell) noexcept;
         void writeLine(std::size_t horizontalPoint, std::size_t verticalPoint, const std::string& message);
 
         void makeBuffer();
