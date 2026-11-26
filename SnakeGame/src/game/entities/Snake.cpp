@@ -1,20 +1,16 @@
 #include "game/entities/Snake.h"
-#include <iostream>
+#include "engine/math/vector2C.h"
+#include "engine/systems/input/inputTypes.h"
 
 namespace sg {
 
-    namespace ec = Engine::Core;
     namespace en = Engine;
     namespace ei = en::Input;
+    
 
-    Snake::Snake(std::size_t initSize, std::size_t reserveSize)
-        : m_snakeBody(initSize, reserveSize),
+    Snake::Snake(std::size_t capacity)
+        : m_segments(capacity),
           m_snakeEvents(2, {'W', 'A', 'S', 'D'}, {ei::Action::UP, ei::Action::LEFT, ei::Action::DOWN, ei::Action::RIGHT}) {}
-
-    const ec::T_Cell& Snake::getCell(int index) const noexcept {
-        return m_snakeBody.getSegments()[index];
-    }
-
 
     void Snake::incrementScore() noexcept {
         m_score++;
@@ -24,28 +20,63 @@ namespace sg {
         return m_score;
     }
 
-    const ec::SoftBody& Snake::getBody() const noexcept {
-        return m_snakeBody;
-    }
-
     void Snake::setup() {
-        m_snakeBody.earlySetup();
+        m_segments.back().x = 2;
+        m_segments.back().y = 1;
     }
 
     void Snake::setDirection(ei::KeyAction action, std::uint64_t tick) {
-        m_snakeDirection.setTheDirection(action, tick);
+        switch (action.m_action) {
+            
+            case ei::Action::RIGHT :
+                if(!opposite(m_currDirection))  m_currDirection = ei::Action::RIGHT;
+                break;
+
+            
+            case ei::Action::LEFT :
+                if(!opposite(m_currDirection))  m_currDirection = ei::Action::LEFT;
+                break;
+
+            
+            case ei::Action::UP :
+                if(!opposite(m_currDirection))  m_currDirection = ei::Action::UP;
+                break;
+
+            
+            case ei::Action::DOWN :
+                if(!opposite(m_currDirection))  m_currDirection = ei::Action::DOWN;
+                break;
+
+            
+            case ei::Action::EXIT :
+                break;
+            
+            case ei::Action::NONE :
+                break;
+
+            default :
+                break;
+            
+        }
+    }
+
+    bool Snake::opposite(ei::Action action) {
+        if(action == ei::Action::RIGHT && m_currDirection == ei::Action::RIGHT) return true;
+        if(action == ei::Action::LEFT && m_currDirection == ei::Action::LEFT) return true;
+        if(action == ei::Action::UP && m_currDirection == ei::Action::DOWN) return true;
+        if(action == ei::Action::DOWN && m_currDirection == ei::Action::UP) return true;
+        return false;
     }
 
     bool Snake::didSelfCollide() {
-        auto& body = m_snakeBody.getSegments();
-        if(body.size() <= 4) {
+        if(m_segments.size() <= 4) {
             return false;
         }
 
         // i < body.size() - 1 can give critical bug if body.size reaches unit64 limit.
         // i + 1 < body.size() works same.
-        for(std::size_t i = 0; i + 1 < body.size(); i++) {
-            if(body[i].m_transform == body[head()].m_transform) {
+        for(std::size_t i = 0; i + 1 < m_segments.size(); i++) {
+            if(m_segments[i] == m_segments.back()) {
                 return true;
             }
         }
@@ -53,24 +84,36 @@ namespace sg {
         return false;
     }
 
-    void Snake::move() {
+    void Snake::moveSnake(Engine::Math::vector2i directionVector) noexcept {
+        auto newHead = m_segments.back() + directionVector;
         
-        switch(m_snakeDirection.m_currDir) {
+        if(!m_didGrow) {
+            m_segments.pop();
+        }else {
+            m_didGrow = false;
+        }
+
+        m_segments.push(newHead);
+    }
+
+    void Snake::move() noexcept {
+        
+        switch(m_currDirection) {
             
-            case en::Direction::Right :
-                m_snakeBody.moveRight(1);
-            break;
+            case ei::Action::RIGHT :
+                moveSnake({1, 0});
+                break;
             
-            case en::Direction::Left :
-                m_snakeBody.moveLeft(1);
+            case ei::Action::LEFT :
+                moveSnake({-1, 0});
                 break;
 
-            case en::Direction::Up :
-                m_snakeBody.moveUp(1);
+            case ei::Action::UP :
+                moveSnake({0, -1});
                 break;
 
-            case en::Direction::Down :
-                m_snakeBody.moveDown(1);
+            case ei::Action::DOWN :
+                moveSnake({0, 1});
                 break;
 
             default :
@@ -78,68 +121,21 @@ namespace sg {
         }
     }
 
-    void Snake::expand() {
-        int oldHead = head();
-        m_snakeBody.getSegments().reserveBack(1);
-        m_snakeBody.getSegments()[head()].m_transform = m_snakeBody.getSegments()[oldHead].m_transform;
+
+    void Snake::shrink() noexcept {
+        m_segments.clear();
     }
 
-    void Snake::shrink(std::size_t size) noexcept {
-        m_snakeBody.shrink(size);
-    }
-
-    void Snake::snakeGrow() {
-        expand();
-
-        switch(m_snakeDirection.m_currDir) {
-
-            case en::Direction::Right :
-                m_snakeBody.right();
-                break;
-
-            case en::Direction::Left :
-                m_snakeBody.left();
-                break;
-
-            case en::Direction::Up :
-                m_snakeBody.up();
-                break;
-
-            case en::Direction::Down :
-                m_snakeBody.down();
-                break;
-
-            default :
-                break;
-        }
-    }
-
-    int Snake::head() const noexcept {
-        return m_snakeBody.tail();
-    }
-
-    int Snake::tail() const noexcept {
-        return m_snakeBody.head();
-    }
-
-    int Snake::fullSize() const noexcept {
-        return m_snakeBody.getSegments().getData().size();
+    void Snake::snakeAteFood() {
+        m_didGrow = true;
     }
 
     /////////////////////////////////////////////////////////////////
     ////////////// FOOD IMPLEMENTATION /////////////////////////////
     ///////////////////////////////////////////////////////////////
 
-    Food::Food(char sprite)
-        : m_food(false, 1, 1, sprite) {}
-
-    ec::RigidBody& Food::getBody() noexcept {
-        return m_food;
-    }
-
-    const ec::RigidBody& Food::getBody() const noexcept {
-        return m_food;
-    }
+    Food::Food(std::initializer_list<std::initializer_list<char>> sprite)
+        : m_food(sprite) {}
 
     bool Food::wasEaten(Engine::Math::Rect<float> transform) noexcept {
         if(getGlobalBounds().intersect(transform)) {

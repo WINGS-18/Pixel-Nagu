@@ -1,71 +1,60 @@
 #pragma once
 
-#include "engine/core/bodies/SoftBody.h"
-#include "engine/core/bodies/RigidBody.h"
-#include "engine/math/direction-system/Direction.h"
+#include "ctl/ring_buffer.hpp"
+#include "engine/render/SpriteGrid.h"
 #include "engine/systems/input/inputQueue.h"
 
 namespace sg {
 
-    namespace ec = Engine::Core;
+    // enum class Direction : std::uint8_t {
+    //     NONE,
+    //     RIGHT,
+    //     LEFT,
+    //     UP,
+    //     DOWN
+    // };
 
     class Snake {
     private:
-        ec::SoftBody m_snakeBody;
-        Engine::Movement m_snakeDirection;
+        ctl::ring_buffer<Engine::Math::vector2i> m_segments;
+        int m_score = 0;
+        Engine::Input::Action m_currDirection = Engine::Input::Action::RIGHT;
+        char m_sprite {'O'};
+        bool m_didGrow = false;
 
     public:
         Engine::Input::i_Queue m_snakeEvents;
 
-    private:
-        int m_score = 0;
-
     public:
-        Snake(std::size_t initSize, std::size_t reserveSize);
-
-        const ec::T_Cell& getCell(int index) const noexcept;
+        Snake(std::size_t capacity);
 
         void incrementScore() noexcept;
         int getScore() const noexcept;
         void resetScore() noexcept {m_score = 0;}
 
-        void resetDirection() noexcept {
-            m_snakeDirection.m_currDir = Engine::Direction::Right;
-        }
-
-        const ec::SoftBody& getBody() const noexcept;
-
+        void resetDirection() noexcept;
+        void setDirection(Engine::Input::KeyAction action, std::uint64_t tick);
+        bool opposite(Engine::Input::Action action);
         void setup();
 
-        void setDirection(Engine::Input::KeyAction action, std::uint64_t tick);
-
-        void move();
+        void moveSnake(Engine::Math::vector2i directionVector) noexcept;
+        void move() noexcept;
+        void shrink() noexcept;
 
         bool didSelfCollide();
 
-        void expand();
-        void shrink(std::size_t size) noexcept;
-        void snakeGrow();
+        void snakeAteFood();
 
-        void printdd();
-
-        int head() const noexcept;
-        int tail() const noexcept;
-        int fullSize() const noexcept;
-        
     };
 
 
 
     class Food {
     private:
-        ec::RigidBody m_food;
+        Engine::Render::SpriteGrid m_food;
 
     public:
-        Food(char sprite);
-
-        ec::RigidBody& getBody() noexcept;
-        const ec::RigidBody& getBody() const noexcept;
+        Food(std::initializer_list<std::initializer_list<char>> sprite);
 
         bool wasEaten(Engine::Math::Rect<float> transform) noexcept;
         Engine::Math::Rect<float> getGlobalBounds() const noexcept;
