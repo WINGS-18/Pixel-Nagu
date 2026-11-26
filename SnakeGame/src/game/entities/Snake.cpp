@@ -21,30 +21,30 @@ namespace sg {
     }
 
     void Snake::setup() {
-        m_segments.back().x = 2;
-        m_segments.back().y = 1;
+        m_currDirection = ei::Action::RIGHT;
+        m_segments.push({2, 1});
     }
 
     void Snake::setDirection(ei::KeyAction action, std::uint64_t tick) {
         switch (action.m_action) {
             
             case ei::Action::RIGHT :
-                if(!opposite(m_currDirection))  m_currDirection = ei::Action::RIGHT;
+                if(!opposite(m_currDirection))  m_currDirection = action.m_action;
                 break;
 
             
             case ei::Action::LEFT :
-                if(!opposite(m_currDirection))  m_currDirection = ei::Action::LEFT;
+                if(!opposite(m_currDirection))  m_currDirection = action.m_action;
                 break;
 
             
             case ei::Action::UP :
-                if(!opposite(m_currDirection))  m_currDirection = ei::Action::UP;
+                if(!opposite(m_currDirection))  m_currDirection = action.m_action;
                 break;
 
             
             case ei::Action::DOWN :
-                if(!opposite(m_currDirection))  m_currDirection = ei::Action::DOWN;
+                if(!opposite(m_currDirection))  m_currDirection = action.m_action;
                 break;
 
             
@@ -61,8 +61,8 @@ namespace sg {
     }
 
     bool Snake::opposite(ei::Action action) {
-        if(action == ei::Action::RIGHT && m_currDirection == ei::Action::RIGHT) return true;
-        if(action == ei::Action::LEFT && m_currDirection == ei::Action::LEFT) return true;
+        if(action == ei::Action::RIGHT && m_currDirection == ei::Action::LEFT) return true;
+        if(action == ei::Action::LEFT && m_currDirection == ei::Action::RIGHT) return true;
         if(action == ei::Action::UP && m_currDirection == ei::Action::DOWN) return true;
         if(action == ei::Action::DOWN && m_currDirection == ei::Action::UP) return true;
         return false;
@@ -122,7 +122,7 @@ namespace sg {
     }
 
 
-    void Snake::shrink() noexcept {
+    void Snake::clear() noexcept {
         m_segments.clear();
     }
 

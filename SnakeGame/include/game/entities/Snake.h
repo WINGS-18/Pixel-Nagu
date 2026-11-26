@@ -39,7 +39,7 @@ namespace sg {
 
         void moveSnake(Engine::Math::vector2i directionVector) noexcept;
         void move() noexcept;
-        void shrink() noexcept;
+        void clear() noexcept;
 
         bool didSelfCollide();
 
