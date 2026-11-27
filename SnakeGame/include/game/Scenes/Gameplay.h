@@ -1,6 +1,7 @@
 #pragma once
 
 #include "engine/core/IScene.h"
+#include "engine/render/Window.h"
 #include "game/entities/Snake.h"
 #include "game/entities/Wall.h"
 
@@ -22,6 +23,7 @@ namespace sg {
 
         bool checkCollisionToSlef(Engine::Core::SceneManager& sceneManager, Engine::Input::Action control) noexcept;
         bool checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect<float> snakeHead) noexcept;
+        void drawSnake(Engine::Render::Window& window) noexcept;
 
     };
 

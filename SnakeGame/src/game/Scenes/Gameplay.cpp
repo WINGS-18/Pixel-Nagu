@@ -9,23 +9,21 @@ namespace sg {
 
     GameplayScene::GameplayScene(std::string&& sceneName) :
         IScene(std::move(sceneName)),
-        m_snake(1, 100), m_food('a') {
+        m_snake(100), m_food({{'a'}}) {
 
-        m_walls = {sg::Wall{true, 30, 1}, sg::Wall{true, 1, 50}, sg::Wall{true, 30, 1}, sg::Wall{true, 1, 50}};
+        m_walls = {sg::Wall{30, 1, '#'}, sg::Wall{1, 50, '#'}, sg::Wall{30, 1, '#'}, sg::Wall{1, 50, '#'}};
     }
 
     void GameplayScene::onInit() {
 
         m_food.setPosition(37, 17);
 
-        m_walls[0].setWallPosition(0, 0);
-        m_walls[1].setWallPosition(0, 0);
-        m_walls[2].setWallPosition(49, 0);
-        m_walls[3].setWallPosition(0, 29);
-        for(auto& wall : m_walls) {
-            wall.initAll('#');
-        }
+        m_walls[0].setPosition(0, 0);
+        m_walls[1].setPosition(0, 0);
+        m_walls[2].setPosition(49, 0);
+        m_walls[3].setPosition(0, 29);
 
+        m_snake.clear();
         m_snake.setup();
     }
 
@@ -39,12 +37,12 @@ namespace sg {
             m_snake.setDirection(control, tick);
         }
         m_snake.move();
-        snakeHead.m_min = m_snake.getCell(m_snake.head()).m_transform;
-        snakeHead.m_max = m_snake.getCell(m_snake.head()).m_transform;
+        snakeHead.m_min = m_snake.head();
+        snakeHead.m_max = m_snake.head();
         if(m_food.wasEaten(snakeHead)) {
-            m_snake.snakeGrow();
+            m_snake.snakeAteFood();
             m_snake.incrementScore();
-            m_food.setPosition(Engine::Utility::randomInt(10, 48), Engine::Utility::randomInt(5, 29));
+            m_food.setPosition(Engine::Utility::randomInt(10, 48), Engine::Utility::randomInt(5, 28));
         }
 
         auto systemControl = events.getPressedKeyForPollKey().m_action;
@@ -57,11 +55,11 @@ namespace sg {
 
     void GameplayScene::onRender(Engine::Render::Window& window) {
         for(auto& wall : m_walls) {
-            window.draw(wall.getBody());
+            window.draw(wall.getSpriteGrid());
         }
             
-        window.draw(m_food.getBody());
-        window.draw(m_snake.getBody());
+        window.draw(m_food.getSpriteGrid());
+        drawSnake(window);
         window.writeLine(40, 1, std::format("score: {}", m_snake.getScore()));
         window.display();
     }
@@ -70,9 +68,8 @@ namespace sg {
         Engine::Input::i_Queue::clean_os_buffer();
         m_snake.m_snakeEvents.cleanKeyboardBuffer();
         m_snake.resetScore();
-        m_snake.resetDirection();
         m_food.setPosition(37, 17);
-        m_snake.shrink(1);
+        m_snake.clear();
         m_snake.setup();
     }
 
@@ -87,13 +84,20 @@ namespace sg {
 
     bool GameplayScene::checkCollisionToWall(Engine::Core::SceneManager& sceneManager, Engine::Math::Rect<float> snakeHead) noexcept {
         for(const auto& wall : m_walls) {
-            if(wall.getBody().getGlobalBounds().intersect(snakeHead)) {
+            if(wall.getSpriteGrid().getGlobalBounds().intersect(snakeHead)) {
                 sceneManager.popScene();
                 sceneManager.pushScene(static_cast<std::size_t> (sg::SceneEnum::GameOver));
                 return true;
             }
         }
         return false;
+    }
+
+    void GameplayScene::drawSnake(Engine::Render::Window &window) noexcept {
+        const auto& snakeBody = m_snake.getSegments();
+        for(std::size_t i = 0; i < snakeBody.size(); i++) {
+            window.drawPoint(snakeBody[i], m_snake.sprite());
+        }
     }
 
 }
