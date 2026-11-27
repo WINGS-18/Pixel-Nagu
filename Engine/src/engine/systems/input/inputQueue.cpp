@@ -28,7 +28,7 @@ namespace Engine::Input {
     void i_Queue::registerPress(std::uint64_t tick) noexcept {
         for(int key : m_monitoredKeys) {
             if(isKeyDown(key)) {
-                m_keyboardBuffer.pushPrimitive(KeyAction{tick, translateKey(key)});
+                m_keyboardBuffer.push(KeyAction{tick, translateKey(key)});
             }
         }
     }
