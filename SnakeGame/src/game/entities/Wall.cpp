@@ -1,26 +1,22 @@
 #include "game/entities/Wall.h"
+#include "engine/math/vector2C.h"
+#include "engine/render/SpriteGrid.h"
 
 namespace sg {
 
-    namespace ec = Engine::Core;
+    Wall::Wall(std::size_t height, std::size_t width, char sprite)
+        : m_wallBody(height, width, sprite) {}
 
-    Wall::Wall(bool isActive, int rows, int cols)
-        : m_wallBody(isActive, rows, cols) {}
-
-    void Wall::init(const std::vector<char>& sym) {
-        m_wallBody.setSprites(sym);
-    }
-
-    void Wall::initAll(char sym) {
-        m_wallBody.initAllSprites(sym);
-    }
-
-    const ec::RigidBody& Wall::getBody() const noexcept {
+    const Engine::Render::SpriteGrid& Wall::getSpriteGrid() const noexcept {
         return m_wallBody;
     }
 
-    void Wall::setWallPosition(float x, float y) {
+    void Wall::setPosition(float x, float y) {
         m_wallBody.setPosition(x, y);
+    }
+
+    Engine::Math::vector2f Wall::origin() const noexcept {
+        return m_wallBody.origin();
     }
 
 }

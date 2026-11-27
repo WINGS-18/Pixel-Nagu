@@ -1,29 +1,22 @@
 #pragma once
 
-#include "engine/core/bodies/RigidBody.h"
+#include "engine/math/Rect.h"
+#include "engine/render/SpriteGrid.h"
 
 namespace sg {
 
-    namespace ec = Engine::Core;
-
     class Wall {
     private:
-        ec::RigidBody m_wallBody;
+        Engine::Render::SpriteGrid m_wallBody;
 
     public:
-        Wall(bool isActive, int rows, int cols);
+        Wall(std::size_t height, std::size_t width, char sprite);
 
-        void init(const std::vector<char>& sym);
-        void initAll(char sym);
+        void setPosition(float x, float y);
 
-        void setWallPosition(float x, float y);
+        const Engine::Render::SpriteGrid& getSpriteGrid() const noexcept;
 
-        const ec::Cell& getCell(int index) const noexcept;
-        const ec::RigidBody& getBody() const noexcept;
-
-        Engine::Math::vector2f origin() noexcept {
-            return m_wallBody.origin();
-        }
+        Engine::Math::vector2f origin() const noexcept;
 
     };
 

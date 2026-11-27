@@ -25,38 +25,26 @@ namespace sg {
         m_segments.push({2, 1});
     }
 
+    const ctl::ring_buffer<Engine::Math::vector2f>& Snake::getSegments() const noexcept {
+        return m_segments;
+    }
+
+    const Engine::Math::vector2f& Snake::head() const noexcept {
+        return m_segments.back();
+    }
+
+    char Snake::sprite() const noexcept {
+        return m_sprite;
+    }
+
     void Snake::setDirection(ei::KeyAction action, std::uint64_t tick) {
-        switch (action.m_action) {
-            
-            case ei::Action::RIGHT :
-                if(!opposite(m_currDirection))  m_currDirection = action.m_action;
-                break;
 
-            
-            case ei::Action::LEFT :
-                if(!opposite(m_currDirection))  m_currDirection = action.m_action;
-                break;
-
-            
-            case ei::Action::UP :
-                if(!opposite(m_currDirection))  m_currDirection = action.m_action;
-                break;
-
-            
-            case ei::Action::DOWN :
-                if(!opposite(m_currDirection))  m_currDirection = action.m_action;
-                break;
-
-            
-            case ei::Action::EXIT :
-                break;
-            
-            case ei::Action::NONE :
-                break;
-
-            default :
-                break;
-            
+        if(action.m_action == ei::Action::EXIT || action.m_action == ei::Action::NONE) {
+            return;
+        }
+        
+        if(!opposite(action.m_action)) {
+            m_currDirection = action.m_action;
         }
     }
 
@@ -84,7 +72,7 @@ namespace sg {
         return false;
     }
 
-    void Snake::moveSnake(Engine::Math::vector2i directionVector) noexcept {
+    void Snake::moveSnake(Engine::Math::vector2f directionVector) noexcept {
         auto newHead = m_segments.back() + directionVector;
         
         if(!m_didGrow) {
@@ -139,7 +127,6 @@ namespace sg {
 
     bool Food::wasEaten(Engine::Math::Rect<float> transform) noexcept {
         if(getGlobalBounds().intersect(transform)) {
-            m_food.m_active = false;
             return true;
         }
         return false;
@@ -150,10 +137,14 @@ namespace sg {
     }
 
     void Food::setPosition(float x, float y) {
-        if(!m_food.m_active) {
+        if(m_food.m_active) {
             m_food.setPosition(x, y);
             m_food.m_active = true;
         }
+    }
+
+    const Engine::Render::SpriteGrid& Food::getSpriteGrid() const noexcept {
+        return m_food;
     }
 
 }

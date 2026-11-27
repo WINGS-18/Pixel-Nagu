@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ctl/ring_buffer.hpp"
+#include "engine/math/vector2C.h"
 #include "engine/render/SpriteGrid.h"
 #include "engine/systems/input/inputQueue.h"
 
@@ -16,7 +17,7 @@ namespace sg {
 
     class Snake {
     private:
-        ctl::ring_buffer<Engine::Math::vector2i> m_segments;
+        ctl::ring_buffer<Engine::Math::vector2f> m_segments;
         int m_score = 0;
         Engine::Input::Action m_currDirection = Engine::Input::Action::RIGHT;
         char m_sprite {'O'};
@@ -32,17 +33,19 @@ namespace sg {
         int getScore() const noexcept;
         void resetScore() noexcept {m_score = 0;}
 
-        void resetDirection() noexcept;
         void setDirection(Engine::Input::KeyAction action, std::uint64_t tick);
         bool opposite(Engine::Input::Action action);
         void setup();
 
-        void moveSnake(Engine::Math::vector2i directionVector) noexcept;
+        void moveSnake(Engine::Math::vector2f directionVector) noexcept;
         void move() noexcept;
         void clear() noexcept;
 
-        bool didSelfCollide();
+        const ctl::ring_buffer<Engine::Math::vector2f>& getSegments() const noexcept;
+        const Engine::Math::vector2f& head() const noexcept;
+        char sprite() const noexcept;
 
+        bool didSelfCollide();
         void snakeAteFood();
 
     };
@@ -59,6 +62,8 @@ namespace sg {
         bool wasEaten(Engine::Math::Rect<float> transform) noexcept;
         Engine::Math::Rect<float> getGlobalBounds() const noexcept;
         void setPosition(float x, float ys);
+
+        const Engine::Render::SpriteGrid& getSpriteGrid() const noexcept;
     };
 
 }
