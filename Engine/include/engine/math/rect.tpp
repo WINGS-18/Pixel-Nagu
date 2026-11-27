@@ -1,3 +1,5 @@
+#pragma once
+
 #include "engine/math/rect.h"
 
 namespace Engine::Math {

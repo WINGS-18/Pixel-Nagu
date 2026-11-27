@@ -1,3 +1,5 @@
+#pragma once
+
 #include "engine/math/vector2C.h"
 
 namespace Engine::Math {
