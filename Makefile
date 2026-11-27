@@ -6,9 +6,7 @@ ENGINE_SOURCES = Engine/src/engine/core/SceneManager.cpp \
                  Engine/src/engine/assets/Utilities.cpp \
                  Engine/src/engine/math/direction-system/Direction.cpp \
                  Engine/src/engine/core/Time.cpp \
-                 Engine/src/engine/core/bodies/Cell.cpp \
-                 Engine/src/engine/core/bodies/RigidBody.cpp \
-                 Engine/src/engine/core/bodies/SoftBody.cpp \
+                 Engine/src/engine/render/SpriteGrid.cpp \
                  Engine/src/engine/systems/input/inputQueue.cpp \
                  Engine/src/engine/render/Window.cpp
 
